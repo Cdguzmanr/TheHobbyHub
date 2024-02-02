@@ -56,5 +56,28 @@
   <Import Condition="'$(SQLDBExtensionsRefPath)' == ''" Project="$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v$(VisualStudioVersion)\SSDT\Microsoft.Data.Tools.Schema.SqlTasks.targets" />
   <ItemGroup>
     <Folder Include="Properties" />
+    <Folder Include="Post-Deployment" />
+    <Folder Include="Pre-Deployment" />
+    <Folder Include="Tables" />
+    <Folder Include="Post-Deployment\DefaultData" />
+  </ItemGroup>
+  <ItemGroup>
+    <PostDeploy Include="Post-Deployment\Script.PostDeployment1.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <PreDeploy Include="Pre-Deployment\Script.PreDeployment1.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <Build Include="Tables\tblUser.sql" />
+    <Build Include="Tables\tblCompany.sql" />
+    <Build Include="Tables\tblAddress.sql" />
+    <Build Include="Tables\tblFriend.sql" />
+    <Build Include="Tables\tblEvent.sql" />
+    <Build Include="Tables\tblHobby.sql" />
+    <Build Include="Tables\tblUserHobby.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Post-Deployment\DefaultData\Hobbies.sql" />
+    <None Include="Post-Deployment\DefaultData\Addresses.sql" />
   </ItemGroup>
 </Project>
