@@ -9,7 +9,7 @@
                SELECT * FROM [$(TableName)]					
 --------------------------------------------------------------------------------------
 */
-DROP TABLE IF EXISTS dbo.tblAddresses
+DROP TABLE IF EXISTS dbo.tblAddress
 DROP TABLE IF EXISTS dbo.tblCompany
 DROP TABLE IF EXISTS dbo.tblEvent
 DROP TABLE IF EXISTS dbo.tblFriends

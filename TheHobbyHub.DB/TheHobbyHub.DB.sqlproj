@@ -7,7 +7,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectVersion>4.1</ProjectVersion>
     <ProjectGuid>{695c1a4f-df95-4a5c-85df-ebf585c887d2}</ProjectGuid>
-    <DSP>Microsoft.Data.Tools.Schema.Sql.Sql160DatabaseSchemaProvider</DSP>
+    <DSP>Microsoft.Data.Tools.Schema.Sql.SqlAzureV12DatabaseSchemaProvider</DSP>
     <OutputType>Database</OutputType>
     <RootPath>
     </RootPath>
@@ -79,5 +79,11 @@
   <ItemGroup>
     <None Include="Post-Deployment\DefaultData\Hobbies.sql" />
     <None Include="Post-Deployment\DefaultData\Addresses.sql" />
+    <None Include="Post-Deployment\DefaultData\Companies.sql" />
+    <None Include="Post-Deployment\DefaultData\Eventss.sql" />
+    <None Include="Post-Deployment\DefaultData\Friends.sql" />
+    <None Include="Post-Deployment\DefaultData\Users.sql" />
+    <None Include="Post-Deployment\DefaultData\UserHobbies.sql" />
+    <None Include="local.publish.xml" />
   </ItemGroup>
 </Project>
