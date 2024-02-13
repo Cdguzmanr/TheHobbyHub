@@ -5,11 +5,11 @@ VisualStudioVersion = 17.8.34511.84
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TheHobbyHub", "TheHobbyHub\TheHobbyHub.csproj", "{7B379F1F-3628-4181-BE1D-E62EA7B8EDFF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TheHobbyHub.BL.Models", "TheHobbyHub.BL.Models\TheHobbyHub.BL.Models.csproj", "{36700632-F2B1-46F1-B509-4DC85EEE736C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TheHobbyHub.BL.Models", "TheHobbyHub.BL.Models\TheHobbyHub.BL.Models.csproj", "{36700632-F2B1-46F1-B509-4DC85EEE736C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TheHobbyHub.BL", "TheHobbyHub.BL\TheHobbyHub.BL.csproj", "{57AE5E38-E83A-4794-BD34-67C3B2BF313F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TheHobbyHub.BL", "TheHobbyHub.BL\TheHobbyHub.BL.csproj", "{57AE5E38-E83A-4794-BD34-67C3B2BF313F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TheHobbyHub.PL", "TheHobbyHub.PL\TheHobbyHub.PL.csproj", "{9F691371-5DF8-4C18-A5FF-2A9D037E15E7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TheHobbyHub.PL", "TheHobbyHub.PL\TheHobbyHub.PL.csproj", "{9F691371-5DF8-4C18-A5FF-2A9D037E15E7}"
 EndProject
 Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "TheHobbyHub.DB", "TheHobbyHub.DB\TheHobbyHub.DB.sqlproj", "{695C1A4F-DF95-4A5C-85DF-EBF585C887D2}"
 EndProject
