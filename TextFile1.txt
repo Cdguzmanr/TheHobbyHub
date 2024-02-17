@@ -1,0 +1,13 @@
+Microsoft.EntityFrameworkCore.SqlServer
+Microsoft.EntityFrameworkCore.Tools
+Microsoft.VisualStudio.Web.CodeGeneration.Design
+
+/* TheHobbyHub Scaffold Command */
+
+Scaffold-DbContext "Server=(localdb)\MSSQLLocalDB;Database=TheHobbyHub.DB;Integrated Security=True" Microsoft.EntityFrameworkCore.SqlServer -Context TheHobbyHubEntities -UseDatabaseNames -force
+
+NOTE: When doing Scaffold of the DB, its important to:
+1- Select TheHobbyHub.PL as Startup Project
+2- Go to Package Manager Console 
+3- Copy and paste the line 7 above into the Console and press enter
+
