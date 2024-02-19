@@ -5,7 +5,7 @@ using TheHobbyHub.HobbyHub.BL;
 using TheHobbyHub.PL.Data;
 using TheHobbyHub.PL.Entities;
 
-namespace ARC.DVDCentral.BL
+namespace TheHobbyHub.BL
 {
     public class CompanyManager : GenericManager<tblCompany>
     {
