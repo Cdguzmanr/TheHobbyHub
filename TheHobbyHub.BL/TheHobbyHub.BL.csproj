@@ -12,6 +12,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\TheHobbyHub.BL.Models\TheHobbyHub.BL.Models.csproj" />
+    <ProjectReference Include="..\TheHobbyHub.PL\TheHobbyHub.PL.csproj" />
   </ItemGroup>
 
 </Project>
