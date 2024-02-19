@@ -1,13 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Microsoft.EntityFrameworkCore.Storage;
+using Microsoft.EntityFrameworkCore;
 using TheHobbyHub.BL.Models;
+using TheHobbyHub.HobbyHub.BL;
+using TheHobbyHub.PL.Entities;
+using TheHobbyHub.PL.Data;
+using Microsoft.VisualStudio.Web.CodeGenerators.Mvc.Templates.BlazorIdentity.Pages.Manage;
 
-namespace TheHobbyHub.BL
+namespace ARC.HobbyHub.BL
 {
-    // idk to be honest
     public class LoginFailureException : Exception
     {
         public LoginFailureException() : base("Cannot log in with these credentials.  Your IP address has been saved.")
@@ -19,10 +19,20 @@ namespace TheHobbyHub.BL
         }
     }
 
-
-    // Class build -------------
-    public class UserManager
+    public class UserManager : GenericManager<tblUser>
     {
+        public UserManager(DbContextOptions<HobbyHubEntities> options) : base(options) { }
+
+
+        private string GetHash(string Password)
+        {
+            using (var hasher = new System.Security.Cryptography.SHA1Managed())
+            {
+                var hashbytes = System.Text.Encoding.UTF8.GetBytes(Password);
+                return Convert.ToBase64String(hasher.ComputeHash(hashbytes));
+            }
+        }
+
         public void Seed()
         {
             List<User> users = Load();
@@ -35,12 +45,12 @@ namespace TheHobbyHub.BL
                 }
             }
 
-            //if (users.Count == 0)
-            //{
-            //    // Hardcord a couple of users with hashed passwords
-            Insert(new User { UserName = "bfoote", FirstName = "Brian", LastName = "Foote", Password = "maple" });
-            //    Insert(new User { UserName = "kvicchiollo", FirstName = "Ken", LastName = "Vicchiollo", Password = "password" });
-            //}
+            if (users.Count == 0)
+            {
+                // Hardcord a couple of users with hashed passwords
+                Insert(new User { UserName = "Arosas", Password="A1234", FirstName = "Alex", LastName = "Rosas", Email = "arosas@gmail.com", PhoneNumber = "1111111111", Image ="none"});
+                Insert(new User { UserName = "User", Password = "Abcd123", FirstName = "User", LastName = "name", Email = "UName@gmail.com", PhoneNumber = "1111111111", Image = "none" });
+            }
         }
 
         public bool Login(User user)
@@ -51,8 +61,7 @@ namespace TheHobbyHub.BL
                 {
                     if (!string.IsNullOrEmpty(user.Password))
                     {
-                        /*
-                        using (DVDCentralEntities dc = new DVDCentralEntities())
+                        using (HobbyHubEntities dc = new HobbyHubEntities(options))
                         {
                             tblUser userrow = dc.tblUsers.FirstOrDefault(u => u.UserName == user.UserName);
 
@@ -63,10 +72,13 @@ namespace TheHobbyHub.BL
                                 {
                                     // Login was successfull
                                     user.Id = userrow.Id;
-                                    user.FirstName = userrow.FirstName;
-                                    user.LastName = userrow.LastName;
                                     user.UserName = userrow.UserName;
                                     user.Password = userrow.Password;
+                                    user.FirstName = userrow.FirstName;
+                                    user.LastName = userrow.LastName;
+                                    user.Email = userrow.Email;
+                                    user.PhoneNumber = userrow.PhoneNumber;
+                                    user.Image = userrow.Image;
                                     return true;
                                 }
                                 else
@@ -79,8 +91,6 @@ namespace TheHobbyHub.BL
                                 throw new Exception("User could not be found.");
                             }
                         }
-                        */
-                        return true; // Delete this later
                     }
                     else
                     {
@@ -103,20 +113,19 @@ namespace TheHobbyHub.BL
             {
                 List<User> users = new List<User>();
 
-                /* // To-Do: Fix Load()
                 base.Load()
-                    .ToList()
                     .ForEach(u => users
                     .Add(new User
                     {
                         Id = u.Id,
+                        UserName = u.UserName,
+                        Password = u.Password,
                         FirstName = u.FirstName,
                         LastName = u.LastName,
-                        UserName = u.UserName,
-                        Password = u.Password
+                        Email = u.Email,
+                        PhoneNumber = u.PhoneNumber,
+                        Image = u.Image
                     }));
-                */
-
 
                 return users;
             }
@@ -132,21 +141,24 @@ namespace TheHobbyHub.BL
             {
                 User user = new User();
 
-                /* // To-Do: Fix LoadById()
-                using (DVDCentralEntities dc = new DVDCentralEntities())
+                using (HobbyHubEntities dc = new HobbyHubEntities())
                 {
                     user = (from u in dc.tblUsers
                             where u.Id == id
                             select new User
                             {
                                 Id = u.Id,
+                                UserName = u.UserName,
+                                Password = u.Password,
                                 FirstName = u.FirstName,
                                 LastName = u.LastName,
-                                UserName = u.UserName,
-                                Password = u.Password
+                                Email = u.Email,
+                                PhoneNumber = u.PhoneNumber,
+                                Image = u.Image
+
                             }).FirstOrDefault();
                 }
-                */
+
                 return user;
             }
             catch (Exception)
@@ -160,8 +172,7 @@ namespace TheHobbyHub.BL
             try
             {
                 int results = 0;
-                /* // To-Do: Fix Insert()
-                using (DVDCentralEntities dc = new DVDCentralEntities())
+                using (HobbyHubEntities dc = new HobbyHubEntities(options))
                 {
                     // Check if username already exists - do not allow ....
                     bool inuse = dc.tblUsers.Any(u => u.UserName.Trim().ToUpper() == user.UserName.Trim().ToUpper());
@@ -178,10 +189,12 @@ namespace TheHobbyHub.BL
                         tblUser newUser = new tblUser();
 
                         newUser.Id = Guid.NewGuid();
-                        newUser.FirstName = user.FirstName.Trim();
-                        newUser.LastName = user.LastName.Trim();
                         newUser.UserName = user.UserName.Trim();
-                        newUser.Password = GetHash(user.Password.Trim());
+                        newUser.Password = user.Password.Trim();
+;                       newUser.FirstName = user.FirstName.Trim();
+                        newUser.LastName = user.LastName.Trim();
+                        newUser.Email = user.Email.Trim();
+                        newUser.Image = user.Image.Trim();
 
                         user.Id = newUser.Id;
 
@@ -191,7 +204,6 @@ namespace TheHobbyHub.BL
                         if (rollback) transaction.Rollback();
                     }
                 }
-                */
                 return results;
             }
             catch (Exception)
@@ -206,8 +218,8 @@ namespace TheHobbyHub.BL
             try
             {
                 int results = 0;
-                /* // To-Do: Complete Update()
-                using (DVDCentralEntities dc = new DVDCentralEntities())
+
+                using (HobbyHubEntities dc = new HobbyHubEntities())
                 {
                     // Check if username already exists - do not allow ....
                     tblUser existingUser = dc.tblUsers.Where(u => u.UserName.Trim().ToUpper() == user.UserName.Trim().ToUpper()).FirstOrDefault();
@@ -224,11 +236,15 @@ namespace TheHobbyHub.BL
                         tblUser upDateRow = dc.tblUsers.FirstOrDefault(r => r.Id == user.Id);
 
                         if (upDateRow != null)
+
+
                         {
-                            upDateRow.FirstName = user.FirstName.Trim();
-                            upDateRow.LastName = user.LastName.Trim();
                             upDateRow.UserName = user.UserName.Trim();
                             upDateRow.Password = GetHash(user.Password.Trim());
+                            upDateRow.FirstName = user.FirstName.Trim();
+                            upDateRow.LastName = user.LastName.Trim();
+                            upDateRow.Email = user.Email.Trim();
+                            upDateRow.Image = user.Image.Trim();
 
                             dc.tblUsers.Update(upDateRow);
 
@@ -243,7 +259,6 @@ namespace TheHobbyHub.BL
                         }
                     }
                 }
-                */
                 return results;
             }
             catch (Exception)
@@ -258,18 +273,18 @@ namespace TheHobbyHub.BL
             try
             {
                 int results = 0;
-                /* // To-Do: Complete Delete()
-                using (DVDCentralEntities dc = new DVDCentralEntities())
+
+                using (HobbyHubEntities dc = new HobbyHubEntities())
                 {
                     // Check if user is associated with an exisiting order - do not allow delete ....
-                    bool inuse = dc.tblOrders.Any(o => o.UserId == id);
+                  // bool inuse = dc.tbl.Any(o => o.UserId == id);
 
-                    if (inuse)
-                    {
-                        throw new Exception("This user is associated with an existing order and therefore cannot be deleted.");
-                    }
-                    else
-                    {
+                   // if (inuse)
+                   // {
+                   //     throw new Exception("This user is associated with an existing account and therefore cannot be deleted.");
+                   // }
+                    //else
+                    //{
                         IDbContextTransaction transaction = null;
                         if (rollback) transaction = dc.Database.BeginTransaction();
 
@@ -288,9 +303,8 @@ namespace TheHobbyHub.BL
                         {
                             throw new Exception("Row was not found.");
                         }
-                    }
+                   // }
                 }
-                */
                 return results;
             }
             catch (Exception)
@@ -298,5 +312,6 @@ namespace TheHobbyHub.BL
                 throw;
             }
         }
+
     }
 }
