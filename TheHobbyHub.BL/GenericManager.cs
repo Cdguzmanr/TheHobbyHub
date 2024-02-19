@@ -9,7 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TheHobbyHub.HobbyHub.BL
+namespace TheHobbyHub.BL
 {
     public abstract class GenericManager<T> where T : class, IEntity
     {
