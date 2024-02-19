@@ -6,7 +6,7 @@ using TheHobbyHub.PL.Entities;
 using TheHobbyHub.PL.Data;
 using Microsoft.VisualStudio.Web.CodeGenerators.Mvc.Templates.BlazorIdentity.Pages.Manage;
 
-namespace ARC.HobbyHub.BL
+namespace TheHobbyHub.BL
 {
     public class LoginFailureException : Exception
     {
