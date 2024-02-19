@@ -19,5 +19,5 @@ public  class tblEvent : IEntity
 
     public string Image { get; set; } = null!;
 
-    public DateOnly Date { get; set; }
+    public DateTime Date { get; set; }
 }

@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.8.34511.84
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TheHobbyHub", "TheHobbyHub\TheHobbyHub.csproj", "{7B379F1F-3628-4181-BE1D-E62EA7B8EDFF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TheHobbyHub.UI", "TheHobbyHub\TheHobbyHub.UI.csproj", "{7B379F1F-3628-4181-BE1D-E62EA7B8EDFF}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TheHobbyHub.BL.Models", "TheHobbyHub.BL.Models\TheHobbyHub.BL.Models.csproj", "{36700632-F2B1-46F1-B509-4DC85EEE736C}"
 EndProject
@@ -20,7 +20,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		TextFile2.txt = TextFile2.txt
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TheHobbyHub.MigrationHandler", "ARC.TheHobbyHub\TheHobbyHub.MigrationHandler.csproj", "{BCF5F519-F868-4E57-9775-8FA1B3AE78F7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TheHobbyHub.MigrationHandler", "ARC.TheHobbyHub\TheHobbyHub.MigrationHandler.csproj", "{BCF5F519-F868-4E57-9775-8FA1B3AE78F7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TheHobbyHub.PL.Test", "TheHobbyHub.PL.Test\TheHobbyHub.PL.Test.csproj", "{3B90FAD7-B368-4FC0-AEEF-5FB5BBDBAA19}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -54,6 +56,10 @@ Global
 		{BCF5F519-F868-4E57-9775-8FA1B3AE78F7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BCF5F519-F868-4E57-9775-8FA1B3AE78F7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BCF5F519-F868-4E57-9775-8FA1B3AE78F7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3B90FAD7-B368-4FC0-AEEF-5FB5BBDBAA19}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3B90FAD7-B368-4FC0-AEEF-5FB5BBDBAA19}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3B90FAD7-B368-4FC0-AEEF-5FB5BBDBAA19}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3B90FAD7-B368-4FC0-AEEF-5FB5BBDBAA19}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

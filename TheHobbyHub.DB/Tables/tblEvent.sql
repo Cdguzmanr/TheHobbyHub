@@ -7,6 +7,6 @@
 	[HobbyId] UNIQUEIDENTIFIER NOT NULL,
     [Description] Varchar(MAX) NOT NULL, 
     [Image] Varchar(MAX) NOT NULL, 
-	[Date] DATE NOT NULL, 
+	[Date] DATETIME NOT NULL, 
 
 )
