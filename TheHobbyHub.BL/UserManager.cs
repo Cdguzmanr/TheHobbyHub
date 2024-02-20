@@ -195,6 +195,7 @@ namespace TheHobbyHub.BL
                         newUser.LastName = user.LastName.Trim();
                         newUser.Email = user.Email.Trim();
                         newUser.Image = user.Image.Trim();
+                        newUser.PhoneNumber = user.PhoneNumber.Trim();
 
                         user.Id = newUser.Id;
 
