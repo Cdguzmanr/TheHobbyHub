@@ -1,18 +1,15 @@
-﻿using Microsoft.AspNetCore.Http.Extensions;
-using Microsoft.AspNetCore.Mvc;
-
-namespace TheHobbyHub.UI.Controllers
+﻿namespace TheHobbyHub.UI.Controllers
 {
     public class HobbyController : Controller
     {
         public IActionResult Index()
         {
-            ViewBag.Title = "List of";
-            return View();
+            ViewBag.Title = "List of Hobbies";
+            return View(/*HobbyManager.Load()*/);
         }
         public IActionResult Details(Guid id)
         {
-            var item = 0;
+            var item = /*HobbyManager.LoadById(id)*/ 0;
             ViewBag.Title = "Details";
             return View(item);
         }
@@ -29,11 +26,11 @@ namespace TheHobbyHub.UI.Controllers
             }
         }
         [HttpPost]
-        public IActionResult Create()
+        public IActionResult Create(Hobby hobby)
         {
             try
             {
-                int result = 0;
+                int result = /*HobbyManager.Insert(hobby)*/ 0;
                 return RedirectToAction(nameof(Index));
             }
             catch (Exception)
@@ -46,7 +43,7 @@ namespace TheHobbyHub.UI.Controllers
         {
             if (Authentication.IsAuthenticated(HttpContext))
             {
-                var item = 0;
+                var item = /*HobbyManager.LoadById(id)*/ 0;
                 ViewBag.Title = "Edit";
                 return View(item);
             }
@@ -57,11 +54,11 @@ namespace TheHobbyHub.UI.Controllers
             
         }
         [HttpPost]
-        public IActionResult Edit(Guid id, bool rollback = false)
+        public IActionResult Edit(Guid id, Hobby hobby, bool rollback = false)
         {
             try
             {
-                int result = 0;
+                int result = /*HobbyManager.Insert(hobby, rollback)*/ 0;
                 return RedirectToAction(nameof(Index));
             }
             catch (Exception ex)
@@ -75,7 +72,7 @@ namespace TheHobbyHub.UI.Controllers
         {
             if (Authentication.IsAuthenticated(HttpContext))
             {
-                var item = 0;
+                var item = /*HobbyManager.LoadById(id)*/ 0;
                 ViewBag.Title = "Delete";
                 return View(item);
             }
@@ -85,11 +82,11 @@ namespace TheHobbyHub.UI.Controllers
             }
         }
         [HttpPost]
-        public IActionResult Delete(Guid id, bool rollback = false)
+        public IActionResult Delete(Guid id, Hobby hobby, bool rollback = false)
         {
             try
             {
-                int result = 0;
+                int result = /*HobbyManager.Delete(id, rollback)*/ 0;
                 return RedirectToAction(nameof(Index));
             }
             catch (Exception ex)

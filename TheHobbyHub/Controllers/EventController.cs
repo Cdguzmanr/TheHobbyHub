@@ -7,12 +7,12 @@ namespace TheHobbyHub.UI.Controllers
     {
         public IActionResult Index()
         {
-            ViewBag.Title = "List of";
-            return View();
+            ViewBag.Title = "List of Events";
+            return View(/*EventManager.Load()*/);
         }
         public IActionResult Details(Guid id)
         {
-            var item = 0;
+            var item = /*EventManager.LoadById(id)*/0;
             ViewBag.Title = "Details";
             return View(item);
         }
@@ -29,11 +29,11 @@ namespace TheHobbyHub.UI.Controllers
             }
         }
         [HttpPost]
-        public IActionResult Create()
+        public IActionResult Create(Event _event)
         {
             try
             {
-                int result = 0;
+                int result = /*EventManager.Insert(_event)*/0;
                 return RedirectToAction(nameof(Index));
             }
             catch (Exception)
@@ -46,7 +46,7 @@ namespace TheHobbyHub.UI.Controllers
         {
             if (Authentication.IsAuthenticated(HttpContext))
             {
-                var item = 0;
+                var item = /*EventManager.LoadById(id)*/0;
                 ViewBag.Title = "Edit";
                 return View(item);
             }
@@ -57,11 +57,11 @@ namespace TheHobbyHub.UI.Controllers
 
         }
         [HttpPost]
-        public IActionResult Edit(Guid id, bool rollback = false)
+        public IActionResult Edit(Guid id, Event _event, bool rollback = false)
         {
             try
             {
-                int result = 0;
+                int result = /*EventManager.Insert(_event, rollback)*/0;
                 return RedirectToAction(nameof(Index));
             }
             catch (Exception ex)
@@ -75,7 +75,7 @@ namespace TheHobbyHub.UI.Controllers
         {
             if (Authentication.IsAuthenticated(HttpContext))
             {
-                var item = 0;
+                var item = /*EventManager.LoadById(id)*/0;
                 ViewBag.Title = "Delete";
                 return View(item);
             }
@@ -85,11 +85,11 @@ namespace TheHobbyHub.UI.Controllers
             }
         }
         [HttpPost]
-        public IActionResult Delete(Guid id, bool rollback = false)
+        public IActionResult Delete(Guid id, Event _event, bool rollback = false)
         {
             try
             {
-                int result = 0;
+                int result = /*EvemtManager.Delete(id, rollback)*/0;
                 return RedirectToAction(nameof(Index));
             }
             catch (Exception ex)

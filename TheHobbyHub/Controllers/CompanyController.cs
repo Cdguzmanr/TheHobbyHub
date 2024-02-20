@@ -6,12 +6,12 @@ namespace TheHobbyHub.UI.Controllers
     {
         public IActionResult Index()
         {
-            ViewBag.Title = "List of";
-            return View();
+            ViewBag.Title = "List of Companies";
+            return View(/*CompanyManager.Load()*/);
         }
         public IActionResult Details(Guid id)
         {
-            var item = 0;
+            var item = /*CompanyManager.LoadById(id)*/0;
             ViewBag.Title = "Details";
             return View(item);
         }
@@ -28,11 +28,11 @@ namespace TheHobbyHub.UI.Controllers
             }
         }
         [HttpPost]
-        public IActionResult Create()
+        public IActionResult Create(Company company)
         {
             try
             {
-                int result = 0;
+                int result = /*CompanyManager.Insert(company)*/0;
                 return RedirectToAction(nameof(Index));
             }
             catch (Exception)
@@ -45,7 +45,7 @@ namespace TheHobbyHub.UI.Controllers
         {
             if (Authentication.IsAuthenticated(HttpContext))
             {
-                var item = 0;
+                var item = /*CompanyManager.LoadById(id)*/0;
                 ViewBag.Title = "Edit";
                 return View(item);
             }
@@ -56,11 +56,11 @@ namespace TheHobbyHub.UI.Controllers
 
         }
         [HttpPost]
-        public IActionResult Edit(Guid id, bool rollback = false)
+        public IActionResult Edit(Guid id, Company company, bool rollback = false)
         {
             try
             {
-                int result = 0;
+                int result = /*CompanyManager.Insert(company, rollback)*/0;
                 return RedirectToAction(nameof(Index));
             }
             catch (Exception ex)
@@ -74,7 +74,7 @@ namespace TheHobbyHub.UI.Controllers
         {
             if (Authentication.IsAuthenticated(HttpContext))
             {
-                var item = 0;
+                var item = /*CompanyManager.LoadById(id)*/0;
                 ViewBag.Title = "Delete";
                 return View(item);
             }
@@ -84,11 +84,11 @@ namespace TheHobbyHub.UI.Controllers
             }
         }
         [HttpPost]
-        public IActionResult Delete(Guid id, bool rollback = false)
+        public IActionResult Delete(Guid id, Company company, bool rollback = false)
         {
             try
             {
-                int result = 0;
+                int result = /*CompanyManager.Delete(id, rollback)*/0;
                 return RedirectToAction(nameof(Index));
             }
             catch (Exception ex)

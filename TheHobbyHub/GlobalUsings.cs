@@ -4,3 +4,4 @@ global using Microsoft.AspNetCore.Mvc;
 global using TheHobbyHub.BL;
 global using TheHobbyHub.BL.Models;
 global using TheHobbyHub.UI.Models;
+global using Microsoft.AspNetCore.Http.Extensions;
