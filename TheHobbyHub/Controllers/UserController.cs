@@ -1,6 +1,4 @@
-﻿using Microsoft.AspNetCore.Http.Extensions;
-
-namespace TheHobbyHub.Controllers
+﻿namespace TheHobbyHub.Controllers
 {
     public class UserController : Controller
     {

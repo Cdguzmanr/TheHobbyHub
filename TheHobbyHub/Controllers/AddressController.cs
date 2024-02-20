@@ -1,6 +1,4 @@
-﻿using Microsoft.AspNetCore.Http.Extensions;
-
-namespace TheHobbyHub.UI.Controllers
+﻿namespace TheHobbyHub.UI.Controllers
 {
     public class AddressController : Controller
     {

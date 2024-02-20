@@ -1,7 +1,4 @@
-﻿using Microsoft.AspNetCore.Http.Extensions;
-using Microsoft.AspNetCore.Mvc;
-
-namespace TheHobbyHub.UI.Controllers
+﻿namespace TheHobbyHub.UI.Controllers
 {
     public class FriendsController : Controller
     {
