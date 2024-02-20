@@ -1,15 +1,4 @@
-﻿using TheHobbyHub.BL.Models;
-using TheHobbyHub.PL.Data;
-using TheHobbyHub.PL.Entities;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Storage;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace TheHobbyHub.HobbyHub.BL
+﻿namespace TheHobbyHub.BL
 {
     public abstract class GenericManager<T> where T : class, IEntity
     {

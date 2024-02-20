@@ -1,18 +1,13 @@
-﻿using CG.DVDCentral.UI.Extensions;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc;
-using TheHobbyHub.BL;
-using TheHobbyHub.BL.Models;
-
-namespace TheHobbyHub.Controllers
+﻿namespace TheHobbyHub.Controllers
 {
     public class UserController : Controller
     {
         public IActionResult Index()
         {
-            return View();
+            ViewBag.Title = "List of Users";
+            return View(/*UserManager.Load()*/);
         }
-
+        
         // Insert default values with Seed() function
 
         public IActionResult Seed()
@@ -73,7 +68,89 @@ namespace TheHobbyHub.Controllers
             }
         }
 
-        // To-Do: Add Create, Edit, and Delete methods
+        // To-Do:Finish Create, Edit, Delete methods
+        public IActionResult Create()
+        {
+            if (Authentication.IsAuthenticated(HttpContext))
+            {
+                ViewBag.Title = "Create a User";
+                return View();
+            }
+            else
+            {
+                return RedirectToAction("Login", "User", new { returnUrl = UriHelper.GetDisplayUrl(HttpContext.Request) });
+            }
+        }
+        [HttpPost]
+        public IActionResult Create(User user)
+        {
+            try
+            {
+                int result = /* UserManager.Insert(user) */ 0;
+                return RedirectToAction(nameof(Index));
+            }
+            catch (Exception)
+            {
 
+                throw;
+            }
+        }
+        public IActionResult Edit(Guid id)
+        {
+            if (Authentication.IsAuthenticated(HttpContext))
+            {
+                var item = /* UserManager.LoadById(id) */ 0;
+                ViewBag.Title = "Edit";
+                return View(item);
+            }
+            else
+            {
+                return RedirectToAction("Login", "User", new { returnUrl = UriHelper.GetDisplayUrl(HttpContext.Request) });
+            }
+
+        }
+        [HttpPost]
+        public IActionResult Edit(Guid id, User user, bool rollback = false)
+        {
+            try
+            {
+                int result = /* UserManager.Insert(user) */ 0;
+                return RedirectToAction(nameof(Index));
+            }
+            catch (Exception ex)
+            {
+
+                ViewBag.Error = ex.Message;
+                return View();
+            }
+        }
+        public IActionResult Delete(Guid id)
+        {
+            if (Authentication.IsAuthenticated(HttpContext))
+            {
+                var item = /* UserManager.LoadById(id) */ 0;
+                ViewBag.Title = "Delete";
+                return View(item);
+            }
+            else
+            {
+                return RedirectToAction("Login", "User", new { returnUrl = UriHelper.GetDisplayUrl(HttpContext.Request) });
+            }
+        }
+        [HttpPost]
+        public IActionResult Delete(Guid id, User user, bool rollback = false)
+        {
+            try
+            {
+                int result = /* UserManager.Delete(id, rollback) */ 0;
+                return RedirectToAction(nameof(Index));
+            }
+            catch (Exception ex)
+            {
+
+                ViewBag.Error = ex.Message;
+                return View();
+            }
+        }
     }
 }

@@ -1,15 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using TheHobbyHub.BL.Models;
-using TheHobbyHub.HobbyHub.BL;
-using TheHobbyHub.PL.Data;
-using TheHobbyHub.PL.Entities;
-
-namespace TheHobbyHub.BL
+﻿namespace TheHobbyHub.BL
 {
     public class EventManager : GenericManager<tblEvent>
     {
