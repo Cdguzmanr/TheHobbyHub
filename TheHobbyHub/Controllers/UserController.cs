@@ -1,10 +1,4 @@
-﻿using CG.DVDCentral.UI.Extensions;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc;
-using TheHobbyHub.BL;
-using TheHobbyHub.BL.Models;
-
-namespace TheHobbyHub.Controllers
+﻿namespace TheHobbyHub.Controllers
 {
     public class UserController : Controller
     {
