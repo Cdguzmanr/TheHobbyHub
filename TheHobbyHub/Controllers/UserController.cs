@@ -152,5 +152,10 @@
                 return View();
             }
         }
+        public ActionResult Details(Guid id)
+        {
+            ViewBag.Title = "User Details";
+            return View(/*UserManager.LoadById(id)*/);
+        }
     }
 }
