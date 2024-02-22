@@ -20,9 +20,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		TextFile2.txt = TextFile2.txt
 	EndProjectSection
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TheHobbyHub.MigrationHandler", "ARC.TheHobbyHub\TheHobbyHub.MigrationHandler.csproj", "{BCF5F519-F868-4E57-9775-8FA1B3AE78F7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TheHobbyHub.PL.Test", "TheHobbyHub.PL.Test\TheHobbyHub.PL.Test.csproj", "{3B90FAD7-B368-4FC0-AEEF-5FB5BBDBAA19}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TheHobbyHub.PL.Test", "TheHobbyHub.PL.Test\TheHobbyHub.PL.Test.csproj", "{3B90FAD7-B368-4FC0-AEEF-5FB5BBDBAA19}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HobbyHub.MigrationHandler", "HobbyHub.MigrationHandler\HobbyHub.MigrationHandler.csproj", "{513C7487-1A74-4D1B-839F-6F9291AB7629}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -52,14 +52,14 @@ Global
 		{695C1A4F-DF95-4A5C-85DF-EBF585C887D2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{695C1A4F-DF95-4A5C-85DF-EBF585C887D2}.Release|Any CPU.Build.0 = Release|Any CPU
 		{695C1A4F-DF95-4A5C-85DF-EBF585C887D2}.Release|Any CPU.Deploy.0 = Release|Any CPU
-		{BCF5F519-F868-4E57-9775-8FA1B3AE78F7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{BCF5F519-F868-4E57-9775-8FA1B3AE78F7}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{BCF5F519-F868-4E57-9775-8FA1B3AE78F7}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{BCF5F519-F868-4E57-9775-8FA1B3AE78F7}.Release|Any CPU.Build.0 = Release|Any CPU
 		{3B90FAD7-B368-4FC0-AEEF-5FB5BBDBAA19}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{3B90FAD7-B368-4FC0-AEEF-5FB5BBDBAA19}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3B90FAD7-B368-4FC0-AEEF-5FB5BBDBAA19}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3B90FAD7-B368-4FC0-AEEF-5FB5BBDBAA19}.Release|Any CPU.Build.0 = Release|Any CPU
+		{513C7487-1A74-4D1B-839F-6F9291AB7629}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{513C7487-1A74-4D1B-839F-6F9291AB7629}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{513C7487-1A74-4D1B-839F-6F9291AB7629}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{513C7487-1A74-4D1B-839F-6F9291AB7629}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
