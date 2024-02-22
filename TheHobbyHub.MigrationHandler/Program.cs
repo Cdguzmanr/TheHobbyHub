@@ -14,4 +14,3 @@ options.UseSqlServer(builder.Configuration.GetConnectionString("DatabaseConnecti
 
 var app = builder.Build();
 app.Run();
-
