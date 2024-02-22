@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using TheHobbyHub.BL;
 using TheHobbyHub.PL.Data;
 
 namespace TheHobbyHub.UI.Controllers
@@ -9,11 +10,11 @@ namespace TheHobbyHub.UI.Controllers
         public IActionResult Index()
         {
             ViewBag.Title = "List of Events";
-            return View(/*EventManager.Load()*/);
+            return View(new EventManager(options).Load());
         }
         public IActionResult Details(Guid id)
         {
-            var item = /*EventManager.LoadById(id)*/0;
+            var item = new EventManager(options).LoadById(id);
             ViewBag.Title = "Details";
             return View(item);
         }
@@ -34,7 +35,7 @@ namespace TheHobbyHub.UI.Controllers
         {
             try
             {
-                int result = /*EventManager.Insert(_event)*/0;
+                int result = new EventManager(options).Insert(_event);
                 return RedirectToAction(nameof(Index));
             }
             catch (Exception)
@@ -47,7 +48,7 @@ namespace TheHobbyHub.UI.Controllers
         {
             if (Authentication.IsAuthenticated(HttpContext))
             {
-                var item = /*EventManager.LoadById(id)*/0;
+                var item = new EventManager(options).LoadById(id);
                 ViewBag.Title = "Edit";
                 return View(item);
             }
@@ -62,7 +63,7 @@ namespace TheHobbyHub.UI.Controllers
         {
             try
             {
-                int result = /*EventManager.Insert(_event, rollback)*/0;
+                int result = new EventManager(options).Insert(_event, rollback);
                 return RedirectToAction(nameof(Index));
             }
             catch (Exception ex)
@@ -76,7 +77,7 @@ namespace TheHobbyHub.UI.Controllers
         {
             if (Authentication.IsAuthenticated(HttpContext))
             {
-                var item = /*EventManager.LoadById(id)*/0;
+                var item = new EventManager(options).LoadById(id);
                 ViewBag.Title = "Delete";
                 return View(item);
             }
@@ -90,7 +91,7 @@ namespace TheHobbyHub.UI.Controllers
         {
             try
             {
-                int result = /*EvemtManager.Delete(id, rollback)*/0;
+                int result = new EventManager(options).Delete(id, rollback);
                 return RedirectToAction(nameof(Index));
             }
             catch (Exception ex)
