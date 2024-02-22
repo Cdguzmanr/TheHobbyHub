@@ -1,11 +1,15 @@
-﻿namespace TheHobbyHub.Controllers
+﻿using Microsoft.EntityFrameworkCore;
+using TheHobbyHub.PL.Data;
+
+namespace TheHobbyHub.Controllers
 {
     public class UserController : Controller
     {
+        private readonly DbContextOptions<HobbyHubEntities> options;
         public IActionResult Index()
         {
             ViewBag.Title = "List of Users";
-            return View(/*UserManager.Load()*/);
+            return View( new UserManager(options).Load());
         }
         
         // Insert default values with Seed() function
@@ -50,7 +54,7 @@
         {
             try
             {
-                //bool result = UserManager.Login(user); // To-Do: Fix Login
+                bool result = new UserManager(options).Login(user); // To-Do: Fix Login
                 SetUser(user);
 
                 if (TempData["returnUrl"] != null)
@@ -59,7 +63,7 @@
                 }
 
                 return RedirectToAction(nameof(Index), "Order"); // ALWAYS Change default re-derict page 
-            }
+            }//TODO: fix the redirect to action for user controller
             catch (Exception ex)
             {
                 ViewBag.Title = "Login";
@@ -86,7 +90,7 @@
         {
             try
             {
-                int result = /* UserManager.Insert(user) */ 0;
+                int result = new UserManager(options).Insert(user);
                 return RedirectToAction(nameof(Index));
             }
             catch (Exception)
@@ -99,7 +103,7 @@
         {
             if (Authentication.IsAuthenticated(HttpContext))
             {
-                var item = /* UserManager.LoadById(id) */ 0;
+                var item = new UserManager(options).LoadById(id);
                 ViewBag.Title = "Edit";
                 return View(item);
             }
@@ -114,7 +118,7 @@
         {
             try
             {
-                int result = /* UserManager.Insert(user) */ 0;
+                int result = new UserManager(options).Insert(user);
                 return RedirectToAction(nameof(Index));
             }
             catch (Exception ex)
@@ -128,7 +132,7 @@
         {
             if (Authentication.IsAuthenticated(HttpContext))
             {
-                var item = /* UserManager.LoadById(id) */ 0;
+                var item = new UserManager(options).LoadById(id);
                 ViewBag.Title = "Delete";
                 return View(item);
             }
@@ -142,7 +146,7 @@
         {
             try
             {
-                int result = /* UserManager.Delete(id, rollback) */ 0;
+                int result = new UserManager(options).Delete(id, rollback);
                 return RedirectToAction(nameof(Index));
             }
             catch (Exception ex)
