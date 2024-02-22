@@ -1,15 +1,19 @@
-﻿namespace TheHobbyHub.UI.Controllers
+﻿using Microsoft.EntityFrameworkCore;
+using TheHobbyHub.PL.Data;
+
+namespace TheHobbyHub.UI.Controllers
 {
     public class HobbyController : Controller
     {
+        private readonly DbContextOptions<HobbyHubEntities> options;
         public IActionResult Index()
         {
             ViewBag.Title = "List of Hobbies";
-            return View(/*HobbyManager.Load()*/);
+            return View(new HobbyManager(options).Load());
         }
         public IActionResult Details(Guid id)
         {
-            var item = /*HobbyManager.LoadById(id)*/ 0;
+            var item = new HobbyManager(options).LoadById(id);
             ViewBag.Title = "Details";
             return View(item);
         }
@@ -30,7 +34,7 @@
         {
             try
             {
-                int result = /*HobbyManager.Insert(hobby)*/ 0;
+                int result = new HobbyManager(options).Insert(hobby);
                 return RedirectToAction(nameof(Index));
             }
             catch (Exception)
@@ -43,7 +47,7 @@
         {
             if (Authentication.IsAuthenticated(HttpContext))
             {
-                var item = /*HobbyManager.LoadById(id)*/ 0;
+                var item = new HobbyManager(options).LoadById(id);
                 ViewBag.Title = "Edit";
                 return View(item);
             }
@@ -58,7 +62,7 @@
         {
             try
             {
-                int result = /*HobbyManager.Insert(hobby, rollback)*/ 0;
+                int result = new HobbyManager(options).Insert(hobby, rollback);
                 return RedirectToAction(nameof(Index));
             }
             catch (Exception ex)
@@ -72,7 +76,7 @@
         {
             if (Authentication.IsAuthenticated(HttpContext))
             {
-                var item = /*HobbyManager.LoadById(id)*/ 0;
+                var item = new HobbyManager(options).LoadById(id);
                 ViewBag.Title = "Delete";
                 return View(item);
             }
@@ -86,7 +90,7 @@
         {
             try
             {
-                int result = /*HobbyManager.Delete(id, rollback)*/ 0;
+                int result = new HobbyManager(options).Delete(id, rollback);
                 return RedirectToAction(nameof(Index));
             }
             catch (Exception ex)

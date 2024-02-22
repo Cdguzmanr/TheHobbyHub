@@ -1,7 +1,11 @@
-﻿namespace TheHobbyHub.UI.Controllers
+﻿using Microsoft.EntityFrameworkCore;
+using TheHobbyHub.PL.Data;
+
+namespace TheHobbyHub.UI.Controllers
 {
     public class EventController : Controller
     {
+        private readonly DbContextOptions<HobbyHubEntities> options;
         public IActionResult Index()
         {
             ViewBag.Title = "List of Events";
