@@ -9,7 +9,7 @@ namespace TheHobbyHub.Controllers
         public IActionResult Index()
         {
             ViewBag.Title = "List of Users";
-            return View( new UserManager(options).Load());
+            return View(new UserManager(options).Load());
         }
         
         // Insert default values with Seed() function
@@ -159,7 +159,7 @@ namespace TheHobbyHub.Controllers
         public ActionResult Details(Guid id)
         {
             ViewBag.Title = "User Details";
-            return View(/*UserManager.LoadById(id)*/);
+            return View(new UserManager(options).LoadById(id));
         }
     }
 }
