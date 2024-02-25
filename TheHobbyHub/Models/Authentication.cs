@@ -1,5 +1,4 @@
-﻿using CG.DVDCentral.UI.Extensions;
-using TheHobbyHub.BL.Models;
+﻿using TheHobbyHub.BL.Models;
 
 namespace TheHobbyHub.UI.Models
 {
