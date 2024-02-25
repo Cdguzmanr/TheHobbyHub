@@ -1,15 +1,19 @@
-﻿namespace TheHobbyHub.UI.Controllers
+﻿using Microsoft.EntityFrameworkCore;
+using TheHobbyHub.PL.Data;
+
+namespace TheHobbyHub.UI.Controllers
 {
     public class CompanyController : Controller
     {
+        private readonly DbContextOptions<HobbyHubEntities> options;
         public IActionResult Index()
         {
             ViewBag.Title = "List of Companies";
-            return View(/*CompanyManager.Load()*/);
+            return View( new CompanyManager(options).Load());
         }
         public IActionResult Details(Guid id)
         {
-            var item = /*CompanyManager.LoadById(id)*/0;
+            var item = new CompanyManager(options).LoadById(id);
             ViewBag.Title = "Details";
             return View(item);
         }
@@ -30,7 +34,7 @@
         {
             try
             {
-                int result = /*CompanyManager.Insert(company)*/0;
+                int result = new CompanyManager(options).Insert(company);
                 return RedirectToAction(nameof(Index));
             }
             catch (Exception)
@@ -43,7 +47,7 @@
         {
             if (Authentication.IsAuthenticated(HttpContext))
             {
-                var item = /*CompanyManager.LoadById(id)*/0;
+                var item = new CompanyManager(options).LoadById(id);
                 ViewBag.Title = "Edit";
                 return View(item);
             }
@@ -58,7 +62,7 @@
         {
             try
             {
-                int result = /*CompanyManager.Insert(company, rollback)*/0;
+                int result = new CompanyManager(options).Insert(company, rollback);
                 return RedirectToAction(nameof(Index));
             }
             catch (Exception ex)
@@ -72,7 +76,7 @@
         {
             if (Authentication.IsAuthenticated(HttpContext))
             {
-                var item = /*CompanyManager.LoadById(id)*/0;
+                var item = new CompanyManager(options).LoadById(id);
                 ViewBag.Title = "Delete";
                 return View(item);
             }
@@ -86,7 +90,7 @@
         {
             try
             {
-                int result = /*CompanyManager.Delete(id, rollback)*/0;
+                int result = new CompanyManager(options).Delete(id, rollback);
                 return RedirectToAction(nameof(Index));
             }
             catch (Exception ex)

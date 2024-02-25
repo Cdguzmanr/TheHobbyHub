@@ -1,15 +1,19 @@
-﻿namespace TheHobbyHub.UI.Controllers
+﻿using Microsoft.EntityFrameworkCore;
+using TheHobbyHub.PL.Data;
+
+namespace TheHobbyHub.UI.Controllers
 {
     public class AddressController : Controller
     {
+        private readonly DbContextOptions<HobbyHubEntities> options;
         public IActionResult Index()
         {
             ViewBag.Title = "List of Addresses";
-            return View(/*AddressManager.Load()*/);
+            return View(new AddressManager(options).Load());
         }
         public IActionResult Details(Guid id)
         {
-            var item = /*AddressManager.LoadById(id)*/ 0;
+            var item = new AddressManager(options).LoadById(id);
             ViewBag.Title = "Details";
             return View(item);
         }
@@ -30,7 +34,7 @@
         {
             try
             {
-                int result = /*AddressManager.Insert(address)*/ 0;
+                int result = new AddressManager(options).Insert(address);
                 return RedirectToAction(nameof(Index));
             }
             catch (Exception)
@@ -43,7 +47,7 @@
         {
             if (Authentication.IsAuthenticated(HttpContext))
             {
-                var item = /*AddressManager.LoadById(id)*/ 0;
+                var item = new AddressManager(options).LoadById(id);
                 ViewBag.Title = "Edit";
                 return View(item);
             }
@@ -58,7 +62,7 @@
         {
             try
             {
-                int result = /*AddressManager.Insert(address, rollback)*/ 0;
+                int result = new AddressManager(options).Insert(address, rollback);
                 return RedirectToAction(nameof(Index));
             }
             catch (Exception ex)
@@ -72,7 +76,7 @@
         {
             if (Authentication.IsAuthenticated(HttpContext))
             {
-                var item = /*AddressManager.LoadById(id)*/ 0;
+                var item = new AddressManager(options).LoadById(id);
                 ViewBag.Title = "Delete";
                 return View(item);
             }
@@ -86,7 +90,7 @@
         {
             try
             {
-                int result = /*AddressManager.Delete(id, rollback)*/ 0;
+                int result = new AddressManager(options).Delete(id, rollback);
                 return RedirectToAction(nameof(Index));
             }
             catch (Exception ex)

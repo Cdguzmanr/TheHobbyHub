@@ -22,7 +22,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TheHobbyHub.PL.Test", "TheHobbyHub.PL.Test\TheHobbyHub.PL.Test.csproj", "{3B90FAD7-B368-4FC0-AEEF-5FB5BBDBAA19}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HobbyHub.MigrationHandler", "HobbyHub.MigrationHandler\HobbyHub.MigrationHandler.csproj", "{513C7487-1A74-4D1B-839F-6F9291AB7629}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TheHobbyHub.BL.Test", "TheHobbyHub.BL.Test\TheHobbyHub.BL.Test.csproj", "{DB8F6688-9C19-446A-A2E4-327494879C3D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TheHobbyHub.MigrationHandler", "TheHobbyHub.MigrationHandler\TheHobbyHub.MigrationHandler.csproj", "{BC14840A-F756-492B-B0EE-A5863E8ED639}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -56,10 +58,14 @@ Global
 		{3B90FAD7-B368-4FC0-AEEF-5FB5BBDBAA19}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3B90FAD7-B368-4FC0-AEEF-5FB5BBDBAA19}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3B90FAD7-B368-4FC0-AEEF-5FB5BBDBAA19}.Release|Any CPU.Build.0 = Release|Any CPU
-		{513C7487-1A74-4D1B-839F-6F9291AB7629}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{513C7487-1A74-4D1B-839F-6F9291AB7629}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{513C7487-1A74-4D1B-839F-6F9291AB7629}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{513C7487-1A74-4D1B-839F-6F9291AB7629}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DB8F6688-9C19-446A-A2E4-327494879C3D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DB8F6688-9C19-446A-A2E4-327494879C3D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DB8F6688-9C19-446A-A2E4-327494879C3D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DB8F6688-9C19-446A-A2E4-327494879C3D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BC14840A-F756-492B-B0EE-A5863E8ED639}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BC14840A-F756-492B-B0EE-A5863E8ED639}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BC14840A-F756-492B-B0EE-A5863E8ED639}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BC14840A-F756-492B-B0EE-A5863E8ED639}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

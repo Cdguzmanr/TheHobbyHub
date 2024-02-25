@@ -1,15 +1,20 @@
-﻿namespace TheHobbyHub.UI.Controllers
+﻿using Microsoft.EntityFrameworkCore;
+using ThehobbyHub.BL;
+using TheHobbyHub.PL.Data;
+
+namespace TheHobbyHub.UI.Controllers
 {
     public class FriendsController : Controller
     {
+        private readonly DbContextOptions<HobbyHubEntities> options;
         public IActionResult Index()
         {
             ViewBag.Title = "List of Friends";
-            return View(/*FriendsManager.Load()*/);
+            return View(new FriendsManager(options).Load());
         }
         public IActionResult Details(Guid id)
         {
-            var item = /*FriendsManager.LoadById(id)*/0;
+            var item = new FriendsManager(options).LoadById(id);
             ViewBag.Title = "Details";
             return View(item);
         }
@@ -30,7 +35,7 @@
         {
             try
             {
-                int result = /*FriendsManager.Insert(friends)*/0;
+                int result = new FriendsManager(options).Insert(friends);
                 return RedirectToAction(nameof(Index));
             }
             catch (Exception)
@@ -43,7 +48,7 @@
         {
             if (Authentication.IsAuthenticated(HttpContext))
             {
-                var item = /*FriendsManager.LoadById(id)*/0;
+                var item = new FriendsManager(options).LoadById(id);
                 ViewBag.Title = "Edit";
                 return View(item);
             }
@@ -58,7 +63,7 @@
         {
             try
             {
-                int result = /*FriendsManager.Insert(friends, rollback)*/0;
+                int result = new FriendsManager(options).Insert(friends, rollback);
                 return RedirectToAction(nameof(Index));
             }
             catch (Exception ex)
@@ -72,7 +77,7 @@
         {
             if (Authentication.IsAuthenticated(HttpContext))
             {
-                var item = /*FriendsManager.LoadById(id)*/0;
+                var item = new FriendsManager(options).LoadById(id);
                 ViewBag.Title = "Delete";
                 return View(item);
             }
@@ -86,7 +91,7 @@
         {
             try
             {
-                int result = /*FriendsManager.Delete(id, rollback)*/0;
+                int result = new FriendsManager(options).Delete(id, rollback);
                 return RedirectToAction(nameof(Index));
             }
             catch (Exception ex)
