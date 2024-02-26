@@ -12,7 +12,7 @@ using TheHobbyHub.PL.Data;
 namespace TheHobbyHub.PL.Migrations
 {
     [DbContext(typeof(HobbyHubEntities))]
-    [Migration("20240219012039_CreateDatabase")]
+    [Migration("20240225205116_CreateDatabase")]
     partial class CreateDatabase
     {
         /// <inheritdoc />
@@ -58,6 +58,32 @@ namespace TheHobbyHub.PL.Migrations
                         .HasName("PK__tblAddre__3214EC073797D4B0");
 
                     b.ToTable("tblAddress", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("8ac15378-bd0a-4be4-97d8-54519f862ee5"),
+                            Address = "123 Main St",
+                            City = "Anytown",
+                            State = "CA",
+                            Zip = "12345"
+                        },
+                        new
+                        {
+                            Id = new Guid("2f0a6025-adc0-41aa-9dc8-305a1006e027"),
+                            Address = "456 Elm St",
+                            City = "Othertown",
+                            State = "NY",
+                            Zip = "54321"
+                        },
+                        new
+                        {
+                            Id = new Guid("c7bc07c3-9312-4675-a9a8-3d594d57ac65"),
+                            Address = "789 Oak St",
+                            City = "Somewhere",
+                            State = "TX",
+                            Zip = "67890"
+                        });
                 });
 
             modelBuilder.Entity("TheHobbyHub.PL.Entities.tblCompany", b =>
@@ -95,6 +121,35 @@ namespace TheHobbyHub.PL.Migrations
                         .HasName("PK__tblCompa__3214EC07F736E848");
 
                     b.ToTable("tblCompany", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("eff71dc1-80f5-40d0-8a28-e946f7304b12"),
+                            AddressId = new Guid("00000000-0000-0000-0000-000000000000"),
+                            CompanyName = "Company A",
+                            Image = "imageA.jpg",
+                            Password = "passwordA",
+                            UserName = "userA"
+                        },
+                        new
+                        {
+                            Id = new Guid("d96bfd93-b7ad-443d-a4ab-30dacf92eae2"),
+                            AddressId = new Guid("00000000-0000-0000-0000-000000000000"),
+                            CompanyName = "Company B",
+                            Image = "imageB.jpg",
+                            Password = "passwordB",
+                            UserName = "userB"
+                        },
+                        new
+                        {
+                            Id = new Guid("8c736cdf-80fe-4673-8fa7-56f171bdbc14"),
+                            AddressId = new Guid("00000000-0000-0000-0000-000000000000"),
+                            CompanyName = "Company C",
+                            Image = "imageC.jpg",
+                            Password = "passwordC",
+                            UserName = "userC"
+                        });
                 });
 
             modelBuilder.Entity("TheHobbyHub.PL.Entities.tblEvent", b =>
@@ -108,8 +163,8 @@ namespace TheHobbyHub.PL.Migrations
                     b.Property<Guid>("CompanyId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<DateOnly>("Date")
-                        .HasColumnType("date");
+                    b.Property<DateTime>("Date")
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("Description")
                         .IsRequired()
@@ -131,6 +186,41 @@ namespace TheHobbyHub.PL.Migrations
                         .HasName("PK__tblEvent__3214EC07BF9B1F91");
 
                     b.ToTable("tblEvent", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("369da457-f5b2-40e9-b06f-513278a9a078"),
+                            AddressId = new Guid("00000000-0000-0000-0000-000000000000"),
+                            CompanyId = new Guid("00000000-0000-0000-0000-000000000000"),
+                            Date = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Description = "Event A",
+                            HobbyId = new Guid("00000000-0000-0000-0000-000000000000"),
+                            Image = "imageA.jpg",
+                            UserId = new Guid("00000000-0000-0000-0000-000000000000")
+                        },
+                        new
+                        {
+                            Id = new Guid("80d61e74-58c0-48ae-b9a5-1a2053684e5d"),
+                            AddressId = new Guid("00000000-0000-0000-0000-000000000000"),
+                            CompanyId = new Guid("00000000-0000-0000-0000-000000000000"),
+                            Date = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Description = "Event B",
+                            HobbyId = new Guid("00000000-0000-0000-0000-000000000000"),
+                            Image = "imageB.jpg",
+                            UserId = new Guid("00000000-0000-0000-0000-000000000000")
+                        },
+                        new
+                        {
+                            Id = new Guid("f5ec3341-1711-46ed-b0d2-6707ace98761"),
+                            AddressId = new Guid("00000000-0000-0000-0000-000000000000"),
+                            CompanyId = new Guid("00000000-0000-0000-0000-000000000000"),
+                            Date = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Description = "Event C",
+                            HobbyId = new Guid("00000000-0000-0000-0000-000000000000"),
+                            Image = "imageC.jpg",
+                            UserId = new Guid("00000000-0000-0000-0000-000000000000")
+                        });
                 });
 
             modelBuilder.Entity("TheHobbyHub.PL.Entities.tblFriend", b =>

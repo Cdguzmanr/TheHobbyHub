@@ -9,6 +9,25 @@ namespace TheHobbyHub.PL.Data
     {
         // Create Guid's for each table
 
+        /*
+        Todo: Add foreign keys to the tables. See example from DVDCentralEntities.cs below:
+
+                entity.HasOne(d => d.Director).WithMany(p => p.tblMovies)
+                    .HasForeignKey(d => d.DirectorId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("fk_tblMovie_DirectorId");
+
+                entity.HasOne(d => d.Format).WithMany(p => p.tblMovies)
+                    .HasForeignKey(d => d.FormatId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("fk_tblMovie_FormatId");
+
+                entity.HasOne(d => d.Rating).WithMany(p => p.tblMovies)
+                    .HasForeignKey(d => d.RatingId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("fk_tblMovie_RatingId");
+         */
+
 
         public virtual DbSet<tblAddress> tblAddresses { get; set; }
 
@@ -41,45 +60,17 @@ namespace TheHobbyHub.PL.Data
         {
         }
 
-
-        // --------------------------------------- old code ---------------------------------------
-        /*
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
-        {
-           
-
-            
-
-            
-
-            
-
-           
-
-            
-
-            
-
-            OnModelCreatingPartial(modelBuilder);
-        }
-
-        partial void OnModelCreatingPartial(ModelBuilder modelBuilder);
-        */
-
-
-
-        // --------------------------------------- New code ---------------------------------------
-
+        // OnModelCreating method to create the tables and implement default data
         protected override void OnModelCreating(ModelBuilder modelBuilder){
-                base.OnModelCreating(modelBuilder);
+            base.OnModelCreating(modelBuilder);
 
-                CreateAddresses(modelBuilder);
-                CreateCompanies(modelBuilder);
-                CreateEvents(modelBuilder);
-                CreateFriends(modelBuilder);
-                CreateHobbies(modelBuilder);
-                CreateUsers(modelBuilder);
-                CreateUserHobbies(modelBuilder);
+            CreateAddresses(modelBuilder);
+            CreateCompanies(modelBuilder);
+            CreateEvents(modelBuilder);
+            CreateFriends(modelBuilder);
+            CreateHobbies(modelBuilder);
+            CreateUsers(modelBuilder);
+            CreateUserHobbies(modelBuilder);
         }
 
         private void CreateAddresses(ModelBuilder modelBuilder)
@@ -143,9 +134,9 @@ namespace TheHobbyHub.PL.Data
             // Implement default data for tblCompany
             List<tblCompany> companies = new List<tblCompany>
             {
-                new tblCompany { Id = Guid.NewGuid(), CompanyName = "Company A", UserName = "userA", Password = "passwordA", Image = "imageA.jpg" },
-                new tblCompany { Id = Guid.NewGuid(), CompanyName = "Company B", UserName = "userB", Password = "passwordB", Image = "imageB.jpg" },
-                new tblCompany { Id = Guid.NewGuid(), CompanyName = "Company C", UserName = "userC", Password = "passwordC", Image = "imageC.jpg" }
+                new tblCompany { Id = Guid.NewGuid(), CompanyName = "Company A", UserName = "copanyA", Password = GetHash("passwordA"), Image = "imageA.jpg" },
+                new tblCompany { Id = Guid.NewGuid(), CompanyName = "Company B", UserName = "companyB", Password = GetHash("passwordB"), Image = "imageB.jpg" },
+                new tblCompany { Id = Guid.NewGuid(), CompanyName = "Company C", UserName = "companyC", Password = GetHash("passwordC"), Image = "imageC.jpg" }
             };
 
             // Add default data to tblCompany
@@ -157,7 +148,7 @@ namespace TheHobbyHub.PL.Data
             // Create tblEvent table
             modelBuilder.Entity<tblEvent>(entity =>
             {
-                entity.HasKey(e => e.Id).HasName("PK__tblEvent__3214EC07BF9B1F91");
+                entity.HasKey(e => e.Id).HasName("PK__tblEvent__3214EC07BF9B1F91"); 
 
                 entity.ToTable("tblEvent");
 
@@ -184,13 +175,13 @@ namespace TheHobbyHub.PL.Data
             // Create tblFriend table
             modelBuilder.Entity<tblFriend>(entity =>
             {
-                entity.HasKey(e => e.Id).HasName("PK__tblFrien__3214EC07DE9FD9A3");
+                entity.HasKey(e => e.Id).HasName("PK__tblFriend__3214EC07DE9FD9A3");
 
                 entity.Property(e => e.Id).ValueGeneratedNever();
             });
 
             // Implement default data for tblFriends
-
+            // Todo: Add default data to tblFriends
 
             // Add default data to tblFriends
 
@@ -217,7 +208,7 @@ namespace TheHobbyHub.PL.Data
             });
 
             // Implement default data for tblHobbies
-
+            // Todo: Add default data to tblHobbies
 
             // Add default data to tblHobbies
 
@@ -255,6 +246,7 @@ namespace TheHobbyHub.PL.Data
             });
 
             // Implement default data for tblUsers
+            // Todo: Add default data to tblUsers
 
             // Add default data to tblUsers
 
@@ -274,6 +266,7 @@ namespace TheHobbyHub.PL.Data
 
 
             // Implement default data for tblUserHobbies
+            // Todo: Add default data to tblUserHobbies
 
             // Add default data to tblUserHobbies
 

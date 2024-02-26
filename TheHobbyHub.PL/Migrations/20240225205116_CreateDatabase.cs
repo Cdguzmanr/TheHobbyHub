@@ -3,6 +3,8 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
+#pragma warning disable CA1814 // Prefer jagged arrays over multidimensional
+
 namespace TheHobbyHub.PL.Migrations
 {
     /// <inheritdoc />
@@ -53,7 +55,7 @@ namespace TheHobbyHub.PL.Migrations
                     HobbyId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Description = table.Column<string>(type: "varchar(max)", unicode: false, nullable: false),
                     Image = table.Column<string>(type: "varchar(max)", unicode: false, nullable: false),
-                    Date = table.Column<DateOnly>(type: "date", nullable: false)
+                    Date = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -117,6 +119,36 @@ namespace TheHobbyHub.PL.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK__tblUserH__3214EC0736B690FC", x => x.Id);
+                });
+
+            migrationBuilder.InsertData(
+                table: "tblAddress",
+                columns: new[] { "Id", "Address", "City", "State", "Zip" },
+                values: new object[,]
+                {
+                    { new Guid("2f0a6025-adc0-41aa-9dc8-305a1006e027"), "456 Elm St", "Othertown", "NY", "54321" },
+                    { new Guid("8ac15378-bd0a-4be4-97d8-54519f862ee5"), "123 Main St", "Anytown", "CA", "12345" },
+                    { new Guid("c7bc07c3-9312-4675-a9a8-3d594d57ac65"), "789 Oak St", "Somewhere", "TX", "67890" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "tblCompany",
+                columns: new[] { "Id", "AddressId", "CompanyName", "Image", "Password", "UserName" },
+                values: new object[,]
+                {
+                    { new Guid("8c736cdf-80fe-4673-8fa7-56f171bdbc14"), new Guid("00000000-0000-0000-0000-000000000000"), "Company C", "imageC.jpg", "passwordC", "userC" },
+                    { new Guid("d96bfd93-b7ad-443d-a4ab-30dacf92eae2"), new Guid("00000000-0000-0000-0000-000000000000"), "Company B", "imageB.jpg", "passwordB", "userB" },
+                    { new Guid("eff71dc1-80f5-40d0-8a28-e946f7304b12"), new Guid("00000000-0000-0000-0000-000000000000"), "Company A", "imageA.jpg", "passwordA", "userA" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "tblEvent",
+                columns: new[] { "Id", "AddressId", "CompanyId", "Date", "Description", "HobbyId", "Image", "UserId" },
+                values: new object[,]
+                {
+                    { new Guid("369da457-f5b2-40e9-b06f-513278a9a078"), new Guid("00000000-0000-0000-0000-000000000000"), new Guid("00000000-0000-0000-0000-000000000000"), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Event A", new Guid("00000000-0000-0000-0000-000000000000"), "imageA.jpg", new Guid("00000000-0000-0000-0000-000000000000") },
+                    { new Guid("80d61e74-58c0-48ae-b9a5-1a2053684e5d"), new Guid("00000000-0000-0000-0000-000000000000"), new Guid("00000000-0000-0000-0000-000000000000"), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Event B", new Guid("00000000-0000-0000-0000-000000000000"), "imageB.jpg", new Guid("00000000-0000-0000-0000-000000000000") },
+                    { new Guid("f5ec3341-1711-46ed-b0d2-6707ace98761"), new Guid("00000000-0000-0000-0000-000000000000"), new Guid("00000000-0000-0000-0000-000000000000"), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Event C", new Guid("00000000-0000-0000-0000-000000000000"), "imageC.jpg", new Guid("00000000-0000-0000-0000-000000000000") }
                 });
         }
 
