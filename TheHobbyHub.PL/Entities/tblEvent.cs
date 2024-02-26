@@ -20,4 +20,10 @@ public  class tblEvent : IEntity
     public string Image { get; set; } = null!;
 
     public DateTime Date { get; set; }
+
+    public virtual tblAddress Address { get; set; }
+    public virtual tblUser User { get; set; }
+    public virtual tblCompany Company { get; set; }
+
+    public virtual tblHobby Hobby { get; set; }
 }

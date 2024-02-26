@@ -20,4 +20,9 @@ public class tblUser : IEntity
     public string PhoneNumber { get; set; } = null!;
 
     public string Password { get; set; } = null!;
+    public virtual ICollection<tblEvent> Events { get; set; }
+
+    public virtual ICollection<tblFriend> Friends { get; set; }
+
+    public virtual ICollection<tblUserHobby> UserHobbies { get; set; }
 }

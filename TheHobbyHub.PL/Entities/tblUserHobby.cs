@@ -10,4 +10,8 @@ public class tblUserHobby : IEntity
     public Guid UserId { get; set; }
 
     public Guid HobbyId { get; set; }
+
+    public virtual tblUser User { get; set; }
+
+    public virtual tblHobby Hobby { get; set; }
 }

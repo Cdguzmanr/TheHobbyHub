@@ -10,4 +10,8 @@ public  class tblFriend : IEntity
     public Guid UserId { get; set; }
 
     public Guid CompanyId { get; set; }
+
+    public virtual tblUser User { get; set; }
+
+    public virtual tblCompany Company { get; set; }
 }

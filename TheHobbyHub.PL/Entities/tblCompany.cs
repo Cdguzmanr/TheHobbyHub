@@ -16,4 +16,10 @@ public class tblCompany : IEntity
     public string Password { get; set; } = null!;
 
     public Guid AddressId { get; set; }
+
+    public virtual tblAddress Address { get; set; }
+
+    public virtual ICollection<tblEvent> Events{ get; set; }
+
+    public virtual ICollection<tblFriend> Friends { get; set; }
 }
