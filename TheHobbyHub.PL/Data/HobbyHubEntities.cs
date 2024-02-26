@@ -32,13 +32,13 @@ namespace TheHobbyHub.PL.Data
                     .HasConstraintName("fk_tblMovie_RatingId");
          */
 
-        Guid[] addressId = new Guid[2];
-        Guid[] companyId = new Guid[2];
-        Guid[] hobbyId = new Guid[2];
-        Guid[] userId = new Guid[2];
-        Guid[] eventId = new Guid[2];
-        Guid[] userHobbyId = new Guid[2];
-        Guid[] friendId = new Guid[2];
+        Guid[] addressId = new Guid[3];
+        Guid[] companyId = new Guid[3];
+        Guid[] hobbyId = new Guid[3];
+        Guid[] userId = new Guid[3];
+        Guid[] eventId = new Guid[3];
+        Guid[] userHobbyId = new Guid[3];
+        Guid[] friendId = new Guid[3];
 
 
         public virtual DbSet<tblAddress> tblAddresses { get; set; }
