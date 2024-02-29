@@ -19,6 +19,7 @@ public class tblCompany : IEntity
 
     public virtual tblAddress Address { get; set; }
 
+
     public virtual ICollection<tblEvent> Events{ get; set; }
 
     public virtual ICollection<tblFriend> Friends { get; set; }

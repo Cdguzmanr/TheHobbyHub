@@ -15,7 +15,9 @@ public class tblHobby : IEntity
 
     public string Image { get; set; } = null!;
 
-    public virtual ICollection<tblEvent> Events { get; set; }
+    //public virtual ICollection<tblEvent> Events { get; set; }
 
     public virtual ICollection<tblUserHobby> UserHobbies { get; set; }
+
+    public virtual ICollection<tblEventHobby> EventHobbies { get; set; }
 }

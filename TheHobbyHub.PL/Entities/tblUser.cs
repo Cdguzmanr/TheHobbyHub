@@ -20,6 +20,12 @@ public class tblUser : IEntity
     public string PhoneNumber { get; set; } = null!;
 
     public string Password { get; set; } = null!;
+
+    // public Guid EventId { get; set; }
+
+    //public virtual tblEvent Events { get; set; }
+
+    public virtual ICollection<tblEventUser> EventUsers { get; set; }
     public virtual ICollection<tblEvent> Events { get; set; }
 
     public virtual ICollection<tblFriend> Friends { get; set; }

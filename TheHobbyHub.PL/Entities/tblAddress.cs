@@ -15,6 +15,8 @@ public class tblAddress : IEntity
 
     public string Zip { get; set; } = null!;
 
+    public virtual ICollection<tblEventAddress> EventAddresses { get; set; }
+
     public virtual ICollection<tblCompany> Companies { get; set; }
 
     public virtual ICollection<tblEvent> Events { get; set; }
