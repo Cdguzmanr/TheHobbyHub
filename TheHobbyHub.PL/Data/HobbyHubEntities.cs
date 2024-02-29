@@ -248,7 +248,7 @@ namespace TheHobbyHub.PL.Data
             // Implement default data for tblEvents
             List<tblEvent> events = new List<tblEvent>
             {
-                new tblEvent {  Id = eventId[0],  
+                new tblEvent {  Id = Guid.NewGuid(),  
                                 AddressId = addressId[0], 
                                 UserId= userId[0], 
                                 CompanyId = companyId[0], 
@@ -257,7 +257,7 @@ namespace TheHobbyHub.PL.Data
                                 Image = "imageA.jpg",  
                                 Date = new DateTime(2024, 2, 15) },
 
-                 new tblEvent {  Id = eventId[1],
+                 new tblEvent {  Id = Guid.NewGuid(),
                                 AddressId = addressId[1],
                                 UserId= userId[1],
                                 CompanyId = companyId[1],
@@ -266,7 +266,7 @@ namespace TheHobbyHub.PL.Data
                                 Image = "imageB.jpg",
                                 Date = new DateTime(2024, 2, 15) },
 
-                  new tblEvent {  Id = eventId[2],
+                  new tblEvent {  Id = Guid.NewGuid(),
                                 AddressId = addressId[2],
                                 UserId= userId[2],
                                 CompanyId = companyId[2],
@@ -316,21 +316,21 @@ namespace TheHobbyHub.PL.Data
             {
             new tblFriend
             {
-                Id = friendId[0],
+                Id = Guid.NewGuid(),
                 UserId = userId[0],
                 CompanyId = companyId[0],
             },
 
             new tblFriend
             {
-                Id = friendId[1],
+                Id = Guid.NewGuid(),
                 UserId = userId[1],
                 CompanyId = companyId[1],
             },
 
             new tblFriend
             {
-                Id = friendId[2],
+                Id = Guid.NewGuid(),
                 UserId = userId[2],
                 CompanyId = companyId[2],
             }
@@ -525,21 +525,21 @@ namespace TheHobbyHub.PL.Data
             {
             new tblUserHobby
             {
-                Id = userHobbyId[0],
+                Id = Guid.NewGuid(),
                 UserId = userId[0],
                 HobbyId = hobbyId[0],
             },
 
              new tblUserHobby
             {
-                Id = userHobbyId[1],
+                Id = Guid.NewGuid(),
                 UserId = userId[1],
                 HobbyId = hobbyId[1],
             },
 
               new tblUserHobby
             {
-                Id = userHobbyId[2],
+                Id = Guid.NewGuid(),
                 UserId = userId[2],
                 HobbyId = hobbyId[2]}
             };
