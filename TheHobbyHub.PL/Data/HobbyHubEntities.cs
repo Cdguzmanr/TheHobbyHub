@@ -32,13 +32,13 @@ namespace TheHobbyHub.PL.Data
                     .HasConstraintName("fk_tblMovie_RatingId");
          */
 
-        Guid[] addressId = new Guid[3];
+        Guid[] addressId = new Guid[6];
         Guid[] companyId = new Guid[3];
         Guid[] hobbyId = new Guid[3];
-        Guid[] userId = new Guid[3];
+        Guid[] userId = new Guid[6];
         Guid[] eventId = new Guid[3];
         //Guid[] userHobbyId = new Guid[3];
-       // Guid[] friendId = new Guid[3];
+        Guid[] friendId = new Guid[3];
 
 
         public virtual DbSet<tblAddress> tblAddresses { get; set; }
@@ -59,7 +59,12 @@ namespace TheHobbyHub.PL.Data
 
         public virtual DbSet<tblEventUser> tblEventUsers { get; set; }
 
-       // public virtual DbSet<tblEventCompany> tblEventCompanies { get; set; }
+        public virtual DbSet<tblCompany> tblCompanyAddresses { get; set; }
+
+        public virtual DbSet<tblCompany> tblFriendUser { get; set; }
+
+
+        // public virtual DbSet<tblEventCompany> tblEventCompanies { get; set; }
 
         public virtual DbSet<tblEventAddress> tblEventAddresses { get; set; }
 
@@ -92,8 +97,9 @@ namespace TheHobbyHub.PL.Data
             CreateUsers(modelBuilder);
             CreateUserHobbies(modelBuilder);
             CreateEventHobbies(modelBuilder);
-
+            CreateCompanyAddresses(modelBuilder);
             CreateEventUsers(modelBuilder);
+            CreateFriendUsers(modelBuilder);
 
             CreateEventAddresses(modelBuilder);
             //CreateEventCompanies(modelBuilder);
@@ -101,8 +107,8 @@ namespace TheHobbyHub.PL.Data
 
         private void CreateAddresses(ModelBuilder modelBuilder)
         {
-           // for (int i = 0; i < addressId.Length; i++)
-             //   addressId[i] = Guid.NewGuid();
+            for (int i = 0; i < addressId.Length; i++)
+                addressId[i] = Guid.NewGuid();
 
 
             // Create tblAddress table
@@ -134,9 +140,12 @@ namespace TheHobbyHub.PL.Data
             // Implement default data for tblAddress
             List<tblAddress> addresses = new List<tblAddress>
             {
-                new tblAddress { Id = Guid.NewGuid(), Address = "123 Main St", City = "Anytown", State = "CA", Zip = "12345" },
-                new tblAddress { Id = Guid.NewGuid(), Address = "456 Elm St", City = "Othertown", State = "NY", Zip = "54321" },
-                new tblAddress { Id = Guid.NewGuid(), Address = "789 Oak St", City = "Somewhere", State = "TX", Zip = "67890" }
+                new tblAddress { Id = addressId[0], Address = "123 Main St", City = "Anytown", State = "CA", Zip = "12345" },
+                new tblAddress { Id = addressId[1], Address = "456 Elm St", City = "Othertown", State = "NY", Zip = "54321" },
+                new tblAddress { Id = addressId[2], Address = "789 Oak St", City = "Somewhere", State = "TX", Zip = "67890" },
+                new tblAddress { Id = addressId[3], Address = "133 Dane St", City = "Anytown", State = "MN", Zip = "56542" },
+                new tblAddress { Id = addressId[4], Address = "156 Hop St", City = "Anytown", State = "IL", Zip = "49875" },
+                new tblAddress { Id = addressId[5], Address = "124 E St", City = "Anytown", State = "WI", Zip = "56542" },
             };
 
             // Add default data to tblAddress
@@ -171,11 +180,11 @@ namespace TheHobbyHub.PL.Data
                     .HasMaxLength(50)
                     .IsUnicode(false);
 
-                entity.HasOne(d => d.Address)
-               .WithMany(p => p.Companies)
-               .HasForeignKey(d => d.AddressId)
-               .OnDelete(DeleteBehavior.ClientSetNull)
-               .HasConstraintName("fk_tblCompany_AddressId");
+               // entity.HasOne(d => d.Address)
+               //.WithMany(p => p.Companies)
+               //.HasForeignKey(d => d.AddressId)
+               //.OnDelete(DeleteBehavior.ClientSetNull)
+               //.HasConstraintName("fk_tblCompany_AddressId");
 
             });
 
@@ -187,21 +196,22 @@ namespace TheHobbyHub.PL.Data
                                     UserName = "copanyA", 
                                     Password = GetHash("passwordA"), 
                                     Image = "imageA.jpg" , 
-                                    AddressId = addressId[0]},
+                                    //AddressId = addressId[0]
+                                    },
 
                 new tblCompany {    Id = companyId[1],
                                     CompanyName = "Company B", 
                                     UserName = "companyB", 
                                     Password = GetHash("passwordB"),
                                     Image = "imageB.jpg", 
-                                    AddressId = addressId[1] },
+                                    /*AddressId = addressId[1]*/ },
 
                 new tblCompany {    Id = companyId[2], 
                                     CompanyName = "Company C", 
                                     UserName = "companyC", 
                                     Password = GetHash("passwordC"), 
                                     Image = "imageC.jpg", 
-                                    AddressId = addressId[2] }
+                                    /*AddressId = addressId[2]*/ }
             };
 
             // Add default data to tblCompany
@@ -261,7 +271,8 @@ namespace TheHobbyHub.PL.Data
                               UserName = "Arosas",
                               Image = "image.jpg",
                               PhoneNumber ="2627459097",
-                              Password = GetHash("test")},
+                              Password = GetHash("test")
+                },
 
               new tblUser { Id = userId[1],
                               FirstName = "Someone",
@@ -270,7 +281,8 @@ namespace TheHobbyHub.PL.Data
                               UserName = "SSM",
                               Image = "image.jpg",
                               PhoneNumber ="3333333333",
-                              Password = GetHash("ssm")},
+                              Password = GetHash("ssm")
+              },
 
                 new tblUser { Id = userId[2],
                               FirstName = "sam",
@@ -280,6 +292,36 @@ namespace TheHobbyHub.PL.Data
                               Image = "sammy.jpg",
                               PhoneNumber ="1111111111",
                               Password = GetHash("test")
+                },
+
+                new tblUser { Id = userId[3],
+                              FirstName = "sdf",
+                              LastName = "fsdfsdfisher",
+                              Email = "sf@gmasdfil.com",
+                              UserName = "sasdfsdfmmyfish",
+                              Image = "samddmy.jpg",
+                              PhoneNumber ="11211111111",
+                              Password = GetHash("tefst")
+                },
+
+                new tblUser { Id = userId[4],
+                              FirstName = "s bvcvbam",
+                              LastName = "fishcvbcvber",
+                              Email = "sf@gmrfffail.com",
+                              UserName = "sasfdsdfmmyfish",
+                              Image = "samrrrrmy.jpg",
+                              PhoneNumber ="11111111111",
+                              Password = GetHash("tfdgdfgest")
+                },
+
+                new tblUser { Id = userId[5],
+                              FirstName = "sdfgdfgam",
+                              LastName = "fidfgdfgsher",
+                              Email = "sf@gdfgeeemail.com",
+                              UserName = "sammdfgdfgyfish",
+                              Image = "sammeeey.jpg",
+                              PhoneNumber ="11112111111",
+                              Password = GetHash("temmmjffst")
                 }
             };
 
@@ -378,8 +420,8 @@ namespace TheHobbyHub.PL.Data
         private void CreateFriends(ModelBuilder modelBuilder)
         {
 
-           
-
+            for (int i = 0; i < friendId.Length; i++)
+                friendId[i] = Guid.NewGuid();
             // Create tblFriend table
             modelBuilder.Entity<tblFriend>(entity =>
             {
@@ -390,18 +432,17 @@ namespace TheHobbyHub.PL.Data
 
                 entity.Property(e => e.Id).ValueGeneratedNever();
 
-
-                entity.HasOne(d => d.User)
-             .WithMany(p => p.Friends)
-             .HasForeignKey(d => d.UserId)
-             .OnDelete(DeleteBehavior.ClientSetNull)
-             .HasConstraintName("fk_tblFriend_UserId");
-
                 entity.HasOne(d => d.Company)
               .WithMany(p => p.Friends)
               .HasForeignKey(d => d.CompanyId)
               .OnDelete(DeleteBehavior.ClientSetNull)
               .HasConstraintName("fk_tblFriend_CompanyId");
+
+                //entity.HasOne(d => d.User)
+                //    .WithMany(p => p.UFriends)
+                //    .HasForeignKey(d => d.UserId)
+                //    .OnDelete(DeleteBehavior.ClientSetNull)
+                //    .HasConstraintName("fk_tblFriend_UserId");
 
 
             });
@@ -413,22 +454,22 @@ namespace TheHobbyHub.PL.Data
             {
             new tblFriend
             {
-                Id = Guid.NewGuid(),
-                UserId = userId[0],
+                Id = friendId[0],
+                /*UserId = userId[0]*/
                 CompanyId = companyId[0],
             },
 
             new tblFriend
             {
-                Id = Guid.NewGuid(),
-                UserId = userId[1],
+                Id = friendId[2],
+                /*UserId = userId[1]*/
                 CompanyId = companyId[1],
             },
 
             new tblFriend
             {
-                Id = Guid.NewGuid(),
-                UserId = userId[2],
+                Id = friendId[1],
+                /*UserId = userId[2]*/
                 CompanyId = companyId[2],
             }
 
@@ -509,11 +550,8 @@ namespace TheHobbyHub.PL.Data
             modelBuilder.Entity<tblHobby>().HasData(hobbies);
 
         }
-
-
         private void CreateUserHobbies(ModelBuilder modelBuilder)
         {
-            // Create tblUserHobby table
             modelBuilder.Entity<tblUserHobby>(entity =>
             {
                 entity.HasKey(e => e.Id).HasName("PK_tblUserHobby_Id");
@@ -569,7 +607,6 @@ namespace TheHobbyHub.PL.Data
         private void CreateEventHobbies(ModelBuilder modelBuilder)
         {
 
-            // Create tblFriend table
             modelBuilder.Entity<tblEventHobby>(entity =>
             {
                 entity.HasKey(e => e.Id).HasName("PK_tblEventHobby_Id");
@@ -632,7 +669,6 @@ namespace TheHobbyHub.PL.Data
         private void CreateEventUsers(ModelBuilder modelBuilder)
         {
 
-            // Create tblFriend table
             modelBuilder.Entity<tblEventUser>(entity =>
             {
                 entity.HasKey(e => e.Id).HasName("PK_tblEventUser_Id");
@@ -695,7 +731,6 @@ namespace TheHobbyHub.PL.Data
         private void CreateEventAddresses(ModelBuilder modelBuilder)
         {
 
-            // Create tblFriend table
             modelBuilder.Entity<tblEventAddress>(entity =>
             {
                 entity.HasKey(e => e.Id).HasName("PK_tblEventAddress_Id");
@@ -712,7 +747,7 @@ namespace TheHobbyHub.PL.Data
              .OnDelete(DeleteBehavior.ClientSetNull)
              .HasConstraintName("fk_tblEventAddress_EventId");
 
-                entity.HasOne(d => d.Addresses)
+                entity.HasOne(d => d.Address)
               .WithMany(p => p.EventAddresses)
               .HasForeignKey(d => d.AddressId)
               .OnDelete(DeleteBehavior.ClientSetNull)
@@ -729,21 +764,21 @@ namespace TheHobbyHub.PL.Data
             new tblEventAddress
             {
                 Id = Guid.NewGuid(),
-                AddressId = addressId[0],
+                AddressId = addressId[3],
                 EventId = eventId[0],
             },
 
             new tblEventAddress
             {
                 Id = Guid.NewGuid(),
-                AddressId = addressId[1],
+                AddressId = addressId[4],
                 EventId = eventId[1],
             },
 
             new tblEventAddress
             {
                 Id = Guid.NewGuid(),
-                AddressId = userId[2],
+                AddressId = userId[5],
                 EventId = eventId[2],
             }
 
@@ -752,6 +787,132 @@ namespace TheHobbyHub.PL.Data
             // Add default data to tblFriends
 
             modelBuilder.Entity<tblEventAddress>().HasData(eventAddresses);
+
+        }
+
+        private void CreateCompanyAddresses(ModelBuilder modelBuilder)
+        {
+
+            // Create tblFriend table
+            modelBuilder.Entity<tblCompanyAddress>(entity =>
+            {
+                entity.HasKey(e => e.Id).HasName("PK_tblCompanyAddress_Id");
+
+
+                entity.ToTable("tblCompanyAddress");
+
+                entity.Property(e => e.Id).ValueGeneratedNever();
+
+
+                entity.HasOne(d => d.Company)
+             .WithMany(p => p.CompanyAddress)
+             .HasForeignKey(d => d.CompanyId)
+             .OnDelete(DeleteBehavior.ClientSetNull)
+             .HasConstraintName("fk_tblCompanyAddress_CompanyId");
+
+                entity.HasOne(d => d.Address)
+              .WithMany(p => p.CompanyAddress)
+              .HasForeignKey(d => d.AddressId)
+              .OnDelete(DeleteBehavior.ClientSetNull)
+              .HasConstraintName("fk_tblCompanyAddress_AddressId");
+
+
+            });
+
+            // Implement default data for tblFriends
+            // Todo: Add default data to tblFriends
+
+            List<tblCompanyAddress> companyaddresses = new List<tblCompanyAddress>
+            {
+            new tblCompanyAddress
+            {
+                Id = Guid.NewGuid(),
+                AddressId = addressId[0],
+                CompanyId = companyId[0],
+            },
+
+            new tblCompanyAddress
+            {
+                Id = Guid.NewGuid(),
+                AddressId = addressId[1],
+                CompanyId = companyId[1],
+            },
+
+            new tblCompanyAddress
+            {
+                Id = Guid.NewGuid(),
+                AddressId = addressId[2],
+                CompanyId = companyId[2],
+            }
+
+            };
+
+            // Add default data to tblFriends
+
+            modelBuilder.Entity<tblCompanyAddress>().HasData(companyaddresses);
+
+        }
+
+        private void CreateFriendUsers(ModelBuilder modelBuilder)
+        {
+
+            // Create tblFriend table
+            modelBuilder.Entity<tblFriendUser>(entity =>
+            {
+                entity.HasKey(e => e.Id).HasName("PK_tblFriendUser_Id");
+
+
+                entity.ToTable("tblFriendUser");
+
+                entity.Property(e => e.Id).ValueGeneratedNever();
+
+
+                entity.HasOne(d => d.User)
+             .WithMany(p => p.FriendUsers)
+             .HasForeignKey(d => d.UserId)
+             .OnDelete(DeleteBehavior.ClientSetNull)
+             .HasConstraintName("fk_tblFriendUser_UserId");
+
+                entity.HasOne(d => d.Friend)
+              .WithMany(p => p.FriendUsers)
+              .HasForeignKey(d => d.FriendId)
+              .OnDelete(DeleteBehavior.ClientSetNull)
+              .HasConstraintName("fk_tblFriendUser_FriendId");
+
+
+            });
+
+            // Implement default data for tblFriends
+            // Todo: Add default data to tblFriends
+
+            List<tblFriendUser> friendUsers = new List<tblFriendUser>
+            {
+            new tblFriendUser
+            {
+                Id = Guid.NewGuid(),
+                UserId = userId[0],
+                FriendId = friendId[1],
+            },
+
+            new tblFriendUser
+            {
+                Id = Guid.NewGuid(),
+                UserId = userId[2],
+                FriendId = friendId[2],
+            },
+
+            new tblFriendUser
+            {
+                Id = Guid.NewGuid(),
+                UserId = userId[2],
+                FriendId = friendId[2],
+            }
+
+            };
+
+            // Add default data to tblFriends
+
+            modelBuilder.Entity<tblFriendUser>().HasData(friendUsers);
 
         }
 

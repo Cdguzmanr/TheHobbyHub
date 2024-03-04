@@ -29,6 +29,21 @@ namespace TheHobbyHub.PL.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "tblCompany",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    CompanyName = table.Column<string>(type: "varchar(50)", unicode: false, maxLength: 50, nullable: false),
+                    Image = table.Column<string>(type: "varchar(max)", unicode: false, nullable: true),
+                    UserName = table.Column<string>(type: "varchar(50)", unicode: false, maxLength: 50, nullable: false),
+                    Password = table.Column<string>(type: "varchar(50)", unicode: false, maxLength: 50, nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_tblCompany_Id", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "tblHobby",
                 columns: table => new
                 {
@@ -52,7 +67,7 @@ namespace TheHobbyHub.PL.Migrations
                     LastName = table.Column<string>(type: "varchar(50)", unicode: false, maxLength: 50, nullable: false),
                     Email = table.Column<string>(type: "varchar(50)", unicode: false, maxLength: 50, nullable: false),
                     UserName = table.Column<string>(type: "varchar(50)", unicode: false, maxLength: 50, nullable: false),
-                    Image = table.Column<string>(type: "varchar(max)", unicode: false, nullable: false),
+                    Image = table.Column<string>(type: "varchar(max)", unicode: false, nullable: true),
                     PhoneNumber = table.Column<string>(type: "varchar(50)", unicode: false, maxLength: 50, nullable: false),
                     Password = table.Column<string>(type: "varchar(50)", unicode: false, maxLength: 50, nullable: false)
                 },
@@ -62,46 +77,42 @@ namespace TheHobbyHub.PL.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "tblCompany",
+                name: "tblCompanyAddress",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    CompanyName = table.Column<string>(type: "varchar(50)", unicode: false, maxLength: 50, nullable: false),
-                    Image = table.Column<string>(type: "varchar(max)", unicode: false, nullable: false),
-                    UserName = table.Column<string>(type: "varchar(50)", unicode: false, maxLength: 50, nullable: false),
-                    Password = table.Column<string>(type: "varchar(50)", unicode: false, maxLength: 50, nullable: false),
-                    AddressId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
+                    AddressId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    CompanyId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_tblCompany_Id", x => x.Id);
+                    table.PrimaryKey("PK_tblCompanyAddress_Id", x => x.Id);
                     table.ForeignKey(
-                        name: "fk_tblCompany_AddressId",
+                        name: "fk_tblCompanyAddress_AddressId",
                         column: x => x.AddressId,
                         principalTable: "tblAddress",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "fk_tblCompanyAddress_CompanyId",
+                        column: x => x.CompanyId,
+                        principalTable: "tblCompany",
                         principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
-                name: "tblUserHobby",
+                name: "tblFriend",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    UserId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    HobbyId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
+                    CompanyId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_tblUserHobby_Id", x => x.Id);
+                    table.PrimaryKey("PK_tblFriend_Id", x => x.Id);
                     table.ForeignKey(
-                        name: "fk_tblUserHobby_HobbyId",
-                        column: x => x.HobbyId,
-                        principalTable: "tblHobby",
-                        principalColumn: "Id");
-                    table.ForeignKey(
-                        name: "fk_tblUserHobby_UserId",
-                        column: x => x.UserId,
-                        principalTable: "tblUser",
+                        name: "fk_tblFriend_CompanyId",
+                        column: x => x.CompanyId,
+                        principalTable: "tblCompany",
                         principalColumn: "Id");
                 });
 
@@ -138,23 +149,46 @@ namespace TheHobbyHub.PL.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "tblFriend",
+                name: "tblUserHobby",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     UserId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    CompanyId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
+                    HobbyId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_tblFriend_Id", x => x.Id);
+                    table.PrimaryKey("PK_tblUserHobby_Id", x => x.Id);
                     table.ForeignKey(
-                        name: "fk_tblFriend_CompanyId",
-                        column: x => x.CompanyId,
-                        principalTable: "tblCompany",
+                        name: "fk_tblUserHobby_HobbyId",
+                        column: x => x.HobbyId,
+                        principalTable: "tblHobby",
                         principalColumn: "Id");
                     table.ForeignKey(
-                        name: "fk_tblFriend_UserId",
+                        name: "fk_tblUserHobby_UserId",
+                        column: x => x.UserId,
+                        principalTable: "tblUser",
+                        principalColumn: "Id");
+                });
+
+            migrationBuilder.CreateTable(
+                name: "tblFriendUser",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    UserId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    FriendId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_tblFriendUser_Id", x => x.Id);
+                    table.ForeignKey(
+                        name: "fk_tblFriendUser_FriendId",
+                        column: x => x.FriendId,
+                        principalTable: "tblFriend",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "fk_tblFriendUser_UserId",
                         column: x => x.UserId,
                         principalTable: "tblUser",
                         principalColumn: "Id");
@@ -181,33 +215,6 @@ namespace TheHobbyHub.PL.Migrations
                         column: x => x.EventId,
                         principalTable: "tblEvent",
                         principalColumn: "Id");
-                });
-
-            migrationBuilder.CreateTable(
-                name: "tblEventCompany",
-                columns: table => new
-                {
-                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    EventId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    CompanyId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    EventsId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    CompaniesId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_tblEventCompany", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_tblEventCompany_tblCompany_CompaniesId",
-                        column: x => x.CompaniesId,
-                        principalTable: "tblCompany",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_tblEventCompany_tblEvent_EventsId",
-                        column: x => x.EventsId,
-                        principalTable: "tblEvent",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -261,19 +268,19 @@ namespace TheHobbyHub.PL.Migrations
                 columns: new[] { "Id", "Address", "City", "State", "Zip" },
                 values: new object[,]
                 {
-                    { new Guid("73cfc8e2-2da1-4c18-b018-288fc2c97538"), "789 Oak St", "Somewhere", "TX", "67890" },
-                    { new Guid("e56212a4-d1b1-4c36-a668-b9ae561cd4b7"), "123 Main St", "Anytown", "CA", "12345" },
-                    { new Guid("f1823c80-54b1-4cb6-84b7-a447905e78f7"), "456 Elm St", "Othertown", "NY", "54321" }
+                    { new Guid("0a7a37b3-ae3e-47c5-bf28-1a133cdb8974"), "789 Oak St", "Somewhere", "TX", "67890" },
+                    { new Guid("0e4e5d5e-e422-4985-a4fb-10fbdb8398b4"), "123 Main St", "Anytown", "CA", "12345" },
+                    { new Guid("c64de842-68da-4595-ba47-b8b14467bb31"), "456 Elm St", "Othertown", "NY", "54321" }
                 });
 
             migrationBuilder.InsertData(
                 table: "tblCompany",
-                columns: new[] { "Id", "AddressId", "CompanyName", "Image", "Password", "UserName" },
+                columns: new[] { "Id", "CompanyName", "Image", "Password", "UserName" },
                 values: new object[,]
                 {
-                    { new Guid("302948ec-d423-491c-8f42-c096b21c6c02"), new Guid("00000000-0000-0000-0000-000000000000"), "Company B", "imageB.jpg", "38Nd3/2M+aip9/TyIzVYXKylmQo=", "companyB" },
-                    { new Guid("55ace91d-60a9-4ff6-b359-a52d7ce0e8ac"), new Guid("00000000-0000-0000-0000-000000000000"), "Company C", "imageC.jpg", "urYijG3X2+D44I400gasYPqLBHw=", "companyC" },
-                    { new Guid("fff0570d-54f6-4f12-b1f3-a4c325fd9b12"), new Guid("00000000-0000-0000-0000-000000000000"), "Company A", "imageA.jpg", "/BafCUbj3r56CjioX1dcB1ynX20=", "copanyA" }
+                    { new Guid("2e8e90ff-ade4-4921-bc46-1a3bc2cc4f49"), "Company B", "imageB.jpg", "38Nd3/2M+aip9/TyIzVYXKylmQo=", "companyB" },
+                    { new Guid("aeb7f848-bfdd-4070-90ca-846b249455fd"), "Company A", "imageA.jpg", "/BafCUbj3r56CjioX1dcB1ynX20=", "copanyA" },
+                    { new Guid("f633150c-0062-4382-8830-3f6623240dd6"), "Company C", "imageC.jpg", "urYijG3X2+D44I400gasYPqLBHw=", "companyC" }
                 });
 
             migrationBuilder.InsertData(
@@ -281,9 +288,9 @@ namespace TheHobbyHub.PL.Migrations
                 columns: new[] { "Id", "Description", "HobbyName", "Image", "Type" },
                 values: new object[,]
                 {
-                    { new Guid("1809d7f9-0cf9-446d-a797-5a02dafb0688"), "Gyyymm", "Gym", "image.jpg", "Indoor" },
-                    { new Guid("38290c90-8d48-42c6-84fc-ca434f2c49dc"), "Run", "Running", "run.jpg", "Outdoor" },
-                    { new Guid("c28a0700-6a10-4948-aae7-0f269824d188"), "stick", "Golf", "outdoor.jpg", "outdoor" }
+                    { new Guid("24eb281b-ad92-4eb5-a760-aa10a170e47e"), "Run", "Running", "run.jpg", "Outdoor" },
+                    { new Guid("7695c1ce-81c1-4076-815a-e089eb0fdccf"), "Gyyymm", "Gym", "image.jpg", "Indoor" },
+                    { new Guid("f8a8905a-9610-4e55-a262-aeecd6293a0d"), "stick", "Golf", "outdoor.jpg", "outdoor" }
                 });
 
             migrationBuilder.InsertData(
@@ -291,9 +298,22 @@ namespace TheHobbyHub.PL.Migrations
                 columns: new[] { "Id", "Email", "FirstName", "Image", "LastName", "Password", "PhoneNumber", "UserName" },
                 values: new object[,]
                 {
-                    { new Guid("1f3d329a-aa0b-4c13-985b-9316464a7927"), "ss@gmail.com", "Someone", "image.jpg", "Somebody", "B/qgP3XrZmyneblY753llJ5gtQ4=", "3333333333", "SSM" },
-                    { new Guid("72dec7c7-54ec-472c-8671-04d2fdad571a"), "Alexr@gmail.com", "Alex", "image.jpg", "Rosas", "qUqP5cyxm6YcTAhz05Hph5gvu9M=", "2627459097", "Arosas" },
-                    { new Guid("a8890b05-1bd2-42ec-a38c-405b82d68263"), "sf@gmail.com", "sam", "sammy.jpg", "fisher", "qUqP5cyxm6YcTAhz05Hph5gvu9M=", "1111111111", "sammyfish" }
+                    { new Guid("1c48472b-0114-43cf-aef0-db951fb4f6af"), "sf@gmail.com", "sam", "sammy.jpg", "fisher", "qUqP5cyxm6YcTAhz05Hph5gvu9M=", "1111111111", "sammyfish" },
+                    { new Guid("5add4b11-2ba1-404d-b758-63ef7331fb00"), "sf@gmasdfil.com", "sdf", "samddmy.jpg", "fsdfsdfisher", "mNWYTbueAuANF0c6AxbqynRxnXY=", "11211111111", "sasdfsdfmmyfish" },
+                    { new Guid("7869414d-6c36-45d5-bc20-62a28a90f7f7"), "sf@gmrfffail.com", "s bvcvbam", "samrrrrmy.jpg", "fishcvbcvber", "RmQR+JhVJXAHuebYif5zjxpGa70=", "11111111111", "sasfdsdfmmyfish" },
+                    { new Guid("8ef97c06-cd95-4e1f-92f3-71ef31b18131"), "sf@gdfgeeemail.com", "sdfgdfgam", "sammeeey.jpg", "fidfgdfgsher", "AKjX3OOQvQGmIexgkdxqakGshiw=", "11112111111", "sammdfgdfgyfish" },
+                    { new Guid("b0981bfe-8235-4055-88cf-cacb3148a542"), "Alexr@gmail.com", "Alex", "image.jpg", "Rosas", "qUqP5cyxm6YcTAhz05Hph5gvu9M=", "2627459097", "Arosas" },
+                    { new Guid("e3c5b54c-53f6-4fcd-a9c0-e52c8b98a8ef"), "ss@gmail.com", "Someone", "image.jpg", "Somebody", "B/qgP3XrZmyneblY753llJ5gtQ4=", "3333333333", "SSM" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "tblCompanyAddress",
+                columns: new[] { "Id", "AddressId", "CompanyId" },
+                values: new object[,]
+                {
+                    { new Guid("13aa05ca-38c0-4810-ac50-fb37e09cb358"), new Guid("0a7a37b3-ae3e-47c5-bf28-1a133cdb8974"), new Guid("f633150c-0062-4382-8830-3f6623240dd6") },
+                    { new Guid("36e41895-6274-47fc-9626-7f650460e82e"), new Guid("c64de842-68da-4595-ba47-b8b14467bb31"), new Guid("2e8e90ff-ade4-4921-bc46-1a3bc2cc4f49") },
+                    { new Guid("edd4f65b-f124-4e72-ad36-229ab8a20cc3"), new Guid("0e4e5d5e-e422-4985-a4fb-10fbdb8398b4"), new Guid("aeb7f848-bfdd-4070-90ca-846b249455fd") }
                 });
 
             migrationBuilder.InsertData(
@@ -301,19 +321,19 @@ namespace TheHobbyHub.PL.Migrations
                 columns: new[] { "Id", "CompanyId", "Date", "Description", "Image", "tblAddressId", "tblUserId" },
                 values: new object[,]
                 {
-                    { new Guid("64d7f5f7-8f01-4415-8f1a-be85264d3af5"), new Guid("302948ec-d423-491c-8f42-c096b21c6c02"), new DateTime(2024, 2, 15, 0, 0, 0, 0, DateTimeKind.Unspecified), "Event B", "imageB.jpg", null, null },
-                    { new Guid("79f1a58d-10f7-4bbf-be3c-57ba93b4eae8"), new Guid("fff0570d-54f6-4f12-b1f3-a4c325fd9b12"), new DateTime(2024, 2, 15, 0, 0, 0, 0, DateTimeKind.Unspecified), "Event A", "imageA.jpg", null, null },
-                    { new Guid("b2a95c1f-ccef-45dc-acf7-b4dfb3054bfa"), new Guid("55ace91d-60a9-4ff6-b359-a52d7ce0e8ac"), new DateTime(2024, 2, 15, 0, 0, 0, 0, DateTimeKind.Unspecified), "Event C", "imageC.jpg", null, null }
+                    { new Guid("09d7cd7d-a7f2-4640-9848-d28d363fd57f"), new Guid("f633150c-0062-4382-8830-3f6623240dd6"), new DateTime(2024, 2, 15, 0, 0, 0, 0, DateTimeKind.Unspecified), "Event C", "imageC.jpg", null, null },
+                    { new Guid("74554c45-2284-41da-99b2-a64ae3aeebec"), new Guid("2e8e90ff-ade4-4921-bc46-1a3bc2cc4f49"), new DateTime(2024, 2, 15, 0, 0, 0, 0, DateTimeKind.Unspecified), "Event B", "imageB.jpg", null, null },
+                    { new Guid("9937f374-ee10-4b22-8c0a-020481d24be9"), new Guid("aeb7f848-bfdd-4070-90ca-846b249455fd"), new DateTime(2024, 2, 15, 0, 0, 0, 0, DateTimeKind.Unspecified), "Event A", "imageA.jpg", null, null }
                 });
 
             migrationBuilder.InsertData(
                 table: "tblFriend",
-                columns: new[] { "Id", "CompanyId", "UserId" },
+                columns: new[] { "Id", "CompanyId" },
                 values: new object[,]
                 {
-                    { new Guid("55738053-d5c8-4f3a-b822-bbf3051fea4f"), new Guid("302948ec-d423-491c-8f42-c096b21c6c02"), new Guid("b751f7dd-99ce-4b8a-b895-e9a91a3f1317") },
-                    { new Guid("c366e7c1-1a71-4036-9f4c-236c6034bd83"), new Guid("fff0570d-54f6-4f12-b1f3-a4c325fd9b12"), new Guid("5d7abddc-4d8e-4105-83ce-c83ceb0b9c2b") },
-                    { new Guid("f414443f-9032-466a-a171-fbbf8e7769b1"), new Guid("55ace91d-60a9-4ff6-b359-a52d7ce0e8ac"), new Guid("c2f498f0-952a-450e-bfbc-259a244dc762") }
+                    { new Guid("30365c17-1743-4e50-9882-fbe3527138d6"), new Guid("aeb7f848-bfdd-4070-90ca-846b249455fd") },
+                    { new Guid("a707cc25-d374-4937-ac2e-2ee73f9b6252"), new Guid("2e8e90ff-ade4-4921-bc46-1a3bc2cc4f49") },
+                    { new Guid("adb1d287-e3a3-44a2-840f-c595b77a65ae"), new Guid("f633150c-0062-4382-8830-3f6623240dd6") }
                 });
 
             migrationBuilder.InsertData(
@@ -321,9 +341,9 @@ namespace TheHobbyHub.PL.Migrations
                 columns: new[] { "Id", "HobbyId", "UserId" },
                 values: new object[,]
                 {
-                    { new Guid("33cea0d4-e7f9-40b1-8966-3ffbf9f49eea"), new Guid("c28a0700-6a10-4948-aae7-0f269824d188"), new Guid("1f3d329a-aa0b-4c13-985b-9316464a7927") },
-                    { new Guid("e55ca5f3-c3b7-46f4-a04f-ec73e946b873"), new Guid("1809d7f9-0cf9-446d-a797-5a02dafb0688"), new Guid("72dec7c7-54ec-472c-8671-04d2fdad571a") },
-                    { new Guid("f8d271e9-bf2b-40ab-bade-470e0b50ff74"), new Guid("38290c90-8d48-42c6-84fc-ca434f2c49dc"), new Guid("a8890b05-1bd2-42ec-a38c-405b82d68263") }
+                    { new Guid("360590ce-9745-45d2-a048-bced21fca0a4"), new Guid("24eb281b-ad92-4eb5-a760-aa10a170e47e"), new Guid("1c48472b-0114-43cf-aef0-db951fb4f6af") },
+                    { new Guid("5c339149-b386-4946-a993-78dde5741f9d"), new Guid("f8a8905a-9610-4e55-a262-aeecd6293a0d"), new Guid("e3c5b54c-53f6-4fcd-a9c0-e52c8b98a8ef") },
+                    { new Guid("eb2a11bb-9271-4aee-bf40-16e423d53b4a"), new Guid("7695c1ce-81c1-4076-815a-e089eb0fdccf"), new Guid("b0981bfe-8235-4055-88cf-cacb3148a542") }
                 });
 
             migrationBuilder.InsertData(
@@ -331,9 +351,9 @@ namespace TheHobbyHub.PL.Migrations
                 columns: new[] { "Id", "AddressId", "EventId" },
                 values: new object[,]
                 {
-                    { new Guid("49c79e15-65f2-46c1-8e9d-6c4eae70da05"), new Guid("00000000-0000-0000-0000-000000000000"), new Guid("64d7f5f7-8f01-4415-8f1a-be85264d3af5") },
-                    { new Guid("9218b4a8-d0e6-489e-b8fa-a72f999588b2"), new Guid("a8890b05-1bd2-42ec-a38c-405b82d68263"), new Guid("b2a95c1f-ccef-45dc-acf7-b4dfb3054bfa") },
-                    { new Guid("af0a6c79-6d47-43ed-b241-a874ab91b255"), new Guid("00000000-0000-0000-0000-000000000000"), new Guid("79f1a58d-10f7-4bbf-be3c-57ba93b4eae8") }
+                    { new Guid("3e4482c3-df77-489c-bffc-802c641fa81f"), new Guid("1c48472b-0114-43cf-aef0-db951fb4f6af"), new Guid("09d7cd7d-a7f2-4640-9848-d28d363fd57f") },
+                    { new Guid("53fb1c38-e8fa-488b-ad3a-f3aa395b1692"), new Guid("c64de842-68da-4595-ba47-b8b14467bb31"), new Guid("74554c45-2284-41da-99b2-a64ae3aeebec") },
+                    { new Guid("5d28dd06-463f-4473-b819-0dcd877414f8"), new Guid("0e4e5d5e-e422-4985-a4fb-10fbdb8398b4"), new Guid("9937f374-ee10-4b22-8c0a-020481d24be9") }
                 });
 
             migrationBuilder.InsertData(
@@ -341,9 +361,9 @@ namespace TheHobbyHub.PL.Migrations
                 columns: new[] { "Id", "EventId", "HobbyId" },
                 values: new object[,]
                 {
-                    { new Guid("91ca67cb-b913-44d2-860d-12b517d50bac"), new Guid("64d7f5f7-8f01-4415-8f1a-be85264d3af5"), new Guid("c28a0700-6a10-4948-aae7-0f269824d188") },
-                    { new Guid("af42d9b7-7d90-4853-a399-9d5c498d570d"), new Guid("b2a95c1f-ccef-45dc-acf7-b4dfb3054bfa"), new Guid("38290c90-8d48-42c6-84fc-ca434f2c49dc") },
-                    { new Guid("d79a8abf-540d-48e3-80d6-452cc20353ac"), new Guid("79f1a58d-10f7-4bbf-be3c-57ba93b4eae8"), new Guid("1809d7f9-0cf9-446d-a797-5a02dafb0688") }
+                    { new Guid("02c2821e-9d25-4f49-abba-1375bd041737"), new Guid("09d7cd7d-a7f2-4640-9848-d28d363fd57f"), new Guid("24eb281b-ad92-4eb5-a760-aa10a170e47e") },
+                    { new Guid("0eeeeff7-9dc4-473f-aca1-1d634ac36d76"), new Guid("9937f374-ee10-4b22-8c0a-020481d24be9"), new Guid("7695c1ce-81c1-4076-815a-e089eb0fdccf") },
+                    { new Guid("895432f2-e4fd-469f-b69f-3181a7c48c15"), new Guid("74554c45-2284-41da-99b2-a64ae3aeebec"), new Guid("f8a8905a-9610-4e55-a262-aeecd6293a0d") }
                 });
 
             migrationBuilder.InsertData(
@@ -351,15 +371,30 @@ namespace TheHobbyHub.PL.Migrations
                 columns: new[] { "Id", "EventId", "UserId" },
                 values: new object[,]
                 {
-                    { new Guid("4fa0bd92-5de2-48f5-a7db-3fcdecf5bb5a"), new Guid("79f1a58d-10f7-4bbf-be3c-57ba93b4eae8"), new Guid("72dec7c7-54ec-472c-8671-04d2fdad571a") },
-                    { new Guid("7ce66c43-56e0-470d-a704-25f8604d0828"), new Guid("b2a95c1f-ccef-45dc-acf7-b4dfb3054bfa"), new Guid("a8890b05-1bd2-42ec-a38c-405b82d68263") },
-                    { new Guid("f6580155-0165-4fd9-944f-1185cc286921"), new Guid("64d7f5f7-8f01-4415-8f1a-be85264d3af5"), new Guid("1f3d329a-aa0b-4c13-985b-9316464a7927") }
+                    { new Guid("1ab10869-16af-458d-90bb-8cf696cfc31e"), new Guid("74554c45-2284-41da-99b2-a64ae3aeebec"), new Guid("e3c5b54c-53f6-4fcd-a9c0-e52c8b98a8ef") },
+                    { new Guid("39d53abd-ab7e-4f59-a3a4-5b8784ec8a04"), new Guid("9937f374-ee10-4b22-8c0a-020481d24be9"), new Guid("b0981bfe-8235-4055-88cf-cacb3148a542") },
+                    { new Guid("8654ab8e-b62a-4700-8758-0183eabb04fc"), new Guid("09d7cd7d-a7f2-4640-9848-d28d363fd57f"), new Guid("1c48472b-0114-43cf-aef0-db951fb4f6af") }
+                });
+
+            migrationBuilder.InsertData(
+                table: "tblFriendUser",
+                columns: new[] { "Id", "FriendId", "UserId" },
+                values: new object[,]
+                {
+                    { new Guid("038cee8a-89bc-429a-9d5e-b4c882582d24"), new Guid("adb1d287-e3a3-44a2-840f-c595b77a65ae"), new Guid("b0981bfe-8235-4055-88cf-cacb3148a542") },
+                    { new Guid("7324c9fe-c9d8-4283-bc2e-0eece0e096fe"), new Guid("a707cc25-d374-4937-ac2e-2ee73f9b6252"), new Guid("1c48472b-0114-43cf-aef0-db951fb4f6af") },
+                    { new Guid("dd7a13ba-7cd9-4f74-9075-36e7b302c330"), new Guid("a707cc25-d374-4937-ac2e-2ee73f9b6252"), new Guid("1c48472b-0114-43cf-aef0-db951fb4f6af") }
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_tblCompany_AddressId",
-                table: "tblCompany",
+                name: "IX_tblCompanyAddress_AddressId",
+                table: "tblCompanyAddress",
                 column: "AddressId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_tblCompanyAddress_CompanyId",
+                table: "tblCompanyAddress",
+                column: "CompanyId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_tblEvent_CompanyId",
@@ -387,16 +422,6 @@ namespace TheHobbyHub.PL.Migrations
                 column: "EventId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_tblEventCompany_CompaniesId",
-                table: "tblEventCompany",
-                column: "CompaniesId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_tblEventCompany_EventsId",
-                table: "tblEventCompany",
-                column: "EventsId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_tblEventHobby_EventId",
                 table: "tblEventHobby",
                 column: "EventId");
@@ -422,8 +447,13 @@ namespace TheHobbyHub.PL.Migrations
                 column: "CompanyId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_tblFriend_UserId",
-                table: "tblFriend",
+                name: "IX_tblFriendUser_FriendId",
+                table: "tblFriendUser",
+                column: "FriendId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_tblFriendUser_UserId",
+                table: "tblFriendUser",
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
@@ -441,10 +471,10 @@ namespace TheHobbyHub.PL.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "tblEventAddress");
+                name: "tblCompanyAddress");
 
             migrationBuilder.DropTable(
-                name: "tblEventCompany");
+                name: "tblEventAddress");
 
             migrationBuilder.DropTable(
                 name: "tblEventHobby");
@@ -453,7 +483,7 @@ namespace TheHobbyHub.PL.Migrations
                 name: "tblEventUser");
 
             migrationBuilder.DropTable(
-                name: "tblFriend");
+                name: "tblFriendUser");
 
             migrationBuilder.DropTable(
                 name: "tblUserHobby");
@@ -462,16 +492,19 @@ namespace TheHobbyHub.PL.Migrations
                 name: "tblEvent");
 
             migrationBuilder.DropTable(
+                name: "tblFriend");
+
+            migrationBuilder.DropTable(
                 name: "tblHobby");
+
+            migrationBuilder.DropTable(
+                name: "tblAddress");
 
             migrationBuilder.DropTable(
                 name: "tblUser");
 
             migrationBuilder.DropTable(
                 name: "tblCompany");
-
-            migrationBuilder.DropTable(
-                name: "tblAddress");
         }
     }
 }
