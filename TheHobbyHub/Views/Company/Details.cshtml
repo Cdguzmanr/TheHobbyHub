@@ -5,12 +5,8 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Details</h1>
-
 <div>
-    <h4>Company</h4>
-    <hr />
-    <dl class="row">
+    <dl class="row m-2">
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.Id)
         </dt>
@@ -49,7 +45,7 @@
         </dd>
     </dl>
 </div>
-<div>
-    @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
+<div class="m-2">
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
     <a asp-action="Index">Back to List</a>
 </div>
