@@ -1,4 +1,6 @@
-﻿namespace TheHobbyHub.BL
+﻿using TheHobbyHub.BL.Models;
+
+namespace TheHobbyHub.BL
 {
     public class LoginFailureException : Exception
     {
@@ -25,6 +27,7 @@
             }
         }
 
+        // Regular Seed method
         public void Seed()
         {
             List<User> users = Load();
@@ -42,6 +45,7 @@
                 // Hardcord a couple of users with hashed passwords
                 Insert(new User { UserName = "Arosas", Password="A1234", FirstName = "Alex", LastName = "Rosas", Email = "arosas@gmail.com", PhoneNumber = "1111111111", Image ="none"});
                 Insert(new User { UserName = "User", Password = "Abcd123", FirstName = "User", LastName = "name", Email = "UName@gmail.com", PhoneNumber = "1111111111", Image = "none" });
+                Insert(new User { UserName = "bfoote", Password = "maple", FirstName = "Brian", LastName = "Foote", Email = "bfoote@fvtc.edu", PhoneNumber = "1111111111", Image = "none" });
             }
         }
 
