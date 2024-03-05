@@ -77,274 +77,18 @@ namespace TheHobbyHub.PL.Data
         {
             base.OnModelCreating(modelBuilder);
 
-            CreateAddresses(modelBuilder);
-            CreateCompanies(modelBuilder);
-            CreateEvents(modelBuilder);
-            CreateFriends(modelBuilder);
+
             CreateHobbies(modelBuilder);
+            CreateAddresses(modelBuilder);
             CreateUsers(modelBuilder);
-            CreateUserHobbies(modelBuilder);
-        }
+            CreateCompanies(modelBuilder);
 
-        private void CreateAddresses(ModelBuilder modelBuilder)
-        {
-            for (int i = 0; i < addressId.Length; i++)
-                addressId[i] = Guid.NewGuid();
-
-
-            // Create tblAddress table
-            modelBuilder.Entity<tblAddress>(entity =>
-            {
-                entity.HasKey(e => e.Id).HasName("PK_tblAddress_Id");
-
-                entity.ToTable("tblAddress");
-
-                entity.Property(e => e.Id).ValueGeneratedNever();
-                entity.Property(e => e.Address)
-                    .IsRequired()
-                    .HasMaxLength(50)
-                    .IsUnicode(false);
-                entity.Property(e => e.City)
-                    .IsRequired()
-                    .HasMaxLength(50)
-                    .IsUnicode(false);
-                entity.Property(e => e.State)
-                    .IsRequired()
-                    .HasMaxLength(5)
-                    .IsUnicode(false);
-                entity.Property(e => e.Zip)
-                    .IsRequired()
-                    .HasMaxLength(12)
-                    .IsUnicode(false);
-            });
-
-            // Implement default data for tblAddress
-            List<tblAddress> addresses = new List<tblAddress>
-            {
-                new tblAddress { Id = addressId[0], Address = "123 Main St", City = "Anytown", State = "CA", Zip = "12345" },
-                new tblAddress { Id = addressId[1], Address = "456 Elm St", City = "Othertown", State = "NY", Zip = "54321" },
-                new tblAddress { Id = addressId[2], Address = "789 Oak St", City = "Somewhere", State = "TX", Zip = "67890" }
-            };
-
-            // Add default data to tblAddress
-            modelBuilder.Entity<tblAddress>().HasData(addresses);
-        }
-
-        private void CreateCompanies(ModelBuilder modelBuilder)
-        {
-
-            for (int i = 0; i < companyId.Length; i++)
-                companyId[i] = Guid.NewGuid();
-
-            // Create tblCompany table
-            modelBuilder.Entity<tblCompany>(entity =>
-            {
-                entity.HasKey(e => e.Id).HasName("PK_tblCompany_Id");
-
-                entity.ToTable("tblCompany");
-
-                entity.Property(e => e.Id).ValueGeneratedNever();
-                entity.Property(e => e.CompanyName)
-                    .IsRequired()
-                    .HasMaxLength(50)
-                    .IsUnicode(false);
-                entity.Property(e => e.Image).IsUnicode(false);
-                entity.Property(e => e.Password)
-                    .IsRequired()
-                    .HasMaxLength(50)
-                    .IsUnicode(false);
-                entity.Property(e => e.UserName)
-                    .IsRequired()
-                    .HasMaxLength(50)
-                    .IsUnicode(false);
-
-                entity.HasOne(d => d.Address)
-               .WithMany(p => p.Companies)
-               .HasForeignKey(d => d.AddressId)
-               .OnDelete(DeleteBehavior.ClientSetNull)
-               .HasConstraintName("fk_tblCompany_AddressId");
-
-            });
-
-            // Implement default data for tblCompany
-            List<tblCompany> companies = new List<tblCompany>
-            {
-                new tblCompany {    Id = companyId[0], 
-                                    CompanyName = "Company A", 
-                                    UserName = "copanyA", 
-                                    Password = GetHash("passwordA"), 
-                                    Image = "imageA.jpg" , 
-                                    AddressId = addressId[0]},
-
-                new tblCompany {    Id = companyId[1],
-                                    CompanyName = "Company B", 
-                                    UserName = "companyB", 
-                                    Password = GetHash("passwordB"),
-                                    Image = "imageB.jpg", 
-                                    AddressId = addressId[1] 
-                },
-
-                new tblCompany {    Id = companyId[2], 
-                                    CompanyName = "Company C", 
-                                    UserName = "companyC", 
-                                    Password = GetHash("passwordC"), 
-                                    Image = "imageC.jpg", 
-                                    AddressId = addressId[2] 
-                }
-            };
-
-            // Add default data to tblCompany
-            modelBuilder.Entity<tblCompany>().HasData(companies);
-        }
-
-        private void CreateEvents(ModelBuilder modelBuilder)
-        {
+            CreateFriends(modelBuilder);
             
-
-            // Create tblEvent table
-            modelBuilder.Entity<tblEvent>(entity =>
-            {
-                entity.HasKey(e => e.Id).HasName("PK_tblEvent_Id"); 
-
-                entity.ToTable("tblEvent");
-
-                entity.Property(e => e.Id).ValueGeneratedNever();
-                entity.Property(e => e.Description)
-                    .IsRequired()
-                    .HasMaxLength(50)
-                    .IsUnicode(false);
-                entity.Property(e => e.Image)
-                    .IsRequired()
-                    .HasMaxLength(50)
-                    .IsUnicode(false);
-                entity.Property(e => e.Date).HasColumnType("datetime");
-
-                entity.HasOne(d => d.Address)
-               .WithMany(p => p.Events)
-               .HasForeignKey(d => d.AddressId)
-               .OnDelete(DeleteBehavior.ClientSetNull)
-               .HasConstraintName("fk_tblEvent_AddressId");
-
-                entity.HasOne(d => d.User)
-              .WithMany(p => p.Events)
-              .HasForeignKey(d => d.UserId)
-              .OnDelete(DeleteBehavior.ClientSetNull)
-              .HasConstraintName("fk_tblEvent_UserId");
-
-
-                entity.HasOne(d => d.Company)
-               .WithMany(p => p.Events)
-               .HasForeignKey(d => d.CompanyId)
-               .OnDelete(DeleteBehavior.ClientSetNull)
-               .HasConstraintName("fk_tblEvent_CompanyId");
-
-                entity.HasOne(d => d.Hobby)
-               .WithMany(p => p.Events)
-               .HasForeignKey(d => d.HobbyId)
-               .OnDelete(DeleteBehavior.ClientSetNull)
-               .HasConstraintName("fk_tblEvent_HobbyId");
-
-            });
-
-
-            // Implement default data for tblEvents
-            List<tblEvent> events = new List<tblEvent>
-            {
-                new tblEvent {  Id = Guid.NewGuid(),  
-                                AddressId = addressId[0], 
-                                UserId= userId[0], 
-                                CompanyId = companyId[0], 
-                                HobbyId = hobbyId[0],
-                                Description = "Event A",
-                                Image = "imageA.jpg",  
-                                Date = new DateTime(2024, 2, 15) },
-
-                 new tblEvent {  Id = Guid.NewGuid(),
-                                AddressId = addressId[1],
-                                UserId= userId[1],
-                                CompanyId = companyId[1],
-                                HobbyId = hobbyId[1],
-                                Description = "Event B",
-                                Image = "imageB.jpg",
-                                Date = new DateTime(2024, 2, 15) },
-
-                  new tblEvent {  Id = Guid.NewGuid(),
-                                AddressId = addressId[2],
-                                UserId= userId[2],
-                                CompanyId = companyId[2],
-                                HobbyId = hobbyId[2],
-                                Description = "Event C",
-                                Image = "imageC.jpg",
-                                Date = new DateTime(2024, 2, 15) }
-            };
-
-            // Add default data to tblEvents
-            modelBuilder.Entity<tblEvent>().HasData(events);
+            CreateUserHobbies(modelBuilder);
+            
+            CreateEvents(modelBuilder);
         }
-
-        private void CreateFriends(ModelBuilder modelBuilder)
-        {
-
-            // Create tblFriend table
-            modelBuilder.Entity<tblFriend>(entity =>
-            {
-                entity.HasKey(e => e.Id).HasName("PK_tblFriend_Id");
-
-
-                entity.ToTable("tblFriend");
-
-                entity.Property(e => e.Id).ValueGeneratedNever();
-
-
-                entity.HasOne(d => d.User)
-             .WithMany(p => p.Friends)
-             .HasForeignKey(d => d.UserId)
-             .OnDelete(DeleteBehavior.ClientSetNull)
-             .HasConstraintName("fk_tblFriend_UserId");
-
-                entity.HasOne(d => d.Company)
-              .WithMany(p => p.Friends)
-              .HasForeignKey(d => d.CompanyId)
-              .OnDelete(DeleteBehavior.ClientSetNull)
-              .HasConstraintName("fk_tblFriend_CompanyId");
-
-
-            });
-
-            // Implement default data for tblFriends
-            // Todo: Add default data to tblFriends
-
-            List<tblFriend> friends = new List<tblFriend>
-            {
-            new tblFriend
-            {
-                Id = Guid.NewGuid(),
-                UserId = userId[0],
-                CompanyId = companyId[0],
-            },
-
-            new tblFriend
-            {
-                Id = Guid.NewGuid(),
-                UserId = userId[1],
-                CompanyId = companyId[1],
-            },
-
-            new tblFriend
-            {
-                Id = Guid.NewGuid(),
-                UserId = userId[2],
-                CompanyId = companyId[2],
-            }
-
-            };
-
-            // Add default data to tblFriends
-
-            modelBuilder.Entity<tblFriend>().HasData(friends);
-
-        }
-
         private void CreateHobbies(ModelBuilder modelBuilder)
         {
             for (int i = 0; i < hobbyId.Length; i++)
@@ -415,6 +159,49 @@ namespace TheHobbyHub.PL.Data
             modelBuilder.Entity<tblHobby>().HasData(hobbies);
 
         }
+        private void CreateAddresses(ModelBuilder modelBuilder)
+        {
+            for (int i = 0; i < addressId.Length; i++)
+                addressId[i] = Guid.NewGuid();
+
+
+            // Create tblAddress table
+            modelBuilder.Entity<tblAddress>(entity =>
+            {
+                entity.HasKey(e => e.Id).HasName("PK_tblAddress_Id");
+
+                entity.ToTable("tblAddress");
+
+                entity.Property(e => e.Id).ValueGeneratedNever();
+                entity.Property(e => e.Address)
+                    .IsRequired()
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
+                entity.Property(e => e.City)
+                    .IsRequired()
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
+                entity.Property(e => e.State)
+                    .IsRequired()
+                    .HasMaxLength(5)
+                    .IsUnicode(false);
+                entity.Property(e => e.Zip)
+                    .IsRequired()
+                    .HasMaxLength(12)
+                    .IsUnicode(false);
+            });
+
+            // Implement default data for tblAddress
+            List<tblAddress> addresses = new List<tblAddress>
+            {
+                new tblAddress { Id = addressId[0], Address = "123 Main St", City = "Anytown", State = "CA", Zip = "12345" },
+                new tblAddress { Id = addressId[1], Address = "456 Elm St", City = "Othertown", State = "NY", Zip = "54321" },
+                new tblAddress { Id = addressId[2], Address = "789 Oak St", City = "Somewhere", State = "TX", Zip = "67890" }
+            };
+
+            // Add default data to tblAddress
+            modelBuilder.Entity<tblAddress>().HasData(addresses);
+        }
 
         private void CreateUsers(ModelBuilder modelBuilder)
         {
@@ -462,13 +249,13 @@ namespace TheHobbyHub.PL.Data
 
             List<tblUser> users = new List<tblUser>
             {
-                new tblUser { Id = userId[0],  
-                              FirstName = "Alex", 
-                              LastName = "Rosas", 
-                              Email = "Alexr@gmail.com", 
-                              UserName = "Arosas", 
-                              Image = "image.jpg", 
-                              PhoneNumber ="2627459097", 
+                new tblUser { Id = userId[0],
+                              FirstName = "Alex",
+                              LastName = "Rosas",
+                              Email = "Alexr@gmail.com",
+                              UserName = "Arosas",
+                              Image = "image.jpg",
+                              PhoneNumber ="2627459097",
                               Password = GetHash("test")},
 
               new tblUser { Id = userId[1],
@@ -493,6 +280,136 @@ namespace TheHobbyHub.PL.Data
 
             // Add default data to tblUsers
             modelBuilder.Entity<tblUser>().HasData(users);
+        }
+
+        private void CreateCompanies(ModelBuilder modelBuilder)
+        {
+
+            for (int i = 0; i < companyId.Length; i++)
+                companyId[i] = Guid.NewGuid();
+
+            // Create tblCompany table
+            modelBuilder.Entity<tblCompany>(entity =>
+            {
+                entity.HasKey(e => e.Id).HasName("PK_tblCompany_Id");
+
+                entity.ToTable("tblCompany");
+
+                entity.Property(e => e.Id).ValueGeneratedNever();
+                entity.Property(e => e.CompanyName)
+                    .IsRequired()
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
+                entity.Property(e => e.Image).IsUnicode(false);
+                entity.Property(e => e.Password)
+                    .IsRequired()
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
+                entity.Property(e => e.UserName)
+                    .IsRequired()
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
+
+                entity.HasOne(d => d.Address)
+               .WithMany(p => p.Companies)
+               .HasForeignKey(d => d.AddressId)
+               .OnDelete(DeleteBehavior.ClientSetNull)
+               .HasConstraintName("fk_tblCompany_AddressId");
+
+            });
+
+            // Implement default data for tblCompany
+            List<tblCompany> companies = new List<tblCompany>
+            {
+                new tblCompany {    Id = companyId[0], 
+                                    CompanyName = "Company A", 
+                                    UserName = "copanyA", 
+                                    Password = GetHash("passwordA"), 
+                                    Image = "imageA.jpg" , 
+                                    AddressId = addressId[0]},
+
+                new tblCompany {    Id = companyId[1],
+                                    CompanyName = "Company B", 
+                                    UserName = "companyB", 
+                                    Password = GetHash("passwordB"),
+                                    Image = "imageB.jpg", 
+                                    AddressId = addressId[1] 
+                },
+
+                new tblCompany {    Id = companyId[2], 
+                                    CompanyName = "Company C", 
+                                    UserName = "companyC", 
+                                    Password = GetHash("passwordC"), 
+                                    Image = "imageC.jpg", 
+                                    AddressId = addressId[2] 
+                }
+            };
+
+            // Add default data to tblCompany
+            modelBuilder.Entity<tblCompany>().HasData(companies);
+        }
+
+        private void CreateFriends(ModelBuilder modelBuilder)
+        {
+
+            // Create tblFriend table
+            modelBuilder.Entity<tblFriend>(entity =>
+            {
+                entity.HasKey(e => e.Id).HasName("PK_tblFriend_Id");
+
+
+                entity.ToTable("tblFriend");
+
+                entity.Property(e => e.Id).ValueGeneratedNever();
+
+
+                entity.HasOne(d => d.User)
+             .WithMany(p => p.Friends)
+             .HasForeignKey(d => d.UserId)
+             .OnDelete(DeleteBehavior.ClientSetNull)
+             .HasConstraintName("fk_tblFriend_UserId");
+
+                entity.HasOne(d => d.Company)
+              .WithMany(p => p.Friends)
+              .HasForeignKey(d => d.CompanyId)
+              .OnDelete(DeleteBehavior.ClientSetNull)
+              .HasConstraintName("fk_tblFriend_CompanyId");
+
+
+            });
+
+            // Implement default data for tblFriends
+            // Todo: Add default data to tblFriends
+
+            List<tblFriend> friends = new List<tblFriend>
+            {
+            new tblFriend
+            {
+                Id = Guid.NewGuid(),
+                UserId = userId[0],
+                CompanyId = companyId[0],
+            },
+
+            new tblFriend
+            {
+                Id = Guid.NewGuid(),
+                UserId = userId[1],
+                CompanyId = companyId[1],
+            },
+
+            new tblFriend
+            {
+                Id = Guid.NewGuid(),
+                UserId = userId[2],
+                CompanyId = companyId[2],
+            }
+
+            };
+
+            // Add default data to tblFriends
+
+            modelBuilder.Entity<tblFriend>().HasData(friends);
+
         }
 
         private void CreateUserHobbies(ModelBuilder modelBuilder)
@@ -548,6 +465,91 @@ namespace TheHobbyHub.PL.Data
 
             // Add default data to tblUserHobbies
             modelBuilder.Entity<tblUserHobby>().HasData(userHobbies);
+        }
+
+        private void CreateEvents(ModelBuilder modelBuilder)
+        {
+
+
+            // Create tblEvent table
+            modelBuilder.Entity<tblEvent>(entity =>
+            {
+                entity.HasKey(e => e.Id).HasName("PK_tblEvent_Id");
+
+                entity.ToTable("tblEvent");
+
+                entity.Property(e => e.Id).ValueGeneratedNever();
+                entity.Property(e => e.Description)
+                    .IsRequired()
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
+                entity.Property(e => e.Image)
+                    .IsRequired()
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
+                entity.Property(e => e.Date).HasColumnType("datetime");
+
+                entity.HasOne(d => d.Address)
+               .WithMany(p => p.Events)
+               .HasForeignKey(d => d.AddressId)
+               .OnDelete(DeleteBehavior.ClientSetNull)
+               .HasConstraintName("fk_tblEvent_AddressId");
+
+                entity.HasOne(d => d.User)
+              .WithMany(p => p.Events)
+              .HasForeignKey(d => d.UserId)
+              .OnDelete(DeleteBehavior.ClientSetNull)
+              .HasConstraintName("fk_tblEvent_UserId");
+
+
+                entity.HasOne(d => d.Company)
+               .WithMany(p => p.Events)
+               .HasForeignKey(d => d.CompanyId)
+               .OnDelete(DeleteBehavior.ClientSetNull)
+               .HasConstraintName("fk_tblEvent_CompanyId");
+
+                entity.HasOne(d => d.Hobby)
+               .WithMany(p => p.Events)
+               .HasForeignKey(d => d.HobbyId)
+               .OnDelete(DeleteBehavior.ClientSetNull)
+               .HasConstraintName("fk_tblEvent_HobbyId");
+
+            });
+
+
+            // Implement default data for tblEvents
+            List<tblEvent> events = new List<tblEvent>
+            {
+                new tblEvent {  Id = Guid.NewGuid(),
+                                AddressId = addressId[0],
+                                UserId= userId[0],
+                                CompanyId = companyId[0],
+                                HobbyId = hobbyId[0],
+                                Description = "Event A",
+                                Image = "imageA.jpg",
+                                Date = new DateTime(2024, 2, 15) },
+
+                 new tblEvent {  Id = Guid.NewGuid(),
+                                AddressId = addressId[1],
+                                UserId= userId[1],
+                                CompanyId = companyId[1],
+                                HobbyId = hobbyId[1],
+                                Description = "Event B",
+                                Image = "imageB.jpg",
+                                Date = new DateTime(2024, 2, 15) },
+
+                  new tblEvent {  Id = Guid.NewGuid(),
+                                AddressId = addressId[2],
+                                UserId= userId[2],
+                                CompanyId = companyId[2],
+                                HobbyId = hobbyId[2],
+                                Description = "Event C",
+                                Image = "imageC.jpg",
+                                Date = new DateTime(2024, 2, 15) }
+            };
+
+            // Add default data to tblEvents
+            modelBuilder.Entity<tblEvent>().HasData(events);
         }
 
 
