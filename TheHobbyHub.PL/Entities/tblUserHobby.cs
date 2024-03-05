@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-#nullable disable
+
 namespace TheHobbyHub.PL.Entities
 {
     public class tblUserHobby : IEntity

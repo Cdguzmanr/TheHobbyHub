@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-#nullable disable
+
 namespace TheHobbyHub.PL.Entities
 {
     public class tblUser : IEntity
@@ -20,17 +20,12 @@ namespace TheHobbyHub.PL.Entities
         public string PhoneNumber { get; set; } = null!;
 
         public string Password { get; set; } = null!;
-
-        // public Guid EventId { get; set; }
-
-        //public virtual tblEvent Events { get; set; }
-        public virtual ICollection<tblFriendUser> FriendUsers { get; set; }
-        public virtual ICollection<tblEventUser> EventUsers { get; set; }
         public virtual ICollection<tblEvent> Events { get; set; }
 
-       // public virtual ICollection<tblFriend> UFriends { get; set; }
+        public virtual ICollection<tblFriend> Friends { get; set; }
 
         public virtual ICollection<tblUserHobby> UserHobbies { get; set; }
     }
 
 }
+

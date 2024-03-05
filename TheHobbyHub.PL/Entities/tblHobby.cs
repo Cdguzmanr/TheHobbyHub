@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-#nullable disable
+
 namespace TheHobbyHub.PL.Entities
 {
     public class tblHobby : IEntity
@@ -15,11 +15,10 @@ namespace TheHobbyHub.PL.Entities
 
         public string Image { get; set; } = null!;
 
-        //public virtual ICollection<tblEvent> Events { get; set; }
+        public virtual ICollection<tblEvent> Events { get; set; }
 
         public virtual ICollection<tblUserHobby> UserHobbies { get; set; }
-
-        public virtual ICollection<tblEventHobby> EventHobbies { get; set; }
     }
-
 }
+
+
