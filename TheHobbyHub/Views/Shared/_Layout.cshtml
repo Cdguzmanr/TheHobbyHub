@@ -44,7 +44,7 @@
 
                     <!-- Login  Display -->
 
-                    @*
+                    @**
                     <ul class="navbar-nav">
 
                         <!-- Generate the users -->
@@ -75,8 +75,15 @@
                             <a class="nav-link text-light">@fullname</a>
                         </li>
                     </ul>
-                    *@
+                    @**@
 
+                    
+                    <!-- Provisional Login link (only for stetic purposes -->
+                    <a asp-controller="User" asp-action="Login" class="nav-link text-dark">Login</a>
+
+                    <!-- User Icon -->
+                    <a asp-controller="User" asp-action="Login" class="nav-link"><img src="/images/noUserIcon.png" alt="Favicon" width="30" height="30"></a>
+                    
                 </div>
             </div>
         </nav>
