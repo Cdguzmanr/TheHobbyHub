@@ -181,14 +181,16 @@ namespace TheHobbyHub.PL.Data
                                     UserName = "companyB", 
                                     Password = GetHash("passwordB"),
                                     Image = "imageB.jpg", 
-                                    AddressId = addressId[1] },
+                                    AddressId = addressId[1] 
+                },
 
                 new tblCompany {    Id = companyId[2], 
                                     CompanyName = "Company C", 
                                     UserName = "companyC", 
                                     Password = GetHash("passwordC"), 
                                     Image = "imageC.jpg", 
-                                    AddressId = addressId[2] }
+                                    AddressId = addressId[2] 
+                }
             };
 
             // Add default data to tblCompany
