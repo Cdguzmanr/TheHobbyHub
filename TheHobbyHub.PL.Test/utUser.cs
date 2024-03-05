@@ -49,15 +49,15 @@ namespace TheHobbyHub.PL.Test
         [TestMethod]
         public void DeleteTest()
         {
-            tblUser row = base.LoadTest().FirstOrDefault();
+            tblUser row = base.LoadTest().FirstOrDefault(x => x.LastName == "Other");
 
             if (row != null)
             {
-                dc.tblUsers.Remove(row);
                 int rowsAffected = DeleteTest(row);
 
                 Assert.IsTrue(rowsAffected == 1);
             }
+
 
         }
     }
