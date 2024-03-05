@@ -10,7 +10,7 @@ namespace TheHobbyHub.PL.Test
         protected IDbContextTransaction transaction;
         private IConfigurationRoot _configuration;
         private DbContextOptions<HobbyHubEntities> options;
-
+        
         public utBase()
         {
             var builder = new ConfigurationBuilder()
