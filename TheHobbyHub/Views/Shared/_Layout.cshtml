@@ -1,4 +1,7 @@
-﻿<!DOCTYPE html>
+﻿@using Microsoft.AspNetCore.Http;
+@inject IHttpContextAccessor HttpContextAccessor
+
+<!DOCTYPE html> 
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -10,7 +13,7 @@
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-gradient-orange border-bottom box-shadow mb-3">
             <div class="container-fluid">
                 <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">TheHobbyHub</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
@@ -38,11 +41,47 @@
                             <a class="nav-link text-dark" asp-area="" asp-controller="Hobby" asp-action="Index">Hobbies</a>
                         </li>
                     </ul>
+
+                    <!-- Login  Display -->
+
+                    @*
+                    <ul class="navbar-nav">
+
+                        <!-- Generate the users -->
+                        @inject UserManager UserManager
+
+                        @{
+                            UserManager.Seed();
+                        }
+
+                        @{                       
+                            var fullname = HttpContextAccessor.HttpContext?.Session.GetString("fullname");
+
+                            if (fullname != null) fullname = fullname.Replace("\"", "");
+                        }
+
+                        <li class="nav-item">
+                            @if (fullname == null || fullname == "")
+                            {
+                                <a asp-controller="User" asp-action="Login" class="nav-link text-light">Login</a>
+                            }
+                            else
+                            {
+                                <a asp-controller="User" asp-action="Logout" class="nav-link text-light">Logout |</a>
+                            }
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link text-light">@fullname</a>
+                        </li>
+                    </ul>
+                    *@
+
                 </div>
             </div>
         </nav>
     </header>
-    <div class="container">
+    <div class="container full-size"> <!-- full-size class added -->
         <main role="main" class="pb-3">
             @RenderBody()
         </main>
@@ -59,3 +98,16 @@
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>
+
+<!-- JavaScript for Image box -->
+<script type="text/javascript">
+    function off() {
+        console.log('Off');
+        document.getElementById("overlay").style.display = "none";
+    }
+    function on(picture) {
+        console.log('On');
+        document.getElementById("overlay").style.display = "block";
+        document.getElementById("output").src = picture;
+    }
+</script>
