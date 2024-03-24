@@ -32,6 +32,13 @@ namespace TheHobbyHub.BL
     // ------------------------------------------------- Static methods ------------------------------------------------- //
     public class UserManager
     {
+/*        public UserManager(DbContextOptions<HobbyHubEntities> options) : base(options)
+        {
+
+        }*/
+
+
+
         // We need the hability to hash something (password). -- This is the only place on code where hash is used
 
         public static string GetHash(string password)
