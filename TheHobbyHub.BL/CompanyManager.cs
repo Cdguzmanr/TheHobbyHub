@@ -1,5 +1,181 @@
-﻿namespace TheHobbyHub.BL
+﻿using System.IO;
+using TheHobbyHub.BL.Models;
+
+namespace TheHobbyHub.BL
 {
+    public class CompanyManager
+    {
+        public CompanyManager(DbContextOptions<HobbyHubEntities> options)
+        {
+            
+        }
+   
+
+        
+
+        public static int Insert(Company company, bool rollback = false) // Id by reference
+        {
+            try
+            {
+                int results = 0;
+                using (HobbyHubEntities dc = new HobbyHubEntities())
+                {
+                    IDbContextTransaction transaction = null;
+                    if (rollback) transaction = dc.Database.BeginTransaction();
+
+
+
+                    // Create a new row and fill in the data
+                    tblCompany row = new tblCompany();
+                    row.Id = Guid.NewGuid();
+                    row.CompanyName = company.CompanyName;
+                    row.UserName = company.UserName;
+                    row.Password = company.Password;
+                    row.Image = company.Image;
+                    row.AddressId = company.AddressId;
+                    
+
+                    // IMPORTANT - BACK FILL THE ID 
+                    company.Id = row.Id;
+
+                    // Add the row
+                    dc.tblCompanies.Add(row);
+                    results = dc.SaveChanges();
+
+                    if (rollback) transaction.Rollback();
+                }
+                return results;
+            }
+            catch (Exception) { throw; }
+        }
+
+        public static int Update(Company company, bool rollback = false)
+        {
+            try
+            {
+                int results = 0;
+                using (HobbyHubEntities dc = new HobbyHubEntities())
+                {
+                    IDbContextTransaction transaction = null;
+                    if (rollback) transaction = dc.Database.BeginTransaction();
+
+                    // Get the row that we are trying to update
+                    tblCompany entity = dc.tblCompanies.FirstOrDefault(s => s.Id == company.Id);
+                    if (entity != null)
+                    {
+                        entity.CompanyName = company.CompanyName;
+                        entity.UserName = company.UserName;
+                        entity.Password = company.Password;
+                        entity.Image = company.Image;
+                        entity.AddressId = company.AddressId;
+
+                        results = dc.SaveChanges();
+                    }
+                    else
+                    {
+                        throw new Exception("Row does not exist");
+                    }
+
+                    if (rollback) transaction.Rollback();
+                }
+
+                return results;
+            }
+            catch (Exception) { throw; }
+        }
+
+        public static Company LoadById(Guid id)
+        {
+            try
+            {
+                using (HobbyHubEntities dc = new HobbyHubEntities())
+                {
+                    tblCompany entity = dc.tblCompanies.FirstOrDefault(s => s.Id == id);
+                    if (entity != null)
+                    {
+                        return new Company
+                        {
+                            Id = entity.Id,
+                            CompanyName = entity.CompanyName,
+                            UserName = entity.UserName,
+                            Password = entity.Password,
+                            Image = entity.Image,
+                            AddressId = entity.AddressId,
+                    };
+                    }
+                    else { throw new Exception(); }
+                }
+            }
+            catch (Exception) { throw; }
+        }
+
+        public static List<Company> Load()
+        {
+            try
+            {
+                List<Company> list = new List<Company>();
+                using (HobbyHubEntities dc = new HobbyHubEntities())
+                {
+                    // Load the rows from the database and add them to the list
+                    dc.tblCompanies
+                        .ToList()
+                        .ForEach(company => list.Add(new Company
+                        {
+                            Id = company.Id,
+                            CompanyName = company.CompanyName,
+                            UserName = company.UserName,
+                            Password = company.Password,
+                            Image = company.Image,
+                            AddressId = company.AddressId,
+                        }));
+
+                }
+                return list;
+            }
+            catch (Exception) { throw; }
+        }
+
+        public static int Delete(Guid id, bool rollback = false)
+        {
+            try
+            {
+                int results = 0;
+                using (HobbyHubEntities dc = new())
+                {
+                    IDbContextTransaction transaction = null;
+                    if (rollback) transaction = dc.Database.BeginTransaction();
+
+                    // Get the row that we are trying to update
+                    tblCompany entity = dc.tblCompanies.FirstOrDefault(s => s.Id == id);
+                    if (entity != null)
+                    {
+                        dc.tblCompanies.Remove(entity);
+
+                        results = dc.SaveChanges();
+                    }
+                    else
+                    {
+                        throw new Exception("Row does not exist");
+                    }
+                    if (rollback) transaction.Rollback();
+                }
+                return results;
+            }
+            catch (Exception) { throw; }
+        }
+    }
+}
+
+
+
+
+
+
+
+
+
+    // -------------------------- Static class - no need to instantiate --------------------------------------------------------
+    /**
     public class CompanyManager : GenericManager<tblCompany>
     {
         public CompanyManager(DbContextOptions<HobbyHubEntities> options) : base(options)
@@ -164,3 +340,5 @@
 
     }
 }
+    /**/
+

@@ -3,8 +3,13 @@ using TheHobbyHub.PL.Data;
 
 namespace TheHobbyHub.UI.Controllers
 {
-    public class AddressController : GenericController<Address>
+    public class AddressController : Controller
     {
-        public AddressController(HttpClient httpClient) : base(httpClient) { }
+
+        public IActionResult Index()
+        {
+
+            return View();
+        }
     }
 }

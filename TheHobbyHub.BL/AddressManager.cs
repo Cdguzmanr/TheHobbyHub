@@ -1,120 +1,29 @@
-﻿namespace TheHobbyHub.BL
+﻿using Microsoft.EntityFrameworkCore;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+
+namespace TheHobbyHub.BL
 {
-    public class AddressManager : GenericManager<tblAddress>
+    public static class AddressManager
     {
-        public AddressManager(DbContextOptions<HobbyHubEntities> options) : base(options)
-        {
-
-        }
-
-        public int Insert(Address address, bool rollback = false)
+        public static int Insert(Address address, DbContextOptions<HobbyHubEntities> options, bool rollback = false)
         {
             try
             {
-                try
+                using (var dbContext = new HobbyHubEntities(options))
                 {
-                    tblAddress row = new tblAddress();
-                    row.Id = Guid.NewGuid();
-                    row.Address = address.PostalAddress;
-                    row.City = address.City;
-                    row.Zip = address.Zip;
-                    row.State = address.State;
-                    return base.Insert(row, rollback);
-                }
-                catch (Exception ex)
-                {
-                    throw ex;
-                }
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-        }
-        public int Update(Address address, bool rollback = false)
-        {
-            try
-            {
-                try
-                {
-                    return base.Update(new tblAddress
+                    tblAddress row = new tblAddress
                     {
-                        Id = address.Id,
+                        Id = Guid.NewGuid(),
                         Address = address.PostalAddress,
                         City = address.City,
-                        State = address.State,
-                        Zip = address.Zip
-
-                    }, rollback);
-                }
-                catch (Exception ex)
-                {
-                    throw ex;
-                }
-
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-        }
-        public int Delete(Guid id, bool rollback = false)
-        {
-            try
-            {
-                return base.Delete(id, rollback);
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-        }
-        public List<Address> Load()
-        {
-            try
-            {
-                List<Address> rows = new List<Address>();
-                base.Load()
-                .ForEach(c => rows.Add(
-                    new Address
-                    {
-                        Id = c.Id,
-                        PostalAddress = c.Address,
-                        City = c.City,
-                        State = c.State,
-                        Zip = c.Zip
-                    }));
-                return rows;
-
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-        }
-        public Address LoadById(Guid id)
-        {
-            try
-            {
-                tblAddress row = base.LoadById(id);
-
-                if (row != null)
-                {
-                    Address Address = new Address
-                    {
-                        Id = row.Id,
-                        PostalAddress = row.Address,
-                        City = row.City,
-                        State = row.State,
-                        Zip = row.Zip
+                        Zip = address.Zip,
+                        State = address.State
                     };
-                    return Address;
+                    dbContext.Set<tblAddress>().Add(row);
+                    return dbContext.SaveChanges();
                 }
-                else
-                {
-                    throw new Exception("Row was not found.");
-                }
-
             }
             catch (Exception ex)
             {
@@ -122,6 +31,109 @@
             }
         }
 
+        public static int Update(Address address, DbContextOptions<HobbyHubEntities> options, bool rollback = false)
+        {
+            try
+            {
+                using (var dbContext = new HobbyHubEntities(options))
+                {
+                    var existingRow = dbContext.Set<tblAddress>().Find(address.Id);
+                    if (existingRow != null)
+                    {
+                        existingRow.Address = address.PostalAddress;
+                        existingRow.City = address.City;
+                        existingRow.Zip = address.Zip;
+                        existingRow.State = address.State;
+                        return dbContext.SaveChanges();
+                    }
+                    else
+                    {
+                        throw new Exception("Row was not found.");
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
 
+        public static int Delete(Guid id, DbContextOptions<HobbyHubEntities> options, bool rollback = false)
+        {
+            try
+            {
+                using (var dbContext = new HobbyHubEntities(options))
+                {
+                    var row = dbContext.Set<tblAddress>().Find(id);
+                    if (row != null)
+                    {
+                        dbContext.Set<tblAddress>().Remove(row);
+                        return dbContext.SaveChanges();
+                    }
+                    else
+                    {
+                        throw new Exception("Row does not exist.");
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public static List<Address> Load(DbContextOptions<HobbyHubEntities> options)
+        {
+            try
+            {
+                using (var dbContext = new HobbyHubEntities(options))
+                {
+                    return dbContext.Set<tblAddress>()
+                        .Select(c => new Address
+                        {
+                            Id = c.Id,
+                            PostalAddress = c.Address,
+                            City = c.City,
+                            State = c.State,
+                            Zip = c.Zip
+                        })
+                        .ToList();
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public static Address LoadById(Guid id, DbContextOptions<HobbyHubEntities> options)
+        {
+            try
+            {
+                using (var dbContext = new HobbyHubEntities(options))
+                {
+                    var row = dbContext.Set<tblAddress>().Find(id);
+                    if (row != null)
+                    {
+                        return new Address
+                        {
+                            Id = row.Id,
+                            PostalAddress = row.Address,
+                            City = row.City,
+                            State = row.State,
+                            Zip = row.Zip
+                        };
+                    }
+                    else
+                    {
+                        throw new Exception("Row was not found.");
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
     }
 }

@@ -10,8 +10,7 @@ internal class Program
         // Add services to the container.
         builder.Services.AddControllersWithViews();
 
-        // Add the ability to access http context
-        builder.Services.AddHttpContextAccessor();
+        // Add session state
         builder.Services.AddSession(options =>
         {
             options.IdleTimeout = TimeSpan.FromSeconds(1000);
@@ -19,17 +18,20 @@ internal class Program
             options.Cookie.IsEssential = true;
         });
 
+        builder.Services.AddHttpContextAccessor();
+
         // TODO: Add the API functionality
         //builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri("https://localhost:7081/api/") }); 
 
 
         // TODO: Delete this DBContext and replace with the one from the Data project or API once it works
+
         // Add connection string to the container
-        /*        builder.Services.AddDbContext<HobbyHubEntities>(options =>
-                {
-                    options.UseSqlServer(builder.Configuration.GetConnectionString("DatabaseConnection"));
-                    options.UseLazyLoadingProxies();
-                });*/
+        builder.Services.AddDbContext<HobbyHubEntities>(options =>
+        {
+            options.UseSqlServer(builder.Configuration.GetConnectionString("DatabaseConnection"));
+            options.UseLazyLoadingProxies();
+        });
 
         var app = builder.Build();
 
