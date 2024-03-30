@@ -63,7 +63,10 @@ namespace TheHobbyHub.BL
             {
                 using (HobbyHubEntities dc = new HobbyHubEntities(options))
                 {
-                    tblUser tblUser = dc.tblUsers.FirstOrDefault(u => u.UserName == user.UserName);
+
+
+                    tblUser tblUser = dc.tblUsers.FirstOrDefault(u => u.UserName.Trim() == user.UserName.Trim());
+
                     if (tblUser == null)
                     {
                         throw new LoginFailureException("User not found.");

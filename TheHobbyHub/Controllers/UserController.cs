@@ -25,11 +25,6 @@ namespace TheHobbyHub.Controllers
 
 
         // User only operations
-        public IActionResult Seed()
-        {
-            UserManager.Seed();
-            return View();
-        }
 
         private void SetUser(User user)
         {
@@ -64,7 +59,9 @@ namespace TheHobbyHub.Controllers
         {
             try
             {
-                bool result = UserManager.Login(user);
+
+
+                bool result = new UserManager(options).Login(user);
                 SetUser(user);
 
                 if (TempData["returnUrl"] != null)
@@ -72,7 +69,7 @@ namespace TheHobbyHub.Controllers
                     return Redirect(TempData["returnUrl"]?.ToString());
                 }
 
-                return RedirectToAction(nameof(Index), "Order"); // ALWAYS Change default re-derict page 
+                return RedirectToAction(nameof(Index), "Hobby"); // ALWAYS Change default re-derict page 
             }
             catch (Exception ex)
             {
