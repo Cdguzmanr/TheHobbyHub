@@ -13,12 +13,18 @@ namespace TheHobbyHub.Controllers
 {
     public class UserController : Controller
     {
-        public IActionResult Index()
+        private readonly DbContextOptions<HobbyHubEntities> options;
+
+        public UserController(DbContextOptions<HobbyHubEntities> options)
         {
-            return View(UserManager.Load());
+            this.options = options;
         }
 
+        // Generalized class name
+        string className = "User";
 
+
+        // User only operations
         public IActionResult Seed()
         {
             UserManager.Seed();
@@ -78,78 +84,102 @@ namespace TheHobbyHub.Controllers
 
 
 
-        // --- Checkpoint 5 ----- //
 
+
+        // Regular CRUD operations 
+        public IActionResult Index()
+        {
+            ViewBag.Title = $"List of {className}";
+            return View(new UserManager(options).Load());
+        }
+        public IActionResult Details(Guid id)
+        {
+            var item = new UserManager(options).LoadById(id);
+            ViewBag.Title = $"{className} details";
+            return View(item);
+        }
         public IActionResult Create()
         {
-            ViewBag.Title = "Create User";
-            /*
-            if (Authenticate.IsAuthenticated(HttpContext))
+            if (Authentication.IsAuthenticated(HttpContext))
+            {
+                ViewBag.Title = $"Create new {className}";
                 return View();
+            }
             else
-                return RedirectToAction("Login", "User", new { returnUrl = UriHelper.GetDisplayUrl(HttpContext.Request) }); // Still need to add "Login" 
-            */
-            return View();
+            {
+                return RedirectToAction("Login", "User", new { returnUrl = UriHelper.GetDisplayUrl(HttpContext.Request) });
+            }
         }
-
         [HttpPost]
         public IActionResult Create(User user)
         {
             try
             {
-                int result = UserManager.Insert(user); // Insert the user in DB
-                SetUser(user); // LogIn with new user 
-
-                return RedirectToAction(nameof(Index)); // Redirect to Index after creating a user
+                int result = new UserManager(options).Insert(user);
+                return RedirectToAction(nameof(Index));
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                ViewBag.Title = "Create User";
-                ViewBag.Error = ex.Message;
-                return View(user);
+
+                throw;
             }
         }
-
         public IActionResult Edit(Guid id)
+        {
+            if (Authentication.IsAuthenticated(HttpContext))
+            {
+                var item = new UserManager(options).LoadById(id);
+                ViewBag.Title = "Edit";
+                return View(item);
+            }
+            else
+            {
+                return RedirectToAction("Login", "User", new { returnUrl = UriHelper.GetDisplayUrl(HttpContext.Request) });
+            }
+
+        }
+        [HttpPost]
+        public IActionResult Edit(Guid id, User user, bool rollback = false)
         {
             try
             {
-                User user = UserManager.LoadById(id);
-                ViewBag.Title = "Edit User";
-
-                if (Authentication.IsAuthenticated(HttpContext))
-                    return View(user);
-                else
-                    return RedirectToAction("Login", "User", new { returnUrl = UriHelper.GetDisplayUrl(HttpContext.Request) }); // Still need to add "Login" 
-
-
+                int result = new UserManager(options).Insert(user, rollback);
+                return RedirectToAction(nameof(Index));
             }
             catch (Exception ex)
             {
-                ViewBag.Title = "Edit User";
+
                 ViewBag.Error = ex.Message;
                 return View();
             }
         }
-
+        public IActionResult Delete(Guid id)
+        {
+            if (Authentication.IsAuthenticated(HttpContext))
+            {
+                var item = new UserManager(options).LoadById(id);
+                ViewBag.Title = $"Delete {className}";
+                return View(item);
+            }
+            else
+            {
+                return RedirectToAction("Login", "User", new { returnUrl = UriHelper.GetDisplayUrl(HttpContext.Request) });
+            }
+        }
         [HttpPost]
-        public IActionResult Edit(User user)
+        public IActionResult Delete(Guid id, User user, bool rollback = false)
         {
             try
             {
-                int result = UserManager.Update(user);
-                SetUser(user);
-
-                return RedirectToAction(nameof(Index)); // Redirect to Order Index after editing a user
+                int result = new UserManager(options).Delete(id, rollback);
+                return RedirectToAction(nameof(Index));
             }
             catch (Exception ex)
             {
-                ViewBag.Title = "Edit User";
+
                 ViewBag.Error = ex.Message;
-                return View(user);
+                return View();
             }
         }
-
     }
-
 }

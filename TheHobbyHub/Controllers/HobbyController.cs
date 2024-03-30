@@ -1,5 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using TheHobbyHub.PL.Data;
+using TheHobbyHub.BL;
 
 namespace TheHobbyHub.UI.Controllers
 {
@@ -12,22 +12,26 @@ namespace TheHobbyHub.UI.Controllers
             this.options = options;
         }
 
+
+        // Generalized class name
+        string className = "Hobby";
+
         public IActionResult Index()
         {
-            ViewBag.Title = "List of Hobbies";
+            ViewBag.Title = $"List of {className}";
             return View(new HobbyManager(options).Load());
         }
         public IActionResult Details(Guid id)
         {
             var item = new HobbyManager(options).LoadById(id);
-            ViewBag.Title = "Details";
+            ViewBag.Title = $"{className} details";
             return View(item);
         }
         public IActionResult Create()
         {
             if (Authentication.IsAuthenticated(HttpContext))
             {
-                ViewBag.Title = "Create";
+                ViewBag.Title = $"Create new {className}";
                 return View();
             }
             else
@@ -83,7 +87,7 @@ namespace TheHobbyHub.UI.Controllers
             if (Authentication.IsAuthenticated(HttpContext))
             {
                 var item = new HobbyManager(options).LoadById(id);
-                ViewBag.Title = "Delete";
+                ViewBag.Title = $"Delete {className}";
                 return View(item);
             }
             else

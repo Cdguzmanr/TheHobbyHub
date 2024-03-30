@@ -7,7 +7,7 @@ namespace TheHobbyHub.PL.Entities
     {
         public Guid Id { get; set; }
 
-        public string Address { get; set; } = null!;
+        public string PostalAddress { get; set; } = null!;
 
         public string City { get; set; } = null!;
 

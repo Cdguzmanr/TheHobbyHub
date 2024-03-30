@@ -1,4 +1,7 @@
-﻿namespace ThehobbyHub.BL
+﻿using Mono.TextTemplating;
+using TheHobbyHub.BL.Models;
+
+namespace TheHobbyHub.BL
 {
     public class FriendsManager : GenericManager<tblFriend>
     {
@@ -7,46 +10,32 @@
 
         }
 
-        public int Insert(Friends Friends, bool rollback = false)
+        public int Insert(Friends friend, bool rollback = false)
         {
             try
             {
-                try
-                {
-                    tblFriend row = new tblFriend();
-                    row.Id = Guid.NewGuid();
-                    row.UserId = Friends.UserId;
-                    row.CompanyId = Friends.CompanyId;
-                    return base.Insert(row, rollback);
-                }
-                catch (Exception ex)
-                {
-                    throw ex;
-                }
+                tblFriend row = new tblFriend();
+                row.Id = Guid.NewGuid();
+                row.UserId = friend.UserId;
+                row.CompanyId = friend.CompanyId;
+
+                return base.Insert(row, rollback);
             }
             catch (Exception ex)
             {
                 throw ex;
             }
         }
-        public int Update(Friends company, bool rollback = false)
+        public int Update(Friends friend, bool rollback = false)
         {
             try
             {
-                try
+                return base.Update(new tblFriend
                 {
-                    return base.Update(new tblFriend
-                    {
-                        Id = company.Id,
-                        UserId = company.UserId,
-                        CompanyId = company.CompanyId,
-                    }, rollback);
-                }
-                catch (Exception ex)
-                {
-                    throw ex;
-                }
-
+                    Id = friend.Id,
+                    UserId = friend.UserId,
+                    CompanyId = friend.CompanyId,
+                }, rollback);
             }
             catch (Exception ex)
             {
@@ -70,12 +59,12 @@
             {
                 List<Friends> rows = new List<Friends>();
                 base.Load()
-                .ForEach(c => rows.Add(
+                .ForEach(friend => rows.Add(
                     new Friends
                     {
-                        Id = c.Id,
-                        UserId = c.UserId,
-                        CompanyId = c.CompanyId,
+                        Id = friend.Id,
+                        UserId = friend.UserId,
+                        CompanyId = friend.CompanyId,
                     }));
                 return rows;
 
@@ -93,13 +82,13 @@
 
                 if (row != null)
                 {
-                    Friends company = new Friends
+                    Friends friend = new Friends
                     {
                         Id = row.Id,
                         UserId = row.UserId,
                         CompanyId = row.CompanyId,
                     };
-                    return company;
+                    return friend;
                 }
                 else
                 {
@@ -112,8 +101,6 @@
                 throw ex;
             }
         }
-
-        //Possibly add LoadBy UserId & CompanyId
 
     }
 }

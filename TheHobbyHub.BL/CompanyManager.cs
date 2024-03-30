@@ -8,10 +8,7 @@ namespace TheHobbyHub.BL
         public CompanyManager(DbContextOptions<HobbyHubEntities> options)
         {
             
-        }
-   
-
-        
+        }         
 
         public static int Insert(Company company, bool rollback = false) // Id by reference
         {

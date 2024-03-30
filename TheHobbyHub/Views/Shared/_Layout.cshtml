@@ -35,7 +35,7 @@
                             <a class="nav-link text-dark" asp-area="" asp-controller="Event" asp-action="Index">Events</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Friend" asp-action="Index">Friends</a>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Friends" asp-action="Index">Friends</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Hobby" asp-action="Index">Hobbies</a>
@@ -57,7 +57,7 @@
                         *@
 
                         @{
-                            //TheHobbyHub.BL.UserManager.Seed();
+                            TheHobbyHub.BL.UserManager.Seed();
 
                             var fullname = HttpContextAccessor.HttpContext?.Session.GetString("fullname");
 

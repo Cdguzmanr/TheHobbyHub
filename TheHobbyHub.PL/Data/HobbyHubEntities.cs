@@ -173,7 +173,7 @@ namespace TheHobbyHub.PL.Data
                 entity.ToTable("tblAddress");
 
                 entity.Property(e => e.Id).ValueGeneratedNever();
-                entity.Property(e => e.Address)
+                entity.Property(e => e.PostalAddress)
                     .IsRequired()
                     .HasMaxLength(50)
                     .IsUnicode(false);
@@ -194,9 +194,9 @@ namespace TheHobbyHub.PL.Data
             // Implement default data for tblAddress
             List<tblAddress> addresses = new List<tblAddress>
             {
-                new tblAddress { Id = addressId[0], Address = "123 Main St", City = "Anytown", State = "CA", Zip = "12345" },
-                new tblAddress { Id = addressId[1], Address = "456 Elm St", City = "Othertown", State = "NY", Zip = "54321" },
-                new tblAddress { Id = addressId[2], Address = "789 Oak St", City = "Somewhere", State = "TX", Zip = "67890" }
+                new tblAddress { Id = addressId[0], PostalAddress = "123 Main St", City = "Anytown", State = "CA", Zip = "12345" },
+                new tblAddress { Id = addressId[1], PostalAddress = "456 Elm St", City = "Othertown", State = "NY", Zip = "54321" },
+                new tblAddress { Id = addressId[2], PostalAddress = "789 Oak St", City = "Somewhere", State = "TX", Zip = "67890" }
             };
 
             // Add default data to tblAddress

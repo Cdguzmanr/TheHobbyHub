@@ -1,4 +1,7 @@
-﻿namespace TheHobbyHub.BL
+﻿using Mono.TextTemplating;
+using TheHobbyHub.BL.Models;
+
+namespace TheHobbyHub.BL
 {
     public class EventManager : GenericManager<tblEvent>
     {
@@ -7,57 +10,43 @@
 
         }
 
-        public int Insert(Event Event, bool rollback = false)
+        public int Insert(Event eventt, bool rollback = false)
         {
             try
             {
-                try
-                {
-                    tblEvent row = new tblEvent();
-                    row.Id = Guid.NewGuid();
-                    row.UserId = Event.UserId;
-                    row.CompanyId = Event.CompanyId;
-                    row.HobbyId = Event.HobbyId;
-                    row.Description = Event.Description;
-                    row.Image = Event.Image;
-                    row.AddressId = Event.AddressId;
-                    row.Date = Event.Date;
-                    return base.Insert(row, rollback);
-                }
-                catch (Exception ex)
-                {
-                    throw ex;
-                }
+                tblEvent row = new tblEvent();
+                row.UserId = eventt.UserId;
+                row.CompanyId = eventt.CompanyId;
+                row.HobbyId = eventt.HobbyId;
+                row.Description = eventt.Description;
+                row.Image = eventt.Image;
+                row.AddressId = eventt.AddressId;
+                row.Date = eventt.Date;
+
+
+                return base.Insert(row, rollback);
             }
             catch (Exception ex)
             {
                 throw ex;
             }
         }
-        public int Update(Event Event, bool rollback = false)
+        public int Update(Event eventt, bool rollback = false)
         {
             try
             {
-                try
+                return base.Update(new tblEvent
                 {
-                    return base.Update(new tblEvent
-                    {
-                        Id = Event.Id,
-                        Description = Event.Description,
-                        CompanyId = Event.CompanyId,
-                        UserId = Event.UserId,
-                        HobbyId = Event.HobbyId,
-                        Image = Event.Image,
-                        AddressId = Event.AddressId,
-                        Date = Event.Date
+                    Id = eventt.Id,
+                    UserId = eventt.UserId,
+                    CompanyId = eventt.CompanyId,
+                    HobbyId = eventt.HobbyId,
+                    Description = eventt.Description,
+                    Image = eventt.Image,
+                    AddressId = eventt.AddressId,
+                    Date = eventt.Date,
 
-                    }, rollback);
-                }
-                catch (Exception ex)
-                {
-                    throw ex;
-                }
-
+            }, rollback);
             }
             catch (Exception ex)
             {
@@ -81,17 +70,17 @@
             {
                 List<Event> rows = new List<Event>();
                 base.Load()
-                .ForEach(c => rows.Add(
+                .ForEach(eventt => rows.Add(
                     new Event
                     {
-                        Id = c.Id,
-                        UserId = c.UserId,
-                        CompanyId = c.CompanyId,
-                        HobbyId = c.HobbyId,
-                        Date = c.Date,
-                        Description = c.Description,
-                        Image = c.Image,
-                        AddressId = c.AddressId
+                        Id = eventt.Id,
+                        UserId = eventt.UserId,
+                        CompanyId = eventt.CompanyId,
+                        HobbyId = eventt.HobbyId,
+                        Description = eventt.Description,
+                        Image = eventt.Image,
+                        AddressId = eventt.AddressId,
+                        Date = eventt.Date,
                     }));
                 return rows;
 
@@ -109,18 +98,18 @@
 
                 if (row != null)
                 {
-                    Event Event = new Event
+                    Event eventt = new Event
                     {
                         Id = row.Id,
                         UserId = row.UserId,
                         CompanyId = row.CompanyId,
                         HobbyId = row.HobbyId,
-                        Date = row.Date,
                         Description = row.Description,
                         Image = row.Image,
-                        AddressId = row.AddressId
+                        AddressId = row.AddressId,
+                        Date = row.Date,
                     };
-                    return Event;
+                    return eventt;
                 }
                 else
                 {
@@ -133,7 +122,6 @@
                 throw ex;
             }
         }
-
 
     }
 }

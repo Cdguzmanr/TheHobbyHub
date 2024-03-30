@@ -1,28 +1,37 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using TheHobbyHub.BL;
-using TheHobbyHub.PL.Data;
 
 namespace TheHobbyHub.UI.Controllers
 {
     public class EventController : Controller
     {
         private readonly DbContextOptions<HobbyHubEntities> options;
+
+        public EventController(DbContextOptions<HobbyHubEntities> options)
+        {
+            this.options = options;
+        }
+
+
+        // Generalized class name
+        string className = "Event";
+
         public IActionResult Index()
         {
-            ViewBag.Title = "List of Events";
+            ViewBag.Title = $"List of {className}";
             return View(new EventManager(options).Load());
         }
         public IActionResult Details(Guid id)
         {
             var item = new EventManager(options).LoadById(id);
-            ViewBag.Title = "Details";
+            ViewBag.Title = $"{className} details";
             return View(item);
         }
         public IActionResult Create()
         {
             if (Authentication.IsAuthenticated(HttpContext))
             {
-                ViewBag.Title = "Create";
+                ViewBag.Title = $"Create new {className}";
                 return View();
             }
             else
@@ -31,11 +40,11 @@ namespace TheHobbyHub.UI.Controllers
             }
         }
         [HttpPost]
-        public IActionResult Create(Event _event)
+        public IActionResult Create(Event hobby)
         {
             try
             {
-                int result = new EventManager(options).Insert(_event);
+                int result = new EventManager(options).Insert(hobby);
                 return RedirectToAction(nameof(Index));
             }
             catch (Exception)
@@ -59,11 +68,11 @@ namespace TheHobbyHub.UI.Controllers
 
         }
         [HttpPost]
-        public IActionResult Edit(Guid id, Event _event, bool rollback = false)
+        public IActionResult Edit(Guid id, Event hobby, bool rollback = false)
         {
             try
             {
-                int result = new EventManager(options).Insert(_event, rollback);
+                int result = new EventManager(options).Insert(hobby, rollback);
                 return RedirectToAction(nameof(Index));
             }
             catch (Exception ex)
@@ -78,7 +87,7 @@ namespace TheHobbyHub.UI.Controllers
             if (Authentication.IsAuthenticated(HttpContext))
             {
                 var item = new EventManager(options).LoadById(id);
-                ViewBag.Title = "Delete";
+                ViewBag.Title = $"Delete {className}";
                 return View(item);
             }
             else
@@ -87,7 +96,7 @@ namespace TheHobbyHub.UI.Controllers
             }
         }
         [HttpPost]
-        public IActionResult Delete(Guid id, Event _event, bool rollback = false)
+        public IActionResult Delete(Guid id, Event hobby, bool rollback = false)
         {
             try
             {
