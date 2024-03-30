@@ -13,25 +13,6 @@ namespace TheHobbyHub.PL.Data
     {
         // Create Guid's for each table
 
-        /*
-        Todo: Add foreign keys to the tables. See example from DVDCentralEntities.cs below:
-
-                entity.HasOne(d => d.Director).WithMany(p => p.tblMovies)
-                    .HasForeignKey(d => d.DirectorId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("fk_tblMovie_DirectorId");
-
-                entity.HasOne(d => d.Format).WithMany(p => p.tblMovies)
-                    .HasForeignKey(d => d.FormatId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("fk_tblMovie_FormatId");
-
-                entity.HasOne(d => d.Rating).WithMany(p => p.tblMovies)
-                    .HasForeignKey(d => d.RatingId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("fk_tblMovie_RatingId");
-         */
-
         Guid[] addressId = new Guid[3];
         Guid[] companyId = new Guid[3];
         Guid[] hobbyId = new Guid[3];
@@ -173,7 +154,7 @@ namespace TheHobbyHub.PL.Data
                 entity.ToTable("tblAddress");
 
                 entity.Property(e => e.Id).ValueGeneratedNever();
-                entity.Property(e => e.Address)
+                entity.Property(e => e.PostalAddress)
                     .IsRequired()
                     .HasMaxLength(50)
                     .IsUnicode(false);
@@ -194,9 +175,9 @@ namespace TheHobbyHub.PL.Data
             // Implement default data for tblAddress
             List<tblAddress> addresses = new List<tblAddress>
             {
-                new tblAddress { Id = addressId[0], Address = "123 Main St", City = "Anytown", State = "CA", Zip = "12345" },
-                new tblAddress { Id = addressId[1], Address = "456 Elm St", City = "Othertown", State = "NY", Zip = "54321" },
-                new tblAddress { Id = addressId[2], Address = "789 Oak St", City = "Somewhere", State = "TX", Zip = "67890" }
+                new tblAddress { Id = addressId[0], PostalAddress = "123 Main St", City = "Anytown", State = "CA", Zip = "12345" },
+                new tblAddress { Id = addressId[1], PostalAddress = "456 Elm St", City = "Othertown", State = "NY", Zip = "54321" },
+                new tblAddress { Id = addressId[2], PostalAddress = "789 Oak St", City = "Somewhere", State = "TX", Zip = "67890" }
             };
 
             // Add default data to tblAddress
@@ -259,23 +240,24 @@ namespace TheHobbyHub.PL.Data
                               Password = GetHash("test")},
 
               new tblUser { Id = userId[1],
-                              FirstName = "Someone",
-                              LastName = "Somebody",
-                              Email = "ss@gmail.com",
-                              UserName = "SSM",
+                              FirstName = "Brian",
+                              LastName = "Foote",
+                              Email = "bfoote@fvtc.edu",
+                              UserName = "bfoote",
                               Image = "image.jpg",
                               PhoneNumber ="3333333333",
-                              Password = GetHash("ssm")},
+                              Password = GetHash("maple")},
 
                 new tblUser { Id = userId[2],
-                              FirstName = "sam",
-                              LastName = "fisher",
-                              Email = "sf@gmail.com",
-                              UserName = "sammyfish",
-                              Image = "sammy.jpg",
-                              PhoneNumber ="1111111111",
-                              Password = GetHash("test")
+                                FirstName = "sam",
+                                LastName = "fisher",
+                                Email = "sf@gmail.com",
+                                UserName = "sammyfish",
+                                Image = "sammy.jpg",
+                                PhoneNumber ="1111111111",
+                                Password = GetHash("test")
                 }
+
             };
 
             // Add default data to tblUsers

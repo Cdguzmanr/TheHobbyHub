@@ -1,4 +1,7 @@
-﻿namespace TheHobbyHub.BL
+﻿using Mono.TextTemplating;
+using TheHobbyHub.BL.Models;
+
+namespace TheHobbyHub.BL
 {
     public class AddressManager : GenericManager<tblAddress>
     {
@@ -11,20 +14,14 @@
         {
             try
             {
-                try
-                {
-                    tblAddress row = new tblAddress();
-                    row.Id = Guid.NewGuid();
-                    row.Address = address.PostalAddress;
-                    row.City = address.City;
-                    row.Zip = address.Zip;
-                    row.State = address.State;
-                    return base.Insert(row, rollback);
-                }
-                catch (Exception ex)
-                {
-                    throw ex;
-                }
+                tblAddress row = new tblAddress();
+                row.Id = Guid.NewGuid();
+                row.PostalAddress = address.PostalAddress;
+                row.City = address.City;
+                row.Zip = address.Zip;
+                row.State = address.State;
+
+                return base.Insert(row, rollback);
             }
             catch (Exception ex)
             {
@@ -35,23 +32,14 @@
         {
             try
             {
-                try
+                return base.Update(new tblAddress
                 {
-                    return base.Update(new tblAddress
-                    {
-                        Id = address.Id,
-                        Address = address.PostalAddress,
-                        City = address.City,
-                        State = address.State,
-                        Zip = address.Zip
-
-                    }, rollback);
-                }
-                catch (Exception ex)
-                {
-                    throw ex;
-                }
-
+                    Id = address.Id,
+                    PostalAddress = address.PostalAddress,
+                    City = address.City,
+                    Zip = address.Zip,
+                    State = address.State
+                }, rollback);
             }
             catch (Exception ex)
             {
@@ -75,14 +63,14 @@
             {
                 List<Address> rows = new List<Address>();
                 base.Load()
-                .ForEach(c => rows.Add(
+                .ForEach(address => rows.Add(
                     new Address
                     {
-                        Id = c.Id,
-                        PostalAddress = c.Address,
-                        City = c.City,
-                        State = c.State,
-                        Zip = c.Zip
+                        Id = address.Id,
+                        PostalAddress = address.PostalAddress,
+                        City = address.City,
+                        Zip = address.Zip,
+                        State = address.State
                     }));
                 return rows;
 
@@ -100,15 +88,15 @@
 
                 if (row != null)
                 {
-                    Address Address = new Address
+                    Address address = new Address
                     {
                         Id = row.Id,
-                        PostalAddress = row.Address,
+                        PostalAddress = row.PostalAddress,
                         City = row.City,
-                        State = row.State,
-                        Zip = row.Zip
+                        Zip = row.Zip,
+                        State = row.State
                     };
-                    return Address;
+                    return address;
                 }
                 else
                 {
@@ -121,7 +109,6 @@
                 throw ex;
             }
         }
-
 
     }
 }

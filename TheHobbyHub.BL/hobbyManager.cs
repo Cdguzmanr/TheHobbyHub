@@ -7,7 +7,7 @@
 
         }
 
-        public int Insert(Hobby Hobby, bool rollback = false)
+        public int Insert(Hobby hobby, bool rollback = false)
         {
             try
             {
@@ -15,10 +15,10 @@
                 {
                     tblHobby row = new tblHobby();
                     row.Id = Guid.NewGuid();
-                    row.HobbyName = Hobby.HobbyName;
-                    row.Description = Hobby.Description;
-                    row.Type = Hobby.Type;
-                    row.Image = Hobby.Image;
+                    row.HobbyName = hobby.HobbyName;
+                    row.Description = hobby.Description;
+                    row.Type = hobby.Type;
+                    row.Image = hobby.Image;
                     return base.Insert(row, rollback);
                 }
                 catch (Exception ex)
@@ -31,7 +31,7 @@
                 throw ex;
             }
         }
-        public int Update(Hobby company, bool rollback = false)
+        public int Update(Hobby hobby, bool rollback = false)
         {
             try
             {
@@ -39,11 +39,11 @@
                 {
                     return base.Update(new tblHobby
                     {
-                        Id = company.Id,
-                        HobbyName = company.HobbyName,
-                        Description = company.Description,
-                        Type = company.Type,
-                        Image = company.Image
+                        Id = hobby.Id,
+                        HobbyName = hobby.HobbyName,
+                        Description = hobby.Description,
+                        Type = hobby.Type,
+                        Image = hobby.Image
                     }, rollback);
                 }
                 catch (Exception ex)
@@ -74,14 +74,14 @@
             {
                 List<Hobby> rows = new List<Hobby>();
                 base.Load()
-                .ForEach(c => rows.Add(
+                .ForEach(hobby => rows.Add(
                     new Hobby
                     {
-                        Id = c.Id,
-                        HobbyName = c.HobbyName,
-                        Description = c.Description,
-                        Type = c.Type,
-                        Image = c.Image
+                        Id = hobby.Id,
+                        HobbyName = hobby.HobbyName,
+                        Description = hobby.Description,
+                        Type = hobby.Type,
+                        Image = hobby.Image
                     }));
                 return rows;
 
@@ -99,7 +99,7 @@
 
                 if (row != null)
                 {
-                    Hobby company = new Hobby
+                    Hobby hobby = new Hobby
                     {
                         Id = row.Id,
                         HobbyName = row.HobbyName,
@@ -107,7 +107,7 @@
                         Image = row.Image,
                         Type = row.Type
                     };
-                    return company;
+                    return hobby;
                 }
                 else
                 {

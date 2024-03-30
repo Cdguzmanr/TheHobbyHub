@@ -17,7 +17,7 @@
             tblAddress newRow = new tblAddress();
 
             newRow.Id = Guid.NewGuid();
-            newRow.Address = "123 Main ST";
+            newRow.PostalAddress = "123 Main ST";
             newRow.City = "Appleton";
             newRow.State = "WI";
             newRow.Zip = "54914";
@@ -33,7 +33,7 @@
 
             if (row != null)
             {
-                row.Address = "YYYYY";
+                row.PostalAddress = "YYYYY";
                 int rowsAffected = UpdateTest(row);
                 Assert.AreEqual(1, rowsAffected);
             }
@@ -42,7 +42,7 @@
         [TestMethod]
         public void DeleteTest()
         {
-            tblAddress row = base.LoadTest().FirstOrDefault(x => x.Address == "Other");
+            tblAddress row = base.LoadTest().FirstOrDefault(x => x.PostalAddress == "Other");
 
             if (row != null)
             {
