@@ -1,6 +1,4 @@
-﻿
-using ThehobbyHub.BL;
-using TheHobbyHub.BL.Models;
+﻿using TheHobbyHub.BL.Models;
 
 namespace TheHobbyHub.BL.Test
 {
