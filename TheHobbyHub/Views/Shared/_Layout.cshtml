@@ -44,21 +44,8 @@
 
                     <!-- Login  Display -->
 
-                    @**@
                     <ul class="navbar-nav">
-
-                        <!-- Generate the users -->
-                        @*
-                        @inject UserManager UserManager
-
                         @{
-                            UserManager.Seed();
-                        }
-                        *@
-
-                        @{
-                            //TheHobbyHub.BL.UserManager.Seed();
-
                             var fullname = HttpContextAccessor.HttpContext?.Session.GetString("fullname");
 
                             if (fullname != null) fullname = fullname.Replace("\"", "");
@@ -79,11 +66,6 @@
                             <a class="nav-link text-light">@fullname</a>
                         </li>
                     </ul>
-                    @**@
-
-                    
-                    <!-- Provisional Login link (only for stetic purposes) -->
-                    <!-- <a asp-controller="User" asp-action="Login" class="nav-link text-dark">Login</a> -->
 
                     <!-- User Icon -->
                     <a asp-controller="User" asp-action="Login" class="nav-link"><img src="/images/noUserIcon.png" alt="Favicon" width="30" height="30"></a>
