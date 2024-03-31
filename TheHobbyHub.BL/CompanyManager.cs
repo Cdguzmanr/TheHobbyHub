@@ -11,7 +11,7 @@ namespace TheHobbyHub.BL
 
         }
 
-        public int Insert(Company company, bool rollback = false)
+        public Guid Insert(Company company, bool rollback = false)
         {
             try
             {

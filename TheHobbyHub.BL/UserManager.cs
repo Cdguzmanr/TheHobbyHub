@@ -9,8 +9,6 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 
-
-
 using TheHobbyHub.BL.Models;
 using TheHobbyHub.PL.Entities;
 
@@ -145,17 +143,37 @@ namespace TheHobbyHub.BL
         // CRUD methods ------------------------------------------------- //
         public int Insert(User user, bool rollback = false)
         {
+
             try
             {
-                tblUser row = new tblUser();
-                row.Id = Guid.NewGuid();
-                row.FirstName = user.FirstName;
-                row.LastName = user.LastName;
-                row.UserName = user.UserName;
-                row.Password = GetHash(user.Password);
+                int results = 0;
+                using (HobbyHubEntities dc= new HobbyHubEntities(options)) 
+                {
+                    bool inuse = dc.tblUsers.Any(u => u.UserName.Trim().ToUpper() == user.UserName.Trim().ToUpper());
+                    if(inuse && rollback ==false)
+                    {
 
+                    }
+                    else
+                    {
+                        IDbContextTransaction transaction = null;
+                        if (rollback) transaction = dc.Database.BeginTransaction();
+                        tblUser newUser = new tblUser(); ;
+                        newUser.Id = Guid.NewGuid();
+                        newUser.FirstName = user.FirstName;
+                        newUser.LastName = user.LastName;
+                        newUser.UserName = user.UserName;
+                        newUser.Password = GetHash(user.Password);
 
-                return base.Insert(row, rollback);
+                        user.Id = newUser.Id;
+                        dc.tblUsers.Add(newUser);
+                        results = dc.SaveChanges();
+                        if (rollback) transaction.Rollback();
+                        //return base.Insert(row, rollback);
+                    }
+
+                }
+                return results;
             }
             catch (Exception ex)
             {
