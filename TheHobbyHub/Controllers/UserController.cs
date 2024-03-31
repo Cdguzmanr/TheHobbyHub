@@ -97,15 +97,8 @@ namespace TheHobbyHub.Controllers
         }
         public IActionResult Create()
         {
-            if (Authentication.IsAuthenticated(HttpContext))
-            {
-                ViewBag.Title = $"Create new {className}";
-                return View();
-            }
-            else
-            {
-                return RedirectToAction("Login", "User", new { returnUrl = UriHelper.GetDisplayUrl(HttpContext.Request) });
-            }
+            ViewBag.Title = $"Create new {className}";
+            return View();
         }
         [HttpPost]
         public IActionResult Create(User user)
@@ -113,12 +106,14 @@ namespace TheHobbyHub.Controllers
             try
             {
                 int result = new UserManager(options).Insert(user);
+                SetUser(user); // LogIn with new user 
                 return RedirectToAction(nameof(Index));
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-
-                throw;
+                ViewBag.Title = $"Create new {className}";
+                ViewBag.Error = ex.Message;
+                return View(user);
             }
         }
         public IActionResult Edit(Guid id)
