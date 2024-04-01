@@ -5,8 +5,6 @@
 }
 
 
-
-
 <section class="user login-body row">
 
     <!-- Big rectangle in the background -->
@@ -30,11 +28,10 @@
 
         <!-- Forms Container -->
         <div class="user_options-forms" id="user_options-forms">
-                
             <!-- Login Form -->
             <div class="user_forms-login">
                 <h2 class="forms_title">Login</h2>
-                <form asp-action="Login" class="forms_form">
+                <form asp-action="Login" asp-controller="User" method="post" class="forms_form">
                     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                     <fieldset class="forms_fieldset">
                         <div class="forms_field">
@@ -58,30 +55,54 @@
             <!-- Sign Up Form -->
             <div class="user_forms-signup">
                 <h2 class="forms_title">Sign Up</h2>
-                <form class="forms_form">
+                <form asp-action="Create" asp-controller="User" method="post" enctype="multipart/form-data" class="forms_form" >
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                     <fieldset class="forms_fieldset">
-                        <div class="forms_field">
-                            <input type="text" placeholder="Full Name" class="forms_field-input login-input" required />
+                        <div class="forms_field forms_field-input-inline">
+                            <input asp-for="FirstName" class="forms_field-input login-input" placeholder="First Name" required />
+                            <span asp-validation-for="FirstName" class="text-danger"></span>
+                        </div>
+                        <div class="forms_field forms_field-input-inline">
+                            <input asp-for="LastName" class="forms_field-input login-input" placeholder="Last Name" required />
+                            <span asp-validation-for="LastName" class="text-danger"></span>
+                        </div>
+                        <div class="forms_field clear-align">
+                            <input asp-for="Email" type="email" class="forms_field-input login-input" placeholder="Email" required />
+                            <span asp-validation-for="Email" class="text-danger"></span>
                         </div>
                         <div class="forms_field">
-                            <input type="email" placeholder="Email" class="forms_field-input login-input" required />
+                            <input asp-for="PhoneNumber" class="forms_field-input login-input" placeholder="Phone Number" required />
+                            <span asp-validation-for="PhoneNumber" class="text-danger"></span>
                         </div>
                         <div class="forms_field">
-                            <input type="password" placeholder="Password" class="forms_field-input login-input" required />
+                            <label asp-for="Image" class="control-label" style="font-family: 'Montserrat', sans-serif; color: gray" >Profile Picture</label>
+                            <input asp-for="Image" type="file" class="forms_field-input login-input" accept="image/*" placeholder="Profile Picture" required />
+                            <span asp-validation-for="Image" class="text-danger"></span>
+                        </div>
+                        <div class="forms_field">
+                            <input asp-for="UserName" class="forms_field-input login-input" placeholder="User Name" required />
+                            <span asp-validation-for="UserName" class="text-danger"></span>
+                        </div>
+                        <div class="forms_field">
+                            <input asp-for="Password" type="password" class="forms_field-input login-input" placeholder="Password" required />
+                            <span asp-validation-for="Password" class="text-danger"></span>
+                        </div>
+                        <div class="forms_field">
+                            <input type="password" class="forms_field-input login-input" placeholder="Confirm Password" required />
+                            <span asp-validation-for="Password" class="text-danger"></span>
                         </div>
                     </fieldset>
                     <div class="forms_buttons">
-                        <input type="submit" value="Sign up" class="forms_buttons-action login-button">
+                        <input asp-action="Create" asp-controller="User" method="post" type="submit" id="signup-submit" value="Sign up" class="forms_buttons-action login-button">
                     </div>
                 </form>
             </div>
+
 
         </div>
 
     </div>
 </section>
-
-
 
 
 @section Scripts {
@@ -91,19 +112,51 @@
             var loginButton = document.getElementById('login-button');
             var userForms = document.getElementById('user_options-forms');
 
+            function adjustFormHeight(height) {
+                userForms.style.transition = 'height 0.4s ease-in-out';
+                userForms.style.height = height + 'px';
+            }
+
             // Add event listener to the "Sign Up" button
             signupButton.addEventListener('click', function () {
                 userForms.classList.remove('bounceRight');
                 userForms.classList.add('bounceLeft');
+                adjustFormHeight(600); // Set height to 600px for Sign Up
             }, false);
 
             loginButton.addEventListener('click', function () {
                 userForms.classList.remove('bounceLeft');
                 userForms.classList.add('bounceRight');
+                adjustFormHeight(420); // Set height to 420px for Login
             }, false);
+
+            // Adjust form height on window resize
+            window.addEventListener('resize', function () {
+                if (userForms.classList.contains('bounceLeft')) {
+                    adjustFormHeight(600);
+                } else {
+                    adjustFormHeight(420);
+                }
+            });
+
+            // Initial call to adjust form height based on active form
+            if (userForms.classList.contains('bounceLeft')) {
+                adjustFormHeight(600);
+            } else {
+                adjustFormHeight(420);
+            }
+
+            // Function to reset transition after animation
+            userForms.addEventListener('transitionend', function () {
+                userForms.style.transition = '';
+            });
+
+
+
         </script>
 
         await Html.RenderPartialAsync("_ValidationScriptsPartial");
     }
 }
+
 
