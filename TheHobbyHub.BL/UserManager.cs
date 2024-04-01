@@ -160,10 +160,13 @@ namespace TheHobbyHub.BL
                         if (rollback) transaction = dc.Database.BeginTransaction();
                         tblUser newUser = new tblUser(); ;
                         newUser.Id = Guid.NewGuid();
-                        newUser.FirstName = user.FirstName;
-                        newUser.LastName = user.LastName;
                         newUser.UserName = user.UserName;
                         newUser.Password = GetHash(user.Password);
+                        newUser.FirstName = user.FirstName;
+                        newUser.LastName = user.LastName;
+                        newUser.Email = user.Email;
+                        newUser.PhoneNumber = user.Email;
+                        newUser.Image = user.Image;
 
                         user.Id = newUser.Id;
                         dc.tblUsers.Add(newUser);
@@ -187,11 +190,15 @@ namespace TheHobbyHub.BL
                 return base.Update(new tblUser
                 {
                     Id = user.Id,
-                    FirstName = user.FirstName,
-                    LastName = user.LastName,
+
                     UserName = user.UserName,
                     Password = GetHash(user.Password),
-            }, rollback);
+                    FirstName = user.FirstName,
+                    LastName = user.LastName,
+                    Email = user.Email,
+                    PhoneNumber = user.PhoneNumber,
+                    Image = user.Image
+                }, rollback);
             }
             catch (Exception ex)
             {
@@ -219,10 +226,13 @@ namespace TheHobbyHub.BL
                     new User
                     {
                         Id = user.Id,
-                        FirstName = user.FirstName,
-                        LastName = user.LastName,
                         UserName = user.UserName,
                         Password = GetHash(user.Password),
+                        FirstName = user.FirstName,
+                        LastName = user.LastName,
+                        Email = user.Email,
+                        PhoneNumber = user.PhoneNumber,
+                        Image = user.Image
                     }));
                 return rows;
 
@@ -243,10 +253,13 @@ namespace TheHobbyHub.BL
                     User user = new User
                     {
                         Id = row.Id,
-                        FirstName = row.FirstName,
-                        LastName = row.LastName,
                         UserName = row.UserName,
                         Password = GetHash(row.Password),
+                        FirstName = row.FirstName,
+                        LastName = row.LastName,
+                        Email = row.Email,
+                        PhoneNumber = row.PhoneNumber,
+                        Image = row.Image
                     };
                     return user;
                 }

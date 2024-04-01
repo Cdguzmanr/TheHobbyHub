@@ -4,7 +4,7 @@ using TheHobbyHub.BL.Models;
 namespace TheHobbyHub.BL.Test
 {
     [TestClass]
-    public class utHobby : utBase<Hobby>
+    public class utHobby : utBase
     {
         [TestMethod]
         public void LoadTest()
@@ -28,8 +28,8 @@ namespace TheHobbyHub.BL.Test
 
             };
 
-            int result = new HobbyManager(options).Insert(hobby, true);
-            Assert.IsTrue(result > 0);
+            Guid result = new HobbyManager(options).Insert(hobby, true);
+            Assert.IsTrue(result > Guid.Empty);
         }
 
         [TestMethod]

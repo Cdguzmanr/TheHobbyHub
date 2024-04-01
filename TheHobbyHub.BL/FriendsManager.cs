@@ -10,7 +10,7 @@ namespace TheHobbyHub.BL
 
         }
 
-        public int Insert(Friends friend, bool rollback = false)
+        public Guid Insert(Friends friend, bool rollback = false)
         {
             try
             {

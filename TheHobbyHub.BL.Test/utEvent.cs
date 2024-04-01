@@ -4,7 +4,7 @@ using TheHobbyHub.BL.Models;
 namespace TheHobbyHub.BL.Test
 {
     [TestClass]
-    public class utEvent : utBase<Event>
+    public class utEvent : utBase
     {
         [TestMethod]
         public void LoadTest()
@@ -21,18 +21,18 @@ namespace TheHobbyHub.BL.Test
             Event @event = new Event
             {
                 Id = Guid.NewGuid(),
-                UserId = Guid.NewGuid(),
-                CompanyId = Guid.NewGuid(),
-                HobbyId = Guid.NewGuid(),
+                UserId = new UserManager(options).Load().FirstOrDefault().Id,
+                CompanyId = new CompanyManager(options).Load().FirstOrDefault().Id,
+                HobbyId = new HobbyManager(options).Load().FirstOrDefault().Id,
                 Description = "description",
                 Image = "Test",
-                AddressId = Guid.NewGuid(),
+                AddressId = new AddressManager(options).Load().FirstOrDefault().Id,
                 Date = DateTime.Now
 
             };
 
-            int result = new EventManager(options).Insert(@event, true);
-            Assert.IsTrue(result > 0);
+            Guid result = new EventManager(options).Insert(@event, true);
+            Assert.IsTrue(result > Guid.Empty);
         }
 
         [TestMethod]

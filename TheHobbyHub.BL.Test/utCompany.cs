@@ -4,7 +4,7 @@ using TheHobbyHub.BL.Models;
 namespace TheHobbyHub.BL.Test
 {
     [TestClass]
-    public class utCompany : utBase<Company>
+    public class utCompany : utBase
     {
         [TestMethod]
         public void LoadTest()
@@ -22,14 +22,14 @@ namespace TheHobbyHub.BL.Test
             {
                 Id = Guid.NewGuid(),
                 CompanyName = "Test",
-                AddressId = Guid.NewGuid(),
+                AddressId = new AddressManager(options).Load().FirstOrDefault().Id,
                 UserName = "Test",
                 Password = "Test",
                 Image = "Test"
             };
 
-            int result = new CompanyManager(options).Insert(company, true);
-            Assert.IsTrue(result > 0);
+            Guid result = new CompanyManager(options).Insert(company, true);
+            Assert.IsTrue(result > Guid.Empty);
         }
 
         [TestMethod]
@@ -44,10 +44,11 @@ namespace TheHobbyHub.BL.Test
         [TestMethod]
         public void DeleteTest()
         {
-            Company company = new CompanyManager(options).Load().LastOrDefault();
+            Company companies = new CompanyManager(options).Load().FirstOrDefault(x => x.CompanyName == "Other");
 
-            Assert.IsTrue(new CompanyManager(options).Delete(company.Id, true) > 0);
+            Assert.IsTrue(new CompanyManager(options).Delete(companies.Id, true) > 0);
         }
+
 
         [TestMethod]
         public void LoadByIdTest()
@@ -59,8 +60,10 @@ namespace TheHobbyHub.BL.Test
         [TestMethod]
         public void LoadByAddressId()
         {
-            Company company = new CompanyManager(options).Load().LastOrDefault();
-            Assert.AreEqual(new CompanyManager(options).LoadByAddressId(company.AddressId).AddressId, company.AddressId);
+            Guid addressId = new CompanyManager(options).Load().FirstOrDefault().AddressId;
+            Assert.IsTrue(new CompanyManager(options).LoadByAddressId(addressId).Count > 0);
+            //Company company = new CompanyManager(options).Load().LastOrDefault();
+            //Assert.AreEqual(new CompanyManager(options).LoadByAddressId(company.AddressId).AddressId, company.AddressId);
         }
     }
 }

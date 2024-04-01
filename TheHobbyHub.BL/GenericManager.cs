@@ -203,6 +203,8 @@ namespace TheHobbyHub.BL
                 throw;
             }
         }
+
+        
         public int Delete(Guid id, bool rollback = false)
         {
             try
