@@ -1,8 +1,4 @@
-﻿
-using ThehobbyHub.BL;
-using TheHobbyHub.BL.Models;
-
-namespace TheHobbyHub.BL.Test
+﻿namespace TheHobbyHub.BL.Test
 {
     [TestClass]
     public class utFriend : utBase<Friends>

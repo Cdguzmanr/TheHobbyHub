@@ -1,5 +1,4 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using TheHobbyHub.BL;
 
 namespace TheHobbyHub.UI.Controllers
 {
@@ -23,6 +22,7 @@ namespace TheHobbyHub.UI.Controllers
         }
         public IActionResult Details(Guid id)
         {
+            
             var item = new FriendsManager(options).LoadById(id);
             ViewBag.Title = $"{className} details";
             return View(item);
