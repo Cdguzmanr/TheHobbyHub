@@ -10,7 +10,7 @@ namespace TheHobbyHub.BL
 
         }
 
-        public int Insert(Event eventt, bool rollback = false)
+        public Guid Insert(Event eventt, bool rollback = false)
         {
             try
             {

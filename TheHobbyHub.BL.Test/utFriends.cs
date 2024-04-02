@@ -1,11 +1,10 @@
-﻿using Microsoft.EntityFrameworkCore;
-using TheHobbyHub.BL.Models;
+﻿using TheHobbyHub.BL.Models;
 using TheHobbyHub.PL.Data;
 
 namespace TheHobbyHub.BL.Test
 {
     [TestClass]
-    public class utFriend : utBase<Friends>
+    public class utFriend : utBase
     {
         private readonly DbContextOptions<HobbyHubEntities> options;
         [TestMethod]
@@ -23,20 +22,20 @@ namespace TheHobbyHub.BL.Test
             Friends friend = new Friends
             {
                 Id = Guid.NewGuid(),
-                UserId = Guid.NewGuid(),
-                CompanyId = Guid.NewGuid()
+                UserId = new UserManager(options).Load().FirstOrDefault().Id,
+                CompanyId = new CompanyManager(options).Load().FirstOrDefault().Id
 
             };
 
-            int result = new FriendsManager(options).Insert(friend, true);
-            Assert.IsTrue(result > 0);
+            Guid result = new FriendsManager(options).Insert(friend, true);
+            Assert.IsTrue(result > Guid.Empty);
         }
 
         [TestMethod]
         public void UpdateTest()
         {
             Friends friend = new FriendsManager(options).Load().FirstOrDefault();
-            friend.CompanyId = Guid.NewGuid();
+            friend.CompanyId = new CompanyManager(options).Load().FirstOrDefault().Id;
 
             Assert.IsTrue(new FriendsManager(options).Update(friend, true) > 0);
         }

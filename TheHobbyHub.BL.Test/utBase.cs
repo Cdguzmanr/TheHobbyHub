@@ -8,7 +8,7 @@ using TheHobbyHub.PL.Data;
 namespace TheHobbyHub.BL.Test
 {
     [TestClass]
-    public class utBase<T> where T : class
+    public abstract class utBase
     {
         protected  HobbyHubEntities dc;
         protected IDbContextTransaction transaction;
@@ -48,29 +48,29 @@ namespace TheHobbyHub.BL.Test
             dc = null;
         }
 
-        public List<T> LoadTest()
-        {
-            return dc.Set<T>().ToList();
-        }
+        //public List<T> LoadTest()
+        //{
+        //    return dc.Set<T>().ToList();
+        //}
 
-        public int InsertTest(T row)
-        {
-            dc.Set<T>().Add(row);
-            return dc.SaveChanges();
-        }
+        //public int InsertTest(T row)
+        //{
+        //    dc.Set<T>().Add(row);
+        //    return dc.SaveChanges();
+        //}
 
-        public int UpdateTest(T row)
-        {
+        //public int UpdateTest(T row)
+        //{
 
-            dc.Entry(row).State = EntityState.Modified;
-            return dc.SaveChanges();
-        }
+        //    dc.Entry(row).State = EntityState.Modified;
+        //    return dc.SaveChanges();
+        //}
 
-        public int DeleteTest(T row)
-        {
-            dc.Set<T>().Remove(row);
-            return dc.SaveChanges();
-        }
+        //public int DeleteTest(T row)
+        //{
+        //    dc.Set<T>().Remove(row);
+        //    return dc.SaveChanges();
+        //}
 
     }
 }

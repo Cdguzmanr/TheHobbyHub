@@ -44,7 +44,7 @@ namespace TheHobbyHub.UI.Controllers
         {
             try
             {
-                int result = new AddressManager(options).Insert(address);
+                Guid result = new AddressManager(options).Insert(address);
                 return RedirectToAction(nameof(Index));
             }
             catch (Exception)
@@ -72,7 +72,7 @@ namespace TheHobbyHub.UI.Controllers
         {
             try
             {
-                int result = new AddressManager(options).Insert(address, rollback);
+                Guid result = new AddressManager(options).Insert(address, rollback);
                 return RedirectToAction(nameof(Index));
             }
             catch (Exception ex)

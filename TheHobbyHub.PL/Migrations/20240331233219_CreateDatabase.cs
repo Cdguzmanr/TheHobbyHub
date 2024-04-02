@@ -171,9 +171,9 @@ namespace TheHobbyHub.PL.Migrations
                 columns: new[] { "Id", "City", "PostalAddress", "State", "Zip" },
                 values: new object[,]
                 {
-                    { new Guid("09d5587b-03c4-4af1-8641-cdbec460d945"), "Othertown", "456 Elm St", "NY", "54321" },
-                    { new Guid("ac9df6b7-58b4-4c31-9fb2-730afe95b994"), "Somewhere", "789 Oak St", "TX", "67890" },
-                    { new Guid("c22be5c3-4582-43c0-b58c-4490fca815ec"), "Anytown", "123 Main St", "CA", "12345" }
+                    { new Guid("56bc2e1d-1a1b-44bf-9b95-7c86b0c21771"), "Somewhere", "789 Oak St", "TX", "67890" },
+                    { new Guid("f24815d0-d9f9-407a-b204-c0c865172d9b"), "Othertown", "456 Elm St", "NY", "54321" },
+                    { new Guid("fa7f6090-71a9-4628-bc17-39b5075d99bd"), "Anytown", "123 Main St", "CA", "12345" }
                 });
 
             migrationBuilder.InsertData(
@@ -181,9 +181,9 @@ namespace TheHobbyHub.PL.Migrations
                 columns: new[] { "Id", "Description", "HobbyName", "Image", "Type" },
                 values: new object[,]
                 {
-                    { new Guid("10b60d56-a960-4539-a1e6-40c85877cf4f"), "Gyyymm", "Gym", "image.jpg", "Indoor" },
-                    { new Guid("881c694f-8f94-445e-a25b-eeb51fdb04a9"), "stick", "Golf", "outdoor.jpg", "outdoor" },
-                    { new Guid("a59fa196-d34b-4537-a1b8-e5dc51a5b44f"), "Run", "Running", "run.jpg", "Outdoor" }
+                    { new Guid("c3e40fb6-48ad-427d-b891-8f8014490233"), "Run", "Running", "run.jpg", "Outdoor" },
+                    { new Guid("dfd05099-fd11-4a6a-a443-599471606bdf"), "Gyyymm", "Gym", "image.jpg", "Indoor" },
+                    { new Guid("fc32a9f4-0821-4d08-9977-727c400c8770"), "stick", "Golf", "outdoor.jpg", "outdoor" }
                 });
 
             migrationBuilder.InsertData(
@@ -191,9 +191,9 @@ namespace TheHobbyHub.PL.Migrations
                 columns: new[] { "Id", "Email", "FirstName", "Image", "LastName", "Password", "PhoneNumber", "UserName" },
                 values: new object[,]
                 {
-                    { new Guid("28affec4-c4a7-4d84-a3c0-be5dbac3ab6a"), "sf@gmail.com", "sam", "sammy.jpg", "fisher", "qUqP5cyxm6YcTAhz05Hph5gvu9M=", "1111111111", "sammyfish" },
-                    { new Guid("5861d84e-d40d-49d1-8c26-8ab36957562c"), "Alexr@gmail.com", "Alex", "image.jpg", "Rosas", "qUqP5cyxm6YcTAhz05Hph5gvu9M=", "2627459097", "Arosas" },
-                    { new Guid("88be785c-082e-40b4-ae0a-d3305686737b"), "bfoote@fvtc.edu", "Brian", "image.jpg", "Foote", "pYfdnNb8sO0FgS4H0MRSwLGOIME=", "3333333333", "bfoote" }
+                    { new Guid("2581fe08-16c9-4e1e-87ac-d5c679268613"), "sf@gmail.com", "sam", "sammy.jpg", "fisher", "qUqP5cyxm6YcTAhz05Hph5gvu9M=", "1111111111", "sammyfish" },
+                    { new Guid("401870b2-7435-4566-af04-e7dffccbd378"), "bfoote@fvtc.edu", "Brian", "image.jpg", "Foote", "pYfdnNb8sO0FgS4H0MRSwLGOIME=", "3333333333", "bfoote" },
+                    { new Guid("7cb0fd9f-4cb8-4674-831b-9d8074ab1c7a"), "Alexr@gmail.com", "Alex", "image.jpg", "Rosas", "qUqP5cyxm6YcTAhz05Hph5gvu9M=", "2627459097", "Arosas" }
                 });
 
             migrationBuilder.InsertData(
@@ -201,9 +201,9 @@ namespace TheHobbyHub.PL.Migrations
                 columns: new[] { "Id", "AddressId", "CompanyName", "Image", "Password", "UserName" },
                 values: new object[,]
                 {
-                    { new Guid("1eb8375a-6a91-446d-a95d-5aa9c78c89f8"), new Guid("ac9df6b7-58b4-4c31-9fb2-730afe95b994"), "Company C", "imageC.jpg", "urYijG3X2+D44I400gasYPqLBHw=", "companyC" },
-                    { new Guid("38482f41-06ea-47a7-8e5e-d908f8c30616"), new Guid("c22be5c3-4582-43c0-b58c-4490fca815ec"), "Company A", "imageA.jpg", "/BafCUbj3r56CjioX1dcB1ynX20=", "copanyA" },
-                    { new Guid("83a46987-d1dd-4375-9777-1aa9762fd176"), new Guid("09d5587b-03c4-4af1-8641-cdbec460d945"), "Company B", "imageB.jpg", "38Nd3/2M+aip9/TyIzVYXKylmQo=", "companyB" }
+                    { new Guid("6a7d3a74-5698-4b62-ab7a-fca147ebb8e3"), new Guid("56bc2e1d-1a1b-44bf-9b95-7c86b0c21771"), "Company C", "imageC.jpg", "urYijG3X2+D44I400gasYPqLBHw=", "companyC" },
+                    { new Guid("d0490734-8038-4c90-b7e8-45c9ad9552e3"), new Guid("f24815d0-d9f9-407a-b204-c0c865172d9b"), "Company B", "imageB.jpg", "38Nd3/2M+aip9/TyIzVYXKylmQo=", "companyB" },
+                    { new Guid("f529bc8b-4886-4ba5-9d1b-fed34685b5ee"), new Guid("fa7f6090-71a9-4628-bc17-39b5075d99bd"), "Company A", "imageA.jpg", "/BafCUbj3r56CjioX1dcB1ynX20=", "copanyA" }
                 });
 
             migrationBuilder.InsertData(
@@ -211,9 +211,9 @@ namespace TheHobbyHub.PL.Migrations
                 columns: new[] { "Id", "HobbyId", "UserId" },
                 values: new object[,]
                 {
-                    { new Guid("06543e9f-4e73-4e3f-bb7d-ef34347826e9"), new Guid("a59fa196-d34b-4537-a1b8-e5dc51a5b44f"), new Guid("28affec4-c4a7-4d84-a3c0-be5dbac3ab6a") },
-                    { new Guid("134a8279-1262-4c41-9670-deb4372e77cd"), new Guid("10b60d56-a960-4539-a1e6-40c85877cf4f"), new Guid("5861d84e-d40d-49d1-8c26-8ab36957562c") },
-                    { new Guid("4de288c7-fe6c-4a3e-8cdc-65b3c9569c89"), new Guid("881c694f-8f94-445e-a25b-eeb51fdb04a9"), new Guid("88be785c-082e-40b4-ae0a-d3305686737b") }
+                    { new Guid("a5878169-9df9-438b-b1a3-be3012ec5cba"), new Guid("fc32a9f4-0821-4d08-9977-727c400c8770"), new Guid("401870b2-7435-4566-af04-e7dffccbd378") },
+                    { new Guid("a87d337c-0d46-41c2-821c-e052ffd85d3e"), new Guid("c3e40fb6-48ad-427d-b891-8f8014490233"), new Guid("2581fe08-16c9-4e1e-87ac-d5c679268613") },
+                    { new Guid("fbbb9af3-46b4-43ae-a8d2-189c53a228de"), new Guid("dfd05099-fd11-4a6a-a443-599471606bdf"), new Guid("7cb0fd9f-4cb8-4674-831b-9d8074ab1c7a") }
                 });
 
             migrationBuilder.InsertData(
@@ -221,9 +221,9 @@ namespace TheHobbyHub.PL.Migrations
                 columns: new[] { "Id", "AddressId", "CompanyId", "Date", "Description", "HobbyId", "Image", "UserId" },
                 values: new object[,]
                 {
-                    { new Guid("333b4823-e827-43ca-8155-259c530fb161"), new Guid("ac9df6b7-58b4-4c31-9fb2-730afe95b994"), new Guid("1eb8375a-6a91-446d-a95d-5aa9c78c89f8"), new DateTime(2024, 2, 15, 0, 0, 0, 0, DateTimeKind.Unspecified), "Event C", new Guid("a59fa196-d34b-4537-a1b8-e5dc51a5b44f"), "imageC.jpg", new Guid("28affec4-c4a7-4d84-a3c0-be5dbac3ab6a") },
-                    { new Guid("bb3ca430-7d72-46af-ad71-5a26eecd01b4"), new Guid("09d5587b-03c4-4af1-8641-cdbec460d945"), new Guid("83a46987-d1dd-4375-9777-1aa9762fd176"), new DateTime(2024, 2, 15, 0, 0, 0, 0, DateTimeKind.Unspecified), "Event B", new Guid("881c694f-8f94-445e-a25b-eeb51fdb04a9"), "imageB.jpg", new Guid("88be785c-082e-40b4-ae0a-d3305686737b") },
-                    { new Guid("cad96f24-805f-4558-99f0-46f18ce29128"), new Guid("c22be5c3-4582-43c0-b58c-4490fca815ec"), new Guid("38482f41-06ea-47a7-8e5e-d908f8c30616"), new DateTime(2024, 2, 15, 0, 0, 0, 0, DateTimeKind.Unspecified), "Event A", new Guid("10b60d56-a960-4539-a1e6-40c85877cf4f"), "imageA.jpg", new Guid("5861d84e-d40d-49d1-8c26-8ab36957562c") }
+                    { new Guid("1dac3d1e-bcab-4b93-ad43-bb41f1f0e889"), new Guid("f24815d0-d9f9-407a-b204-c0c865172d9b"), new Guid("d0490734-8038-4c90-b7e8-45c9ad9552e3"), new DateTime(2024, 2, 15, 0, 0, 0, 0, DateTimeKind.Unspecified), "Event B", new Guid("fc32a9f4-0821-4d08-9977-727c400c8770"), "imageB.jpg", new Guid("401870b2-7435-4566-af04-e7dffccbd378") },
+                    { new Guid("a6cc4f97-f0dc-4f07-a58d-3de9b59d5905"), new Guid("56bc2e1d-1a1b-44bf-9b95-7c86b0c21771"), new Guid("6a7d3a74-5698-4b62-ab7a-fca147ebb8e3"), new DateTime(2024, 2, 15, 0, 0, 0, 0, DateTimeKind.Unspecified), "Event C", new Guid("c3e40fb6-48ad-427d-b891-8f8014490233"), "imageC.jpg", new Guid("2581fe08-16c9-4e1e-87ac-d5c679268613") },
+                    { new Guid("ffe6c4c9-abce-46bb-bb11-28d28f881ff2"), new Guid("fa7f6090-71a9-4628-bc17-39b5075d99bd"), new Guid("f529bc8b-4886-4ba5-9d1b-fed34685b5ee"), new DateTime(2024, 2, 15, 0, 0, 0, 0, DateTimeKind.Unspecified), "Event A", new Guid("dfd05099-fd11-4a6a-a443-599471606bdf"), "imageA.jpg", new Guid("7cb0fd9f-4cb8-4674-831b-9d8074ab1c7a") }
                 });
 
             migrationBuilder.InsertData(
@@ -231,9 +231,9 @@ namespace TheHobbyHub.PL.Migrations
                 columns: new[] { "Id", "CompanyId", "UserId" },
                 values: new object[,]
                 {
-                    { new Guid("108dfbaa-78a8-401f-869d-2772d8e6f0cb"), new Guid("38482f41-06ea-47a7-8e5e-d908f8c30616"), new Guid("5861d84e-d40d-49d1-8c26-8ab36957562c") },
-                    { new Guid("27dd5d19-c6b7-4dcd-827a-87d57e168c8f"), new Guid("83a46987-d1dd-4375-9777-1aa9762fd176"), new Guid("88be785c-082e-40b4-ae0a-d3305686737b") },
-                    { new Guid("333bbb91-1d22-4a24-a019-c5012d2fa68a"), new Guid("1eb8375a-6a91-446d-a95d-5aa9c78c89f8"), new Guid("28affec4-c4a7-4d84-a3c0-be5dbac3ab6a") }
+                    { new Guid("36c5e98b-2fe6-4eb2-ad0d-a476345eeb98"), new Guid("f529bc8b-4886-4ba5-9d1b-fed34685b5ee"), new Guid("7cb0fd9f-4cb8-4674-831b-9d8074ab1c7a") },
+                    { new Guid("54c6ef4f-1e45-4179-bbe8-38eb64d8aea7"), new Guid("6a7d3a74-5698-4b62-ab7a-fca147ebb8e3"), new Guid("2581fe08-16c9-4e1e-87ac-d5c679268613") },
+                    { new Guid("55f0ae36-427e-47c7-bc85-918fb95ee566"), new Guid("d0490734-8038-4c90-b7e8-45c9ad9552e3"), new Guid("401870b2-7435-4566-af04-e7dffccbd378") }
                 });
 
             migrationBuilder.CreateIndex(

@@ -44,7 +44,7 @@ namespace TheHobbyHub.UI.Controllers
         {
             try
             {
-                int result = new CompanyManager(options).Insert(company);
+                Guid result = new CompanyManager(options).Insert(company);
                 return RedirectToAction(nameof(Index));
             }
             catch (Exception)
@@ -72,7 +72,7 @@ namespace TheHobbyHub.UI.Controllers
         {
             try
             {
-                int result = new CompanyManager(options).Insert(company, rollback);
+                Guid result = new CompanyManager(options).Insert(company, rollback);
                 return RedirectToAction(nameof(Index));
             }
             catch (Exception ex)

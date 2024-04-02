@@ -44,7 +44,7 @@ namespace TheHobbyHub.UI.Controllers
         {
             try
             {
-                int result = new EventManager(options).Insert(hobby);
+                Guid result = new EventManager(options).Insert(hobby);
                 return RedirectToAction(nameof(Index));
             }
             catch (Exception)
@@ -72,7 +72,7 @@ namespace TheHobbyHub.UI.Controllers
         {
             try
             {
-                int result = new EventManager(options).Insert(hobby, rollback);
+                Guid result = new EventManager(options).Insert(hobby, rollback);
                 return RedirectToAction(nameof(Index));
             }
             catch (Exception ex)

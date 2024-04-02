@@ -22,6 +22,8 @@ namespace TheHobbyHub.PL.Entities
         public virtual ICollection<tblEvent> Events { get; set; }
 
         public virtual ICollection<tblFriend> Friends { get; set; }
+
+        public string SortField { get { return CompanyName; } }
     }
 }
 
