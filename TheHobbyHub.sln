@@ -13,8 +13,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TheHobbyHub.PL", "TheHobbyH
 EndProject
 Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "TheHobbyHub.DB", "TheHobbyHub.DB\TheHobbyHub.DB.sqlproj", "{695C1A4F-DF95-4A5C-85DF-EBF585C887D2}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SolutionItems", "SolutionItems", "{86DA3BCB-635D-4160-B499-3AFBFB8D6659}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{71F5FA63-E78A-4AE7-856D-F13039818912}"
 	ProjectSection(SolutionItems) = preProject
 		TextFile2.txt = TextFile2.txt
@@ -26,9 +24,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TheHobbyHub.BL.Test", "TheH
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TheHobbyHub.MigrationHandler", "TheHobbyHub.MigrationHandler\TheHobbyHub.MigrationHandler.csproj", "{BC14840A-F756-492B-B0EE-A5863E8ED639}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TheHobbyHub.Utility", "TheHobbyHub.Utility\TheHobbyHub.Utility.csproj", "{6F22BFB3-DCA5-470C-A164-572240247496}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TheHobbyHub.Utility", "TheHobbyHub.Utility\TheHobbyHub.Utility.csproj", "{6F22BFB3-DCA5-470C-A164-572240247496}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TheHobbyHub.API", "TheHobbyHub.API\TheHobbyHub.API.csproj", "{C10C6AE7-E325-4FE0-B460-2618A620B9DF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TheHobbyHub.API", "TheHobbyHub.API\TheHobbyHub.API.csproj", "{C10C6AE7-E325-4FE0-B460-2618A620B9DF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
