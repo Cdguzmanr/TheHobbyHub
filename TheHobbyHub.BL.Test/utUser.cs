@@ -1,13 +1,17 @@
 ﻿
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
 using TheHobbyHub.BL.Models;
+using TheHobbyHub.PL.Data;
 
 namespace TheHobbyHub.BL.Test
 {
     [TestClass]
     public class utUser
     {
-
-        public void Seed()
+        private readonly DbContextOptions<HobbyHubEntities> options;
+        [TestInitialize]
+        public void Initialize()
         {
             UserManager.Seed();
         }

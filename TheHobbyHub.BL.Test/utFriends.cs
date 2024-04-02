@@ -1,8 +1,13 @@
-﻿namespace TheHobbyHub.BL.Test
+﻿using Microsoft.EntityFrameworkCore;
+using TheHobbyHub.BL.Models;
+using TheHobbyHub.PL.Data;
+
+namespace TheHobbyHub.BL.Test
 {
     [TestClass]
     public class utFriend : utBase<Friends>
     {
+        private readonly DbContextOptions<HobbyHubEntities> options;
         [TestMethod]
         public void LoadTest()
         {
