@@ -422,5 +422,15 @@ body {
     .user_options-unregistered {
         padding: 50px 45px;
     }
+
 }
 
+dl dt{
+    font-weight:normal;
+
+}
+
+ dl dd, dl dt{
+    height: 34px;
+    border-bottom: solid black 1px;
+}
