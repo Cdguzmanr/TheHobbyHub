@@ -122,6 +122,52 @@ namespace TheHobbyHub.BL
                 throw ex;
             }
         }
+        public List<Event> LoadByAddressId(Guid? addressId = null)
+        {
+            try
+            {
+                List<Event> events = new List<Event>();
+
+                using (HobbyHubEntities dc = new HobbyHubEntities(options))
+                {
+                    var results = (from e in dc.tblEvents
+                                   join ea in dc.tblAddresses on e.AddressId equals ea.Id
+                                   where e.AddressId == addressId
+                                   select new
+                                   {
+                                       Id = e.Id,
+                                       AddressId = e.AddressId,
+                                       UserId = e.UserId,
+                                       CompanyId = e.CompanyId,
+                                       HobbyId = e.HobbyId,
+                                       Image = e.Image,
+                                       Date = e.Date
+                                   }).ToList();
+
+                    results.ForEach(r => events.Add(
+                         new Event
+                         {
+                             Id = r.Id,
+                             AddressId = r.AddressId,
+                             UserId = r.UserId,
+                             CompanyId = r.CompanyId,
+                             HobbyId = r.HobbyId,
+                             Image = r.Image,
+                             Date = r.Date
+                         }
+                        ));
+
+                    return events;
+                }
+
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+
 
     }
 }

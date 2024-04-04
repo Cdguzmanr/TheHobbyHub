@@ -45,6 +45,7 @@ namespace TheHobbyHub.BL.Test
         [TestMethod]
         public void DeleteTest()
         {
+            
             Address address = new AddressManager(options).Load().LastOrDefault();
 
             Assert.IsTrue(new AddressManager(options).Delete(address.Id, true) > 0);

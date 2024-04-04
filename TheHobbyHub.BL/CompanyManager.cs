@@ -153,8 +153,6 @@ namespace TheHobbyHub.BL
 
                     return compnaies;
                 }
-
-                return compnaies;
             }
             catch (Exception)
             {

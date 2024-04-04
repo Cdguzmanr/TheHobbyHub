@@ -32,7 +32,7 @@ namespace TheHobbyHub.BL
         {
             try
             {
-                return base.Update(new tblAddress
+                int results = base.Update(new tblAddress
                 {
                     Id = address.Id,
                     PostalAddress = address.PostalAddress,
@@ -40,6 +40,7 @@ namespace TheHobbyHub.BL
                     Zip = address.Zip,
                     State = address.State
                 }, rollback);
+                return results;
             }
             catch (Exception ex)
             {
@@ -50,11 +51,42 @@ namespace TheHobbyHub.BL
         {
             try
             {
-                return base.Delete(id, rollback);
+                int results = 0;
+
+                using (HobbyHubEntities dc = new HobbyHubEntities(options))
+                {
+                    IDbContextTransaction transaction = null;
+                    if (rollback) transaction = dc.Database.BeginTransaction();
+
+                    tblAddress deleteRow = dc.tblAddresses.FirstOrDefault(f => f.Id == id);
+
+                    if (deleteRow != null)
+                    {
+                        // delete all the associated tblMovieGenre rows. 
+                        var companies = dc.tblCompanies.Where(g => g.AddressId == id);
+                        dc.tblCompanies.RemoveRange(companies);
+
+
+                        var events = dc.tblEvents.Where(g => g.AddressId == id);
+                        dc.tblEvents.RemoveRange(events);
+                        // remove the movie
+                        dc.tblAddresses.Remove(deleteRow);
+
+                        // Commit the changes and get the number of rows affected
+                        results = dc.SaveChanges();
+
+                        if (rollback) transaction.Rollback();
+                    }
+                    else
+                    {
+                        throw new Exception("Row was not found.");
+                    }
+                }
+                return results;
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                throw ex;
+                throw;
             }
         }
         public List<Address> Load()

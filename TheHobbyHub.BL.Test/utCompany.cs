@@ -44,7 +44,8 @@ namespace TheHobbyHub.BL.Test
         [TestMethod]
         public void DeleteTest()
         {
-            Company companies = new CompanyManager(options).Load().FirstOrDefault(x => x.CompanyName == "Other");
+
+            Company companies = new CompanyManager(options).Load().LastOrDefault();
 
             Assert.IsTrue(new CompanyManager(options).Delete(companies.Id, true) > 0);
         }
