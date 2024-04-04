@@ -7,7 +7,7 @@
 
         }
 
-        public Guid Insert(Hobby hobby, bool rollback = false)
+        public int Insert(Hobby hobby, bool rollback = false)
         {
             try
             {

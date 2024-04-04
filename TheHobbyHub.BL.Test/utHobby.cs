@@ -28,8 +28,8 @@ namespace TheHobbyHub.BL.Test
 
             };
 
-            Guid result = new HobbyManager(options).Insert(hobby, true);
-            Assert.IsTrue(result > Guid.Empty);
+            int result = new HobbyManager(options).Insert(hobby, true);
+            Assert.IsTrue(result > 0);
         }
 
         [TestMethod]
