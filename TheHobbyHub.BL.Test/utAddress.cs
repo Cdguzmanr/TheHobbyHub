@@ -29,8 +29,8 @@ namespace TheHobbyHub.BL.Test
                 
             };
 
-            Guid result = new AddressManager(options).Insert(address, true);
-            Assert.IsTrue(result > Guid.Empty);
+            int result = new AddressManager(options).Insert(address, true);
+            Assert.IsTrue(result > 0);
         }
 
         [TestMethod]

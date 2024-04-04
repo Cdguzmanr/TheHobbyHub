@@ -25,8 +25,8 @@ namespace TheHobbyHub.BL.Test
 
             };
 
-            Guid result = new FriendsManager(options).Insert(friend, true);
-            Assert.IsTrue(result > Guid.Empty);
+            int result = new FriendsManager(options).Insert(friend, true);
+            Assert.IsTrue(result > 0);
         }
 
         [TestMethod]

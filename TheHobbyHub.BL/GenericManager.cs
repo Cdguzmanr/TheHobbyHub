@@ -2,25 +2,31 @@
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Microsoft.Extensions.Logging;
 using System.Linq.Expressions;
+using System.Threading.Tasks;
 
 namespace TheHobbyHub.BL
 {
+    public class AlreadyExistsException : Exception
+    {
+        public AlreadyExistsException(string message) : base(message) { }
+        public AlreadyExistsException() : base("Row already exists.") { }
+    }
     public abstract class GenericManager<T> where T : class, IEntity
     {
         protected DbContextOptions<HobbyHubEntities> options;
-        protected readonly ILogger logger;
+        //protected readonly ILogger logger;
 
         public GenericManager(DbContextOptions<HobbyHubEntities> options)
         {
             this.options = options;
         }
 
-        public GenericManager(ILogger logger,
-                              DbContextOptions<HobbyHubEntities> options)
-        {
-            this.options = options;
-            this.logger = logger;
-        }
+        //public GenericManager(ILogger logger,
+        //                      DbContextOptions<HobbyHubEntities> options)
+        //{
+        //    this.options = options;
+        //    this.logger = logger;
+        //}
 
         public GenericManager() { }
 
@@ -47,15 +53,34 @@ namespace TheHobbyHub.BL
             return data;
         }
 
+        public async Task<List<T>> LoadAsync()
+        {
+            try
+            {
+                //if (logger != null) logger.LogWarning($"Get {typeof(T).Name}s");
+                var rows = new HobbyHubEntities(options)
+                    .Set<T>()
+                    .ToListAsync<T>()
+                    .ConfigureAwait(false);
+
+                return await rows;
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
         public List<T> Load()
         {
             try
             {
-                if (logger != null) logger.LogWarning($"Get {typeof(T).Name}s");
+                //if (logger != null) logger.LogWarning($"Get {typeof(T).Name}s");
                 return new HobbyHubEntities(options)
                     .Set<T>()
                     .ToList<T>()
-                    .OrderBy(x => x.SortField)
+                    //.OrderBy(x => x.SortField)
                     .ToList<T>();
 
             }
@@ -66,44 +91,43 @@ namespace TheHobbyHub.BL
             }
         }
 
-        public List<T> Load(string storedproc)
-        {
-            try
-            {
-                return new HobbyHubEntities(options)
-                    .Set<T>()
-                    .FromSqlRaw($"exec {storedproc}")
-                    .ToList<T>()
-                    .OrderBy(x => x.SortField)
-                    .ToList<T>();
+        //public List<T> Load(string storedproc)
+        //{
+        //    try
+        //    {
+        //        return new HobbyHubEntities(options)
+        //            .Set<T>()
+        //            .FromSqlRaw($"exec {storedproc}")
+        //            .ToList<T>()
+        //            //.OrderBy(x => x.SortField)
+        //            .ToList<T>();
 
-            }
-            catch (Exception)
-            {
+        //    }
+        //    catch (Exception)
+        //    {
 
-                throw;
-            }
-        }
+        //        throw;
+        //    }
+        //}
 
-        public List<T> Load(string storedproc, string value)
-        {
-            try
-            {
-                return new HobbyHubEntities(options)
-                    .Set<T>()
-                    .FromSqlRaw($"exec {storedproc} {value}")
-                    .ToList<T>()
-                    .OrderBy(x => x.SortField)
-                    .ToList<T>();
+        //public List<T> Load(string storedproc, string value)
+        //{
+        //    try
+        //    {
+        //        return new HobbyHubEntities(options)
+        //            .Set<T>()
+        //            .FromSqlRaw($"exec {storedproc} {value}")
+        //            .ToList<T>()
+        //            .OrderBy(x => x.SortField)
+        //            .ToList<T>();
 
-            }
-            catch (Exception)
-            {
+        //    }
+        //    catch (Exception)
+        //    {
 
-                throw;
-            }
-        }
-
+        //        throw;
+        //    }
+        //}
         public T LoadById(Guid id)
         {
             try
@@ -117,10 +141,9 @@ namespace TheHobbyHub.BL
                 throw;
             }
         }
-
-        public Guid Insert(T entity,
-                       Expression<Func<T, bool>> predicate = null,
-                       bool rollback = false)
+        public int Insert(T entity,
+                          Expression<Func<T, bool>> predicate = null,
+                          bool rollback = false)
         {
             try
             {
@@ -131,31 +154,78 @@ namespace TheHobbyHub.BL
                     {
                         IDbContextTransaction dbTransaction = null;
                         if (rollback) dbTransaction = dc.Database.BeginTransaction();
+
                         entity.Id = Guid.NewGuid();
+
                         dc.Set<T>().Add(entity);
                         results = dc.SaveChanges();
+
                         if (rollback) dbTransaction.Rollback();
                     }
                     else
                     {
+                        //if (logger != null) logger.LogWarning("Row already exists. {UserId}", "bfoote");
                         throw new Exception("Row already exists.");
                     }
+
                 }
-                return entity.Id;
+
+                return results;
             }
-            catch
+            catch (Exception)
             {
+
                 throw;
             }
         }
 
-        public Guid Insert(T entity, bool rollback = false)
+        public async Task<int> InsertAsync(T entity,
+                                            Expression<Func<T, bool>> predicate = null,
+                                            bool rollback = false)
         {
             try
             {
                 int results = 0;
                 using (HobbyHubEntities dc = new HobbyHubEntities(options))
                 {
+                    if ((predicate == null) || ((predicate != null) && (!dc.Set<T>().Any(predicate))))
+                    {
+                        IDbContextTransaction dbTransaction = null;
+                        if (rollback) dbTransaction = dc.Database.BeginTransaction();
+
+                        entity.Id = Guid.NewGuid();
+
+                        dc.Set<T>().Add(entity);
+                        results = dc.SaveChanges();
+
+                        if (rollback) dbTransaction.Rollback();
+                    }
+                    else
+                    {
+                        //if (logger != null) logger.LogWarning("Row already exists. {UserId}", "bfoote");
+                        throw new AlreadyExistsException("That row already exists.");
+                    }
+
+                }
+
+                return results;
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
+        public int Insert(T entity,
+                         bool rollback = false)
+        {
+            try
+            {
+                int results = 0;
+                using (HobbyHubEntities dc = new HobbyHubEntities(options))
+                {
+
                     IDbContextTransaction dbTransaction = null;
                     if (rollback) dbTransaction = dc.Database.BeginTransaction();
 
@@ -166,9 +236,10 @@ namespace TheHobbyHub.BL
 
                     if (rollback) dbTransaction.Rollback();
 
+
                 }
 
-                return entity.Id;
+                return results;
             }
             catch (Exception)
             {
@@ -176,7 +247,6 @@ namespace TheHobbyHub.BL
                 throw;
             }
         }
-
         public int Update(T entity, bool rollback = false)
         {
             try
@@ -203,8 +273,6 @@ namespace TheHobbyHub.BL
                 throw;
             }
         }
-
-        
         public int Delete(Guid id, bool rollback = false)
         {
             try

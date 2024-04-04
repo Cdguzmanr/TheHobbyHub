@@ -28,8 +28,8 @@ namespace TheHobbyHub.BL.Test
                 Image = "Test"
             };
 
-            Guid result = new CompanyManager(options).Insert(company, true);
-            Assert.IsTrue(result > Guid.Empty);
+            int result = new CompanyManager(options).Insert(company, true);
+            Assert.IsTrue(result > 0);
         }
 
         [TestMethod]

@@ -10,7 +10,7 @@ namespace TheHobbyHub.BL
 
         }
 
-        public Guid Insert(Address address, bool rollback = false)
+        public int Insert(Address address, bool rollback = false)
         {
             try
             {

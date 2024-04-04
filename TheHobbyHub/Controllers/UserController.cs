@@ -59,8 +59,6 @@ namespace TheHobbyHub.Controllers
         {
             try
             {
-
-
                 bool result = new UserManager(options).Login(user);
                 SetUser(user);
 
