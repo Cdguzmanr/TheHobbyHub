@@ -70,7 +70,7 @@ namespace TheHobbyHub.PL.Migrations
                     Image = table.Column<string>(type: "varchar(max)", unicode: false, nullable: false),
                     UserName = table.Column<string>(type: "varchar(50)", unicode: false, maxLength: 50, nullable: false),
                     Password = table.Column<string>(type: "varchar(50)", unicode: false, maxLength: 50, nullable: false),
-                    AddressId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
+                    AddressId = table.Column<Guid>(type: "uniqueidentifier", nullable: true)
                 },
                 constraints: table =>
                 {

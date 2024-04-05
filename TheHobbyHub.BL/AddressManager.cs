@@ -50,7 +50,35 @@ namespace TheHobbyHub.BL
         {
             try
             {
-                return base.Delete(id, rollback);
+                int results = 0;
+
+                using (HobbyHubEntities dc = new HobbyHubEntities(options))
+                {
+                    IDbContextTransaction transaction = null;
+                    if (rollback) transaction = dc.Database.BeginTransaction();
+
+                    tblAddress deleteRow = dc.tblAddresses.FirstOrDefault(a => a.Id == id);
+
+                    if(deleteRow != null)
+                    {
+                        //Delete all associated tblCompany Rows
+                        var companies = dc.tblCompanies.Where(a => a.AddressId == id);
+                        dc.tblCompanies.RemoveRange(companies);
+
+                        //Delete all associated tblEvent rows
+                        var events = dc.tblEvents.Where(a => a.AddressId == id);
+                        dc.tblEvents.RemoveRange(events);
+
+                        results = dc.SaveChanges();
+
+                        if (rollback) transaction.Rollback();
+                    }
+                    else
+                    {
+                        throw new Exception("Row was not found");
+                    }
+                }
+                return results;
             }
             catch (Exception ex)
             {
