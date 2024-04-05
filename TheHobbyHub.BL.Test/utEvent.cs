@@ -36,6 +36,14 @@ namespace TheHobbyHub.BL.Test
         }
 
         [TestMethod]
+        public void LoadByHobbyIdTest()
+        {
+            Guid hobbyId = new EventManager(options).Load().FirstOrDefault().HobbyId;
+
+            Assert.IsTrue(new EventManager(options).LoadByHobbyId(hobbyId).Count > 0);
+        }
+
+        [TestMethod]
         public void UpdateTest()
         {
             Event @event = new EventManager(options).Load().FirstOrDefault();

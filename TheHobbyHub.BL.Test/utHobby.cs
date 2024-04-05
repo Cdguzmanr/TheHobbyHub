@@ -55,5 +55,7 @@ namespace TheHobbyHub.BL.Test
             Hobby hobby = new HobbyManager(options).Load().LastOrDefault();
             Assert.AreEqual(new HobbyManager(options).LoadById(hobby.Id).Id, hobby.Id);
         }
+
+
     }
 }

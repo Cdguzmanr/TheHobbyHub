@@ -129,7 +129,7 @@ namespace TheHobbyHub.BL
                     var results = (from cm in dc.tblCompanies
                                    join ac in dc.tblAddresses on cm.AddressId equals ac.Id
                                    where cm.AddressId == addressId
-                                   select new
+                                   select new Company
                                    {
                                        Id = cm.Id,
                                        CompanyName = cm.CompanyName,
