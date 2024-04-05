@@ -1,11 +1,9 @@
-﻿
-using ThehobbyHub.BL;
-using TheHobbyHub.BL.Models;
+﻿using TheHobbyHub.BL.Models;
 
 namespace TheHobbyHub.BL.Test
 {
     [TestClass]
-    public class utFriend : utBase<Friends>
+    public class utFriend : utBase
     {
         [TestMethod]
         public void LoadTest()
@@ -22,8 +20,8 @@ namespace TheHobbyHub.BL.Test
             Friends friend = new Friends
             {
                 Id = Guid.NewGuid(),
-                UserId = Guid.NewGuid(),
-                CompanyId = Guid.NewGuid()
+                UserId = new UserManager(options).Load().FirstOrDefault().Id,
+                CompanyId = new CompanyManager(options).Load().FirstOrDefault().Id
 
             };
 
@@ -35,7 +33,7 @@ namespace TheHobbyHub.BL.Test
         public void UpdateTest()
         {
             Friends friend = new FriendsManager(options).Load().FirstOrDefault();
-            friend.CompanyId = Guid.NewGuid();
+            friend.CompanyId = new CompanyManager(options).Load().FirstOrDefault().Id;
 
             Assert.IsTrue(new FriendsManager(options).Update(friend, true) > 0);
         }

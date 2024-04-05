@@ -1,10 +1,11 @@
 ﻿
+using System.IO;
 using TheHobbyHub.BL.Models;
 
 namespace TheHobbyHub.BL.Test
 {
     [TestClass]
-    public class utAddress : utBase<Address>
+    public class utAddress : utBase
     {
         [TestMethod]
         public void LoadTest()
@@ -44,6 +45,7 @@ namespace TheHobbyHub.BL.Test
         [TestMethod]
         public void DeleteTest()
         {
+            
             Address address = new AddressManager(options).Load().LastOrDefault();
 
             Assert.IsTrue(new AddressManager(options).Delete(address.Id, true) > 0);

@@ -18,6 +18,8 @@ namespace TheHobbyHub.PL.Entities
         public virtual ICollection<tblCompany> Companies { get; set; }
 
         public virtual ICollection<tblEvent> Events { get; set; }
+        public string SortField { get { return City; } }
+
 
     }
 

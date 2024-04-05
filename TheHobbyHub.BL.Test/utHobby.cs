@@ -4,7 +4,7 @@ using TheHobbyHub.BL.Models;
 namespace TheHobbyHub.BL.Test
 {
     [TestClass]
-    public class utHobby : utBase<Hobby>
+    public class utHobby : utBase
     {
         [TestMethod]
         public void LoadTest()
@@ -55,5 +55,7 @@ namespace TheHobbyHub.BL.Test
             Hobby hobby = new HobbyManager(options).Load().LastOrDefault();
             Assert.AreEqual(new HobbyManager(options).LoadById(hobby.Id).Id, hobby.Id);
         }
+
+
     }
 }

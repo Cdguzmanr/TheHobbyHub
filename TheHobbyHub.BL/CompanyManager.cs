@@ -1,4 +1,5 @@
-﻿using Mono.TextTemplating;
+﻿using Azure.Identity;
+using Mono.TextTemplating;
 using TheHobbyHub.BL.Models;
 using TheHobbyHub.PL.Entities;
 
@@ -114,6 +115,57 @@ namespace TheHobbyHub.BL
             catch (Exception ex)
             {
                 throw ex;
+            }
+        }
+
+        public List<Company> LoadByAddressId(Guid? addressId = null)
+        {
+            try
+            {
+                List<Company> compnaies = new List<Company>();
+
+                using (HobbyHubEntities dc = new HobbyHubEntities(options))
+                {
+                    var results = (from cm in dc.tblCompanies
+                                   join ac in dc.tblAddresses on cm.AddressId equals ac.Id
+                                   where cm.AddressId == addressId
+                                   select new Company
+                                   {
+                                       Id = cm.Id,
+                                       CompanyName = cm.CompanyName,
+                                       UserName = cm.UserName,
+                                       Password = cm.Password,
+                                       Image = cm.Image,
+                                       AddressId = cm.AddressId
+                                   }).ToList();
+
+                    results.ForEach(r => compnaies.Add(
+                         new Company
+                         {
+                             Id = r.Id,
+                             CompanyName = r.CompanyName,
+                             UserName = r.UserName,
+                             Password = r.Password,
+                             Image = r.Image,
+                             AddressId = r.AddressId
+                         }
+                        ));
+
+                    return compnaies;
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        private string GetHash(string Password)
+        {
+            using (var hasher = new System.Security.Cryptography.SHA1Managed())
+            {
+                var hashbytes = System.Text.Encoding.UTF8.GetBytes(Password);
+                return Convert.ToBase64String(hasher.ComputeHash(hashbytes));
             }
         }
 

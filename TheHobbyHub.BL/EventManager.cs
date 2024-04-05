@@ -123,5 +123,53 @@ namespace TheHobbyHub.BL
             }
         }
 
+        public List<Event> LoadByHobbyId(Guid hobbyId)
+        {
+            try
+            {
+                List<Event> rows = new List<Event>();
+                using (HobbyHubEntities dc = new HobbyHubEntities(options))
+                {
+                    var results = (from e in dc.tblEvents
+                                   join eh in dc.tblHobbies on e.HobbyId equals eh.Id
+                                   where e.HobbyId == hobbyId
+                                   select new Event
+                                   {
+                                       Id = e.Id,
+                                       AddressId = e.AddressId,
+                                       UserId = e.UserId,
+                                       CompanyId = e.CompanyId,
+                                       HobbyId = e.HobbyId,
+                                       Description = e.Description,
+                                       Image = e.Image,
+                                       Date = e.Date
+                                   }).ToList();
+
+                    results.ForEach(r => rows.Add(
+                         new Event
+                         {
+                             Id = r.Id,
+                             AddressId = r.AddressId,
+                             UserId = r.UserId,
+                             CompanyId = r.CompanyId,
+                             HobbyId = r.HobbyId,
+                             Description = r.Description,
+                             Image = r.Image,
+                             Date = r.Date
+                         }
+                        ));
+
+                    return rows;
+                }
+
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+
+
     }
 }

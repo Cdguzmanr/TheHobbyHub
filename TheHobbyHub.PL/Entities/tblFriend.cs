@@ -14,6 +14,8 @@ namespace TheHobbyHub.PL.Entities
         public virtual tblUser User { get; set; }
 
         public virtual tblCompany Company { get; set; }
+
+        public string SortField { get { return User.UserName; } }
     }
 
 }
