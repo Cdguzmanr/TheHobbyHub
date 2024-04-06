@@ -15,12 +15,19 @@ namespace TheHobbyHub.BL.Test
             Assert.IsTrue(result > 0);
         }
 
-
         [TestMethod]
         public void DeleteTest()
         {
-            tblFriend row = new FriendsManager(options).Load().FirstOrDefault();
-            Assert.IsTrue(new FriendsManager(options).Delete(row.UserId, row.CompanyId, true) > 0);
+            Friends friend = new FriendsManager(options).Load().LastOrDefault();
+
+            Assert.IsTrue(new FriendsManager(options).Delete(friend.Id, true) > 0);
         }
+
+        //[TestMethod]
+        //public void DeleteTest2()
+        //{
+        //    tblFriend row = new FriendsManager(options).Load().FirstOrDefault();
+        //    Assert.IsTrue(new FriendsManager(options).Delete(row.UserId, row.CompanyId, true) > 0);
+        //}
     }
 }
