@@ -96,27 +96,56 @@ namespace TheHobbyHub.BL
         }
         public List<Company> Load()
         {
+
             try
             {
-                List<Company> rows = new List<Company>();
-                base.Load()
-                .ForEach(company => rows.Add(
-                    new Company
-                    {
-                        Id = company.Id,
-                        CompanyName = company.CompanyName,
-                        UserName = company.UserName,
-                        Password = company.Password,
-                        Image = company.Image,
-                        AddressId = company.AddressId,
-                    }));
-                return rows;
+                List<Company> movies = new List<Company>();
 
+                using (HobbyHubEntities dc = new HobbyHubEntities(options))
+                {
+                    movies = (from c in dc.tblCompanies
+                              join ca in dc.tblAddresses on c.AddressId equals ca.Id
+                              select new Company
+                              {
+                                  Id = c.Id,
+                                  CompanyName = c.CompanyName,
+                                  UserName = c.UserName,
+                                  Password = c.Password,
+                                  Image = c.Image,
+                                  AddressId = c.AddressId,
+                              }
+                              )
+                              .ToList();
+                }
+                return movies;
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                throw ex;
+                throw;
             }
+
+
+            //try
+            //{
+            //    List<Company> rows = new List<Company>();
+            //    base.Load()
+            //    .ForEach(company => rows.Add(
+            //        new Company
+            //        {
+            //            Id = company.Id,
+            //            CompanyName = company.CompanyName,
+            //            UserName = company.UserName,
+            //            Password = company.Password,
+            //            Image = company.Image,
+            //            AddressId = company.AddressId,
+            //        }));
+            //    return rows;
+
+            //}
+            //catch (Exception ex)
+            //{
+            //    throw ex;
+            //}
         }
         public Company LoadById(Guid id)
         {

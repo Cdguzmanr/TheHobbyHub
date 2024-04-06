@@ -57,56 +57,90 @@ namespace TheHobbyHub.BL
                     IDbContextTransaction transaction = null;
                     if (rollback) transaction = dc.Database.BeginTransaction();
 
-                    tblAddress deleteRow = dc.tblAddresses.FirstOrDefault(a => a.Id == id);
+                    tblAddress deleteRow = dc.tblAddresses.FirstOrDefault(f => f.Id == id);
 
-                    if(deleteRow != null)
+                    if (deleteRow != null)
                     {
-                        //Delete all associated tblCompany Rows
-                        var companies = dc.tblCompanies.Where(a => a.AddressId == id);
-                        dc.tblCompanies.RemoveRange(companies);
-
-                        //Delete all associated tblEvent rows
-                        var events = dc.tblEvents.Where(a => a.AddressId == id);
+                        // delete all the associated tblEvent
+                        var events = dc.tblEvents.Where(g => g.AddressId == id);
                         dc.tblEvents.RemoveRange(events);
 
+                        // delete all the associated tblCompany
+                        var comapnies = dc.tblCompanies.Where(i => i.AddressId == id);
+                        dc.tblCompanies.RemoveRange(comapnies);
+
+                        // remove the movie
+                        dc.tblAddresses.Remove(deleteRow);
+
+                        // Commit the changes and get the number of rows affected
                         results = dc.SaveChanges();
 
                         if (rollback) transaction.Rollback();
                     }
                     else
                     {
-                        throw new Exception("Row was not found");
+                        throw new Exception("Row was not found.");
                     }
                 }
                 return results;
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                throw ex;
+                throw;
             }
         }
         public List<Address> Load()
         {
+
             try
             {
-                List<Address> rows = new List<Address>();
-                base.Load()
-                .ForEach(address => rows.Add(
-                    new Address
-                    {
-                        Id = address.Id,
-                        PostalAddress = address.PostalAddress,
-                        City = address.City,
-                        Zip = address.Zip,
-                        State = address.State
-                    }));
-                return rows;
+                List<Address> addresses = new List<Address>();
 
+                using (HobbyHubEntities dc = new HobbyHubEntities(options))
+                {
+                    addresses = (from a in dc.tblAddresses
+                              join ca in dc.tblCompanies on a.Id equals ca.AddressId
+                              join ea in dc.tblEvents on a.Id equals ea.AddressId
+                              select new Address
+                              {
+                                  Id = a.Id,
+                                  PostalAddress = a.PostalAddress,
+                                  City = a.City,
+                                  Zip = a.Zip,
+                                  State = a.State
+                              }
+                              )
+                              .ToList();
+                }
+                return addresses;
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                throw ex;
+                throw;
             }
+
+
+
+            //try
+            //{
+            //    List<Address> rows = new List<Address>();
+            //    base.Load()
+            //    .ForEach(address => rows.Add(
+            //        new Address
+            //        {
+            //            Id = address.Id,
+            //            PostalAddress = address.PostalAddress,
+            //            City = address.City,
+            //            Zip = address.Zip,
+            //            State = address.State
+            //        }));
+            //    return rows;
+
+            //}
+            //catch (Exception ex)
+            //{
+            //    throw ex;
+            //}
         }
         public Address LoadById(Guid id)
         {

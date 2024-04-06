@@ -4,21 +4,21 @@ using TheHobbyHub.BL.Models;
 
 namespace TheHobbyHub.BL
 {
-    public class FriendsManager : GenericManager<tblFriend>
+    public class UserHobbyManager : GenericManager<tblUserHobby>
     {
-        public FriendsManager(DbContextOptions<HobbyHubEntities> options) : base(options)
+        public UserHobbyManager(DbContextOptions<HobbyHubEntities> options) : base(options)
         {
 
         }
 
-        public int Insert(Guid userId, Guid companyId, bool rollback = false)
+        public int Insert(Guid userId, Guid hobbyId, bool rollback = false)
         {
             try
             {
-                tblFriend row = new tblFriend();
+                tblUserHobby row = new tblUserHobby();
                 row.Id = Guid.NewGuid();
                 row.UserId = userId;
-                row.CompanyId = companyId;
+                row.HobbyId = hobbyId;
 
                 return base.Insert(row, rollback);
             }
@@ -27,7 +27,7 @@ namespace TheHobbyHub.BL
                 throw ex;
             }
         }
-        public int Update(Guid userId, Guid companyId, bool rollback = false)
+        public int Update(Guid userId, Guid hobbyId, bool rollback = false)
         {
             try
             {
@@ -37,12 +37,12 @@ namespace TheHobbyHub.BL
                     IDbContextTransaction transaction = null;
                     if (rollback) transaction = dc.Database.BeginTransaction();
 
-                    tblFriend row = dc.tblFriends.FirstOrDefault(r => r.CompanyId == companyId && r.UserId == userId);
+                    tblUserHobby row = dc.tblUserHobbies.FirstOrDefault(r => r.HobbyId == hobbyId && r.UserId == userId);
 
                     if (row != null)
                     {
                         row.UserId = userId;
-                        row.CompanyId = companyId;
+                        row.HobbyId = hobbyId;
 
                         results = dc.SaveChanges();
                         if (rollback) transaction.Rollback();
@@ -59,7 +59,7 @@ namespace TheHobbyHub.BL
                 throw ex;
             }
         }
-        public int Delete(Guid companyId, bool rollback = false)
+        public int Delete(Guid userhobbyId, bool rollback = false)
         {
             try
             {
@@ -69,11 +69,11 @@ namespace TheHobbyHub.BL
                     IDbContextTransaction transaction = null;
                     if (rollback) transaction = dc.Database.BeginTransaction();
 
-                    tblFriend row = dc.tblFriends.FirstOrDefault(r => r.Id == companyId);
+                    tblUserHobby row = dc.tblUserHobbies.FirstOrDefault(r => r.Id == userhobbyId);
 
                     if (row != null)
                     {
-                        dc.tblFriends.Remove(row);
+                        dc.tblUserHobbies.Remove(row);
                         results = dc.SaveChanges();
                         if (rollback) transaction.Rollback();
                     }
@@ -91,7 +91,7 @@ namespace TheHobbyHub.BL
         }
 
 
-        public int Delete(Guid userId, Guid companyId, bool rollback = false)
+        public int Delete(Guid userId, Guid hobbyId, bool rollback = false)
         {
             try
             {
@@ -101,11 +101,11 @@ namespace TheHobbyHub.BL
                     IDbContextTransaction transaction = null;
                     if (rollback) transaction = dc.Database.BeginTransaction();
 
-                    tblFriend row = dc.tblFriends.FirstOrDefault(r => r.UserId == userId && r.CompanyId == companyId);
+                    tblUserHobby row = dc.tblUserHobbies.FirstOrDefault(r => r.UserId == userId && r.HobbyId == hobbyId);
 
                     if (row != null)
                     {
-                        dc.tblFriends.Remove(row);
+                        dc.tblUserHobbies.Remove(row);
                         results = dc.SaveChanges();
                         if (rollback) transaction.Rollback();
                     }
@@ -121,6 +121,55 @@ namespace TheHobbyHub.BL
                 throw ex;
             }
         }
-       
+        //    public List<UserHobby> Load()
+        //    {
+        //        try
+        //        {
+        //            List<UserHobby> rows = new List<UserHobby>();
+        //            base.Load()
+        //            .ForEach(friend => rows.Add(
+        //                new UserHobby
+        //                {
+        //                    Id = friend.Id,
+        //                    UserId = friend.UserId,
+        //                    HobbyId = friend.HobbyId,
+        //                }));
+        //            return rows;
+
+        //        }
+        //        catch (Exception ex)
+        //        {
+        //            throw ex;
+        //        }
+        //    }
+        //    public UserHobby LoadById(Guid id)
+        //    {
+        //        try
+        //        {
+        //            tblUserHobby row = base.LoadById(id);
+
+        //            if (row != null)
+        //            {
+        //                UserHobby friend = new UserHobby
+        //                {
+        //                    Id = row.Id,
+        //                    UserId = row.UserId,
+        //                    HobbyId = row.HobbyId,
+        //                };
+        //                return friend;
+        //            }
+        //            else
+        //            {
+        //                throw new Exception("Row was not found.");
+        //            }
+
+        //        }
+        //        catch (Exception ex)
+        //        {
+        //            throw ex;
+        //        }
+        //    }
+
+        //}
     }
 }
