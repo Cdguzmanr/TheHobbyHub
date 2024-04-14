@@ -434,3 +434,8 @@ dl dt{
     height: 34px;
     border-bottom: solid black 1px;
 }
+
+#profileListImg{
+    width: 100px;
+    height:100px;
+}
