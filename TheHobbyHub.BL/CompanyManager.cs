@@ -19,9 +19,8 @@ namespace TheHobbyHub.BL
                 tblCompany row = new tblCompany();
                 row.Id = Guid.NewGuid();
                 row.CompanyName = company.CompanyName;
-                row.UserName = company.UserName;
-                row.Password = company.Password;
-                row.Image = company.Image;
+                row.UserId = company.UserId;
+                row.Description = company.Description;
                 row.AddressId = company.AddressId;
 
 
@@ -40,9 +39,8 @@ namespace TheHobbyHub.BL
                 {
                     Id = company.Id,
                     CompanyName = company.CompanyName,
-                    UserName = company.UserName,
-                    Password = company.Password,
-                    Image = company.Image,
+                    UserId = company.UserId,
+                    Description = company.Description,
                     AddressId = company.AddressId,
 
                 }, rollback);
@@ -74,9 +72,8 @@ namespace TheHobbyHub.BL
                     {
                         Id = company.Id,
                         CompanyName = company.CompanyName,
-                        UserName = company.UserName,
-                        Password = company.Password,
-                        Image = company.Image,
+                        UserId = company.UserId,
+                        Description = company.Description,
                         AddressId = company.AddressId,
                     }));
                 return rows;
@@ -99,9 +96,8 @@ namespace TheHobbyHub.BL
                     {
                         Id = row.Id,
                         CompanyName = row.CompanyName,
-                        UserName = row.UserName,
-                        Password = row.Password,
-                        Image = row.Image,
+                        UserId = row.UserId,
+                        Description = row.Description,
                         AddressId = row.AddressId,
                     };
                     return company;
@@ -118,6 +114,49 @@ namespace TheHobbyHub.BL
             }
         }
 
+
+        public List<Company> LoadByUserId(Guid? userId = null)
+        {
+            try
+            {
+                List<Company> compnaies = new List<Company>();
+
+                using (HobbyHubEntities dc = new HobbyHubEntities(options))
+                {
+                    var results = (from cm in dc.tblCompanies
+                                   join cu in dc.tblUsers on cm.UserId equals cu.Id
+                                   join ac in dc.tblAddresses on cm.AddressId equals ac.Id
+                                   where cm.UserId == userId
+                                   select new Company
+                                   {
+                                       Id = cm.Id,
+                                       CompanyName = cm.CompanyName,
+                                       UserId = cm.UserId,
+                                       Description = cm.Description,
+                                       AddressId = cm.AddressId
+                                   }).ToList();
+
+                    results.ForEach(r => compnaies.Add(
+                         new Company
+                         {
+                             Id = r.Id,
+                             CompanyName = r.CompanyName,
+                             UserId = r.UserId,
+                             Description = r.Description,
+                             AddressId = r.AddressId
+                         }
+                        ));
+
+                    return compnaies;
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+
         public List<Company> LoadByAddressId(Guid? addressId = null)
         {
             try
@@ -127,15 +166,15 @@ namespace TheHobbyHub.BL
                 using (HobbyHubEntities dc = new HobbyHubEntities(options))
                 {
                     var results = (from cm in dc.tblCompanies
+                                   join cu in dc.tblUsers on cm.UserId equals cu.Id
                                    join ac in dc.tblAddresses on cm.AddressId equals ac.Id
                                    where cm.AddressId == addressId
                                    select new Company
                                    {
                                        Id = cm.Id,
                                        CompanyName = cm.CompanyName,
-                                       UserName = cm.UserName,
-                                       Password = cm.Password,
-                                       Image = cm.Image,
+                                       UserId = cm.UserId,
+                                       Description = cm.Description,
                                        AddressId = cm.AddressId
                                    }).ToList();
 
@@ -144,9 +183,8 @@ namespace TheHobbyHub.BL
                          {
                              Id = r.Id,
                              CompanyName = r.CompanyName,
-                             UserName = r.UserName,
-                             Password = r.Password,
-                             Image = r.Image,
+                             UserId = r.UserId,
+                             Description = r.Description,
                              AddressId = r.AddressId
                          }
                         ));
