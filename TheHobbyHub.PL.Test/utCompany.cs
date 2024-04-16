@@ -18,9 +18,8 @@
 
             newRow.Id = Guid.NewGuid();
             newRow.CompanyName = "Anytime Ftiness";
-            newRow.Image = "none";
-            newRow.UserName = "Anytime Fitness";
-            newRow.Password = "RunningMan";
+            newRow.UserId = base.LoadTest().FirstOrDefault().UserId;
+            newRow.Description = "Anytime Fitness";
             newRow.AddressId = base.LoadTest().FirstOrDefault().AddressId;
             int rowsAffected = InsertTest(newRow);
 
@@ -34,7 +33,7 @@
 
             if (row != null)
             {
-                row.UserName = "YYYYY";
+                row.Description = "YYYYY";
                 int rowsAffected = UpdateTest(row);
                 Assert.AreEqual(1, rowsAffected);
             }
@@ -43,7 +42,7 @@
         [TestMethod]
         public void DeleteTest()
         {
-            tblCompany row = base.LoadTest().FirstOrDefault(x => x.UserName == "Other");
+            tblCompany row = base.LoadTest().FirstOrDefault(x => x.Description == "Other");
 
             if (row != null)
             {

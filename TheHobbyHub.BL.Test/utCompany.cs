@@ -23,9 +23,8 @@ namespace TheHobbyHub.BL.Test
                 Id = Guid.NewGuid(),
                 CompanyName = "Test",
                 AddressId = new AddressManager(options).Load().FirstOrDefault().Id,
-                UserName = "Test",
-                Password = "Test",
-                Image = "Test"
+                UserId = new UserManager(options).Load().FirstOrDefault().Id,
+                Description = "Test",
             };
 
             int result = new CompanyManager(options).Insert(company, true);
@@ -65,6 +64,15 @@ namespace TheHobbyHub.BL.Test
             Assert.IsTrue(new CompanyManager(options).LoadByAddressId(addressId).Count > 0);
             //Company company = new CompanyManager(options).Load().LastOrDefault();
             //Assert.AreEqual(new CompanyManager(options).LoadByAddressId(company.AddressId).AddressId, company.AddressId);
+        }
+
+        //dd
+        [TestMethod]
+        public void LoadByUserId()
+        {
+            Guid userId = new CompanyManager(options).Load().FirstOrDefault().UserId;
+            Assert.IsTrue(new CompanyManager(options).LoadByUserId(userId).Count > 0);
+           
         }
     }
 }
