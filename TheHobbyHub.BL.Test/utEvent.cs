@@ -16,6 +16,7 @@ namespace TheHobbyHub.BL.Test
         }
 
         [TestMethod]
+        //tt
         public void InsertTest()
         {
             Event @event = new Event
