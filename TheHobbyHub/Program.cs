@@ -10,6 +10,8 @@ internal class Program
         // Add services to the container.
         builder.Services.AddControllersWithViews();
 
+        
+
         // Add session state
         builder.Services.AddSession(options =>
         {

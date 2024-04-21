@@ -153,6 +153,9 @@ namespace TheHobbyHub.BL
                 row.LastName = user.LastName;
                 row.UserName = user.UserName;
                 row.Password = GetHash(user.Password);
+                row.Email = user.Email;
+                row.PhoneNumber = user.PhoneNumber;
+                row.Image = user.Image;
 
 
                 return base.Insert(row, rollback);
@@ -173,7 +176,10 @@ namespace TheHobbyHub.BL
                     LastName = user.LastName,
                     UserName = user.UserName,
                     Password = GetHash(user.Password),
-            }, rollback);
+                    Email = user.Email,
+                    PhoneNumber = user.PhoneNumber,
+                    Image = user.Image
+                }, rollback);
             }
             catch (Exception ex)
             {

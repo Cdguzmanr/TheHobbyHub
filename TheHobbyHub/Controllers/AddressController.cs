@@ -12,7 +12,6 @@ namespace TheHobbyHub.UI.Controllers
             this.options = options;
         }
 
-
         // Generalized class name
         string className = "Address";
 

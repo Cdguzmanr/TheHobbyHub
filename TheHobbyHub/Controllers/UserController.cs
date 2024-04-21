@@ -46,6 +46,8 @@ namespace TheHobbyHub.Controllers
             return View();
         }
 
+        [HttpGet] // This is the default page. It is a attribute for readability.
+        [Route("~/Login")]
         public IActionResult Login(string returnUrl)
         {
             TempData["returnUrl"] = returnUrl;
@@ -55,6 +57,7 @@ namespace TheHobbyHub.Controllers
 
 
         [HttpPost]
+        [Route("~/Login")]
         public IActionResult Login(User user)
         {
             try
@@ -93,11 +96,7 @@ namespace TheHobbyHub.Controllers
             ViewBag.Title = $"{className} details";
             return View(item);
         }
-        public IActionResult Create()
-        {
-            ViewBag.Title = $"Create new {className}";
-            return View();
-        }
+
         [HttpPost]
         public IActionResult Create(User user)
         {
@@ -105,15 +104,19 @@ namespace TheHobbyHub.Controllers
             {
                 int result = new UserManager(options).Insert(user);
                 SetUser(user); // LogIn with new user 
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(Index)); // Redirect to login page
             }
             catch (Exception ex)
             {
                 ViewBag.Title = $"Create new {className}";
                 ViewBag.Error = ex.Message;
-                return View(user);
+                // return error pop up instead of view.
+                return RedirectToAction(nameof(Login));
             }
         }
+
+        [HttpGet]
+        [Route("Edit")]
         public IActionResult Edit(Guid id)
         {
             if (Authentication.IsAuthenticated(HttpContext))
