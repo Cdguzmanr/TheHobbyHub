@@ -39,4 +39,14 @@
     <ProjectReference Include="..\TheHobbyHub.Utility\TheHobbyHub.Utility.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Controllers\" />
+    <Folder Include="Views\Address\" />
+    <Folder Include="Views\Company\" />
+    <Folder Include="Views\Event\" />
+    <Folder Include="Views\Friends\" />
+    <Folder Include="Views\Hobby\" />
+    <Folder Include="Views\User\" />
+  </ItemGroup>
+
 </Project>
