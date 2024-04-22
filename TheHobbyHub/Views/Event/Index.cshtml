@@ -9,9 +9,9 @@
 </p>
     @foreach (var item in Model)
     {
-        @* <div id="event">
+        <div id="event">
             <h3> name @Html.DisplayFor(modelItem => item.EventName)</h3>
-            <img id="EventImage" href="/images/@item.Image" />
+        <img id="EventImage" href="/images/@item.ImagePath" />
             <ul>
                 <li> @Html.DisplayFor(modelItem => item.EventHobbies) hobbies</li>
             </ul>
@@ -26,8 +26,8 @@
                 zip
             </p>
             <p>
-                @Html.DisplayFor(modelItem => item.EventUser.FullName)
-                posting user's name
+               @*  @Html.DisplayFor(modelItem => item.EventUser.FullName)
+                posting user's name *@
             </p>
             <p>
                 @Html.DisplayFor(modelItem => item.EventCompany.CompanyName)
@@ -39,7 +39,7 @@
             <button id="EditButton"> @Html.ActionLink("Edit", "Edit", new { id = item.Id }) </button>
             <button id="DeleteButton"> @Html.ActionLink("Delete", "Delete", new { id = item.Id }) </button>
             <hr />
-        </div> *@
+        </div>
     }
     <script>
         

@@ -59,7 +59,7 @@ namespace TheHobbyHub.PL.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("ba8e493c-bf79-4c00-b10a-4a7f76afe1b4"),
+                            Id = new Guid("f01c4f81-b3ca-4a77-847a-997a5f9e51df"),
                             City = "Anytown",
                             PostalAddress = "123 Main St",
                             State = "CA",
@@ -67,7 +67,7 @@ namespace TheHobbyHub.PL.Migrations
                         },
                         new
                         {
-                            Id = new Guid("a2710c17-f817-4bcb-9cf1-babb6539f146"),
+                            Id = new Guid("3732f6c3-e3ea-4ada-9fcb-ac2f85e3a0d9"),
                             City = "Othertown",
                             PostalAddress = "456 Elm St",
                             State = "NY",
@@ -75,7 +75,7 @@ namespace TheHobbyHub.PL.Migrations
                         },
                         new
                         {
-                            Id = new Guid("58bc0021-0cae-4e4b-887c-95d7fd32c5aa"),
+                            Id = new Guid("4df45786-b7fd-4ff0-9ae9-c7a9686035ae"),
                             City = "Somewhere",
                             PostalAddress = "789 Oak St",
                             State = "TX",
@@ -118,27 +118,27 @@ namespace TheHobbyHub.PL.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("e9cf2fe2-6088-4477-a811-dae4f9ea5902"),
-                            AddressId = new Guid("ba8e493c-bf79-4c00-b10a-4a7f76afe1b4"),
+                            Id = new Guid("3bb650ce-23a6-4e94-a3b5-51fe7f767a7c"),
+                            AddressId = new Guid("f01c4f81-b3ca-4a77-847a-997a5f9e51df"),
                             CompanyName = "Company A",
                             Description = "about company A",
-                            UserId = new Guid("76ffc371-6a3e-40b1-ae8a-8e2737f54663")
+                            UserId = new Guid("7707c5e5-15a9-44e3-8a8b-900503a409e2")
                         },
                         new
                         {
-                            Id = new Guid("d80ee607-3400-4ee6-9624-34bbcb885899"),
-                            AddressId = new Guid("a2710c17-f817-4bcb-9cf1-babb6539f146"),
+                            Id = new Guid("7ed1e813-b183-4556-9290-1b0bf067ba11"),
+                            AddressId = new Guid("3732f6c3-e3ea-4ada-9fcb-ac2f85e3a0d9"),
                             CompanyName = "Company B",
                             Description = "about company B",
-                            UserId = new Guid("a00be4ae-585c-4560-b652-eba54d6e3e0a")
+                            UserId = new Guid("1f34fa8a-379f-4c9f-8dee-f92a93f91e3a")
                         },
                         new
                         {
-                            Id = new Guid("999bc3b2-9054-4d8a-a536-4b3be195a5e3"),
-                            AddressId = new Guid("58bc0021-0cae-4e4b-887c-95d7fd32c5aa"),
+                            Id = new Guid("7cedce45-349b-4abb-bd2b-8e553642d54c"),
+                            AddressId = new Guid("4df45786-b7fd-4ff0-9ae9-c7a9686035ae"),
                             CompanyName = "Company C",
                             Description = "about company C",
-                            UserId = new Guid("be960217-d969-4770-badf-664d5d78ac2f")
+                            UserId = new Guid("0ca3bc7a-1152-490b-9e7a-0675a169dd49")
                         });
                 });
 
@@ -190,36 +190,36 @@ namespace TheHobbyHub.PL.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("05ccf856-3c02-44a3-9c14-dc97b845d774"),
-                            AddressId = new Guid("ba8e493c-bf79-4c00-b10a-4a7f76afe1b4"),
-                            CompanyId = new Guid("e9cf2fe2-6088-4477-a811-dae4f9ea5902"),
+                            Id = new Guid("9de122bf-32b7-44a1-8a15-39a42dc20a2e"),
+                            AddressId = new Guid("f01c4f81-b3ca-4a77-847a-997a5f9e51df"),
+                            CompanyId = new Guid("3bb650ce-23a6-4e94-a3b5-51fe7f767a7c"),
                             Date = new DateTime(2024, 2, 15, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Description = "Event A",
-                            HobbyId = new Guid("bb428bd3-a338-4ac8-9504-897f3a628ad5"),
+                            HobbyId = new Guid("31553001-08c1-4dc0-965b-49255df14e42"),
                             Image = "imageA.jpg",
-                            UserId = new Guid("76ffc371-6a3e-40b1-ae8a-8e2737f54663")
+                            UserId = new Guid("7707c5e5-15a9-44e3-8a8b-900503a409e2")
                         },
                         new
                         {
-                            Id = new Guid("5ea8f77d-43bb-4d19-96e7-296b4f5ce0ec"),
-                            AddressId = new Guid("a2710c17-f817-4bcb-9cf1-babb6539f146"),
-                            CompanyId = new Guid("d80ee607-3400-4ee6-9624-34bbcb885899"),
+                            Id = new Guid("3e7a620f-13f2-40c8-9238-56e81e8b34b8"),
+                            AddressId = new Guid("3732f6c3-e3ea-4ada-9fcb-ac2f85e3a0d9"),
+                            CompanyId = new Guid("7ed1e813-b183-4556-9290-1b0bf067ba11"),
                             Date = new DateTime(2024, 2, 15, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Description = "Event B",
-                            HobbyId = new Guid("2f265cf3-8967-43f3-a7f0-5ea44514a840"),
+                            HobbyId = new Guid("520e4529-e240-440e-8cf2-975fc1a4bd26"),
                             Image = "imageB.jpg",
-                            UserId = new Guid("a00be4ae-585c-4560-b652-eba54d6e3e0a")
+                            UserId = new Guid("1f34fa8a-379f-4c9f-8dee-f92a93f91e3a")
                         },
                         new
                         {
-                            Id = new Guid("7ae2d820-71e0-4b6b-bcda-36c5d988380e"),
-                            AddressId = new Guid("58bc0021-0cae-4e4b-887c-95d7fd32c5aa"),
-                            CompanyId = new Guid("999bc3b2-9054-4d8a-a536-4b3be195a5e3"),
+                            Id = new Guid("38a0c544-024d-4872-993b-8010568e887f"),
+                            AddressId = new Guid("4df45786-b7fd-4ff0-9ae9-c7a9686035ae"),
+                            CompanyId = new Guid("7cedce45-349b-4abb-bd2b-8e553642d54c"),
                             Date = new DateTime(2024, 2, 15, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Description = "Event C",
-                            HobbyId = new Guid("1fae45b1-c11f-48e3-923d-3bee5cf0cc9e"),
+                            HobbyId = new Guid("913964ca-31d6-40ad-897b-6fa934661fec"),
                             Image = "imageC.jpg",
-                            UserId = new Guid("be960217-d969-4770-badf-664d5d78ac2f")
+                            UserId = new Guid("0ca3bc7a-1152-490b-9e7a-0675a169dd49")
                         });
                 });
 
@@ -246,21 +246,21 @@ namespace TheHobbyHub.PL.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("a50bcbd1-a316-415a-9462-fd26f58ec074"),
-                            CompanyId = new Guid("e9cf2fe2-6088-4477-a811-dae4f9ea5902"),
-                            UserId = new Guid("76ffc371-6a3e-40b1-ae8a-8e2737f54663")
+                            Id = new Guid("28227809-92ce-4d93-b41f-45a20e3453c8"),
+                            CompanyId = new Guid("3bb650ce-23a6-4e94-a3b5-51fe7f767a7c"),
+                            UserId = new Guid("7707c5e5-15a9-44e3-8a8b-900503a409e2")
                         },
                         new
                         {
-                            Id = new Guid("02845d58-549d-4753-88c8-5a9cc7b42d16"),
-                            CompanyId = new Guid("d80ee607-3400-4ee6-9624-34bbcb885899"),
-                            UserId = new Guid("a00be4ae-585c-4560-b652-eba54d6e3e0a")
+                            Id = new Guid("04985d2e-e71e-4c31-aa09-81d243ed3d17"),
+                            CompanyId = new Guid("7ed1e813-b183-4556-9290-1b0bf067ba11"),
+                            UserId = new Guid("1f34fa8a-379f-4c9f-8dee-f92a93f91e3a")
                         },
                         new
                         {
-                            Id = new Guid("668ffd53-8e42-4846-8544-b1dfbf3ac271"),
-                            CompanyId = new Guid("999bc3b2-9054-4d8a-a536-4b3be195a5e3"),
-                            UserId = new Guid("be960217-d969-4770-badf-664d5d78ac2f")
+                            Id = new Guid("458ab8cc-0b97-43b8-9d45-4839d8215a61"),
+                            CompanyId = new Guid("7cedce45-349b-4abb-bd2b-8e553642d54c"),
+                            UserId = new Guid("0ca3bc7a-1152-490b-9e7a-0675a169dd49")
                         });
                 });
 
@@ -301,7 +301,7 @@ namespace TheHobbyHub.PL.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("bb428bd3-a338-4ac8-9504-897f3a628ad5"),
+                            Id = new Guid("31553001-08c1-4dc0-965b-49255df14e42"),
                             Description = "Gyyymm",
                             HobbyName = "Gym",
                             Image = "image.jpg",
@@ -309,7 +309,7 @@ namespace TheHobbyHub.PL.Migrations
                         },
                         new
                         {
-                            Id = new Guid("2f265cf3-8967-43f3-a7f0-5ea44514a840"),
+                            Id = new Guid("520e4529-e240-440e-8cf2-975fc1a4bd26"),
                             Description = "stick",
                             HobbyName = "Golf",
                             Image = "outdoor.jpg",
@@ -317,7 +317,7 @@ namespace TheHobbyHub.PL.Migrations
                         },
                         new
                         {
-                            Id = new Guid("1fae45b1-c11f-48e3-923d-3bee5cf0cc9e"),
+                            Id = new Guid("913964ca-31d6-40ad-897b-6fa934661fec"),
                             Description = "Run",
                             HobbyName = "Running",
                             Image = "run.jpg",
@@ -379,7 +379,7 @@ namespace TheHobbyHub.PL.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("76ffc371-6a3e-40b1-ae8a-8e2737f54663"),
+                            Id = new Guid("7707c5e5-15a9-44e3-8a8b-900503a409e2"),
                             Email = "Alexr@gmail.com",
                             FirstName = "Alex",
                             Image = "image.jpg",
@@ -390,7 +390,7 @@ namespace TheHobbyHub.PL.Migrations
                         },
                         new
                         {
-                            Id = new Guid("a00be4ae-585c-4560-b652-eba54d6e3e0a"),
+                            Id = new Guid("1f34fa8a-379f-4c9f-8dee-f92a93f91e3a"),
                             Email = "bfoote@fvtc.edu",
                             FirstName = "Brian",
                             Image = "image.jpg",
@@ -401,7 +401,7 @@ namespace TheHobbyHub.PL.Migrations
                         },
                         new
                         {
-                            Id = new Guid("be960217-d969-4770-badf-664d5d78ac2f"),
+                            Id = new Guid("0ca3bc7a-1152-490b-9e7a-0675a169dd49"),
                             Email = "sf@gmail.com",
                             FirstName = "sam",
                             Image = "sammy.jpg",
@@ -435,21 +435,21 @@ namespace TheHobbyHub.PL.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("9e00fda6-3cd1-4d54-8425-466253a26f73"),
-                            HobbyId = new Guid("bb428bd3-a338-4ac8-9504-897f3a628ad5"),
-                            UserId = new Guid("76ffc371-6a3e-40b1-ae8a-8e2737f54663")
+                            Id = new Guid("72731b66-869e-4c7f-a196-392804ee8357"),
+                            HobbyId = new Guid("31553001-08c1-4dc0-965b-49255df14e42"),
+                            UserId = new Guid("7707c5e5-15a9-44e3-8a8b-900503a409e2")
                         },
                         new
                         {
-                            Id = new Guid("bbd89d5d-08fa-40c8-b9d2-99080e4f2cfd"),
-                            HobbyId = new Guid("2f265cf3-8967-43f3-a7f0-5ea44514a840"),
-                            UserId = new Guid("a00be4ae-585c-4560-b652-eba54d6e3e0a")
+                            Id = new Guid("78c2eadb-89d7-4935-82c0-e43367599d2c"),
+                            HobbyId = new Guid("520e4529-e240-440e-8cf2-975fc1a4bd26"),
+                            UserId = new Guid("1f34fa8a-379f-4c9f-8dee-f92a93f91e3a")
                         },
                         new
                         {
-                            Id = new Guid("2be4ac6a-e18c-4358-af45-1d2da1d96cce"),
-                            HobbyId = new Guid("1fae45b1-c11f-48e3-923d-3bee5cf0cc9e"),
-                            UserId = new Guid("be960217-d969-4770-badf-664d5d78ac2f")
+                            Id = new Guid("86eae2ed-0a30-4503-b103-4527c5f55bad"),
+                            HobbyId = new Guid("913964ca-31d6-40ad-897b-6fa934661fec"),
+                            UserId = new Guid("0ca3bc7a-1152-490b-9e7a-0675a169dd49")
                         });
                 });
 
