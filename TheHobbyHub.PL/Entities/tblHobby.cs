@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace TheHobbyHub.PL.Entities
+﻿namespace TheHobbyHub.PL.Entities
 {
     public class tblHobby : IEntity
     {
