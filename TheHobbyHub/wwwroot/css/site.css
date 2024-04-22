@@ -499,4 +499,8 @@ dl dt{
     background-color: rebeccapurple;
     margin: 2% 5%;
 }
+#EventImage {
+    /*width: 100%;*/
+    background-color: aqua;
+}
 
