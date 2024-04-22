@@ -10,7 +10,7 @@
 
         public string Type { get; set; } = null!;
 
-        public string Image { get; set; } = null!;
+        //public string Image { get; set; } = null!;
 
         public virtual ICollection<tblEvent> Events { get; set; }
 

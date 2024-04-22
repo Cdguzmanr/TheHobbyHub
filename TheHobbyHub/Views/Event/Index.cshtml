@@ -11,9 +11,9 @@
     {
         <div id="event">
             <h3> name @Html.DisplayFor(modelItem => item.EventName)</h3>
-        <img id="EventImage" href="/images/@item.ImagePath" />
+            <img id="EventImage" href="~/images/@item.ImagePath" />
             <ul>
-                <li> @Html.DisplayFor(modelItem => item.EventHobbies) hobbies</li>
+                <li> @Html.DisplayFor(modelItem => item.EventHobby) </li>
             </ul>
             <p>
                 @Html.DisplayFor(modelItem => item.EventPostalAddress)
