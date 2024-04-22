@@ -11,7 +11,7 @@
         public string Image {  get; set; }
         public DateTime Date {  get; set; }
 
-        public List<Address> AddressList { get; set; }
-        public List<Hobby> Hobbies { get; set; }
+        public Address EventAddress { get; set; }
+        public Hobby EventHobby { get; set; }
     }
 }
