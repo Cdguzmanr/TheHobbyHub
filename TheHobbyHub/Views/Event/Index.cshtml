@@ -16,13 +16,12 @@
                 <li> @Html.DisplayFor(modelItem => item.EventHobbies) hobbies</li>
             </ul>
             <p>
-                @Html.DisplayFor(modelItem => item.EventAddress.PostalAddress)
-                address
-                @Html.DisplayFor(modelItem => item.EventAddress.City)
+                @Html.DisplayFor(modelItem => item.EventPostalAddress)
+                @Html.DisplayFor(modelItem => item.EventCity)
                 city
-                @Html.DisplayFor(modelItem => item.EventAddress.State)
+                @Html.DisplayFor(modelItem => item.EventState)
                 state
-                @Html.DisplayFor(modelItem => item.EventAddress.Zip)
+                @Html.DisplayFor(modelItem => item.EventZip)
                 zip
             </p>
             <p>
@@ -30,8 +29,7 @@
                 posting user's name *@
             </p>
             <p>
-                @Html.DisplayFor(modelItem => item.EventCompany.CompanyName)
-                posting company's name
+                @Html.DisplayFor(modelItem => item.EventUser)
             </p>
             <p>
                 @Html.DisplayFor(modelItem => item.Description)

@@ -77,7 +77,7 @@ namespace TheHobbyHub.BL
                                  select new Event
                                  {
                                      Id = e.Id,
-                                     EventUser = u.UserName,
+                                     EventUser = u.FirstName + " " + u.LastName,
                                      AddressId = e.AddressId,
                                      EventPostalAddress = ea.PostalAddress,
                                      EventCity = ea.City,
