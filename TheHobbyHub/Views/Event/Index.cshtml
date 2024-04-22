@@ -17,16 +17,13 @@
             </ul>
             <p>
                 @Html.DisplayFor(modelItem => item.EventPostalAddress)
-                @Html.DisplayFor(modelItem => item.EventCity)
-                city
+                
+                @Html.DisplayFor(modelItem => item.EventCity),
+                
                 @Html.DisplayFor(modelItem => item.EventState)
-                state
+                
                 @Html.DisplayFor(modelItem => item.EventZip)
-                zip
-            </p>
-            <p>
-               @*  @Html.DisplayFor(modelItem => item.EventUser.FullName)
-                posting user's name *@
+                
             </p>
             <p>
                 @Html.DisplayFor(modelItem => item.EventUser)

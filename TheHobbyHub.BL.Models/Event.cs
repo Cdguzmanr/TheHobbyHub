@@ -31,6 +31,7 @@ namespace TheHobbyHub.BL.Models
         public string EventZip { get; set; }
         public Address EventAddress { get; set; }
         public List<Hobby> EventHobbies { get; set; }
+        public string EventHobby { get; set; }
         public string EventUser { get; set; }
         public Company EventCompany { get; set; }
     }

@@ -74,9 +74,11 @@ namespace TheHobbyHub.BL
                     events = (from e in dc.tblEvents
                                  join ea in dc.tblAddresses on e.AddressId equals ea.Id
                                  join u in dc.tblUsers on e.UserId equals u.Id
+                                 join h in dc.tblHobbies on e.HobbyId equals h.Id
                                  select new Event
                                  {
                                      Id = e.Id,
+                                     EventHobby = h.HobbyName,
                                      EventUser = u.FirstName + " " + u.LastName,
                                      AddressId = e.AddressId,
                                      EventPostalAddress = ea.PostalAddress,
