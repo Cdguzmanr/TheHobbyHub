@@ -440,11 +440,9 @@ dl dt{
     height:100px;
 }
 #event {
-    display:grid; 
-
+    width: 50%;
     padding: 0;
     background-color: rebeccapurple;
-    width: 23%;
     margin: 2% 5%;
 }
 

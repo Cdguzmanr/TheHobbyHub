@@ -23,7 +23,7 @@ namespace TheHobbyHub.BL
                 row.Password = company.Password;
                 row.Image = company.Image;
                 row.AddressId = company.AddressId;
-
+                row.User.Image = company.Image;
 
                 return base.Insert(row, rollback);
             }
@@ -103,6 +103,7 @@ namespace TheHobbyHub.BL
                         Password = row.Password,
                         Image = row.Image,
                         AddressId = row.AddressId,
+                        Image = row.User.Image,
                     };
                     return company;
                 }
