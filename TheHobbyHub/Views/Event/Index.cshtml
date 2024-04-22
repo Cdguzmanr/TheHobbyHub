@@ -9,7 +9,7 @@
 </p>
     @foreach (var item in Model)
     {
-        <div id="event">
+        @* <div id="event">
             <h3> name @Html.DisplayFor(modelItem => item.EventName)</h3>
             <img id="EventImage" href="/images/@item.Image" />
             <ul>
@@ -39,7 +39,7 @@
             <button id="EditButton"> @Html.ActionLink("Edit", "Edit", new { id = item.Id }) </button>
             <button id="DeleteButton"> @Html.ActionLink("Delete", "Delete", new { id = item.Id }) </button>
             <hr />
-        </div>
+        </div> *@
     }
     <script>
         

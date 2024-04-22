@@ -1,7 +1,6 @@
 ﻿
 using Microsoft.Extensions.Options;
 using TheHobbyHub.BL.Models;
-using TheHobbyHub.PL.Data;
 
 namespace TheHobbyHub.BL.Test
 {

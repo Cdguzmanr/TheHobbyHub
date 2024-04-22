@@ -7,15 +7,16 @@ namespace TheHobbyHub.PL.Entities
     {
         public Guid Id { get; set; }
 
+        public Guid UserId { get; set; }
+
         public string CompanyName { get; set; } = null!;
+        
 
-        public string Image { get; set; } = null!;
-
-        public string UserName { get; set; } = null!;
-
-        public string Password { get; set; } = null!;
+        public string Description { get; set; } = null!;
 
         public Guid AddressId { get; set; }
+
+        public virtual tblUser User { get; set; }
 
         public virtual tblAddress Address { get; set; }
 

@@ -16,6 +16,7 @@ namespace TheHobbyHub.BL.Test
         }
 
         [TestMethod]
+        //tt
         public void InsertTest()
         {
             Event @event = new Event
@@ -31,8 +32,16 @@ namespace TheHobbyHub.BL.Test
 
             };
 
-            Guid result = new EventManager(options).Insert(@event, true);
-            Assert.IsTrue(result > Guid.Empty);
+            int result = new EventManager(options).Insert(@event, true);
+            Assert.IsTrue(result > 0);
+        }
+
+        [TestMethod]
+        public void LoadByHobbyIdTest()
+        {
+            Guid hobbyId = new EventManager(options).Load().FirstOrDefault().HobbyId;
+
+            Assert.IsTrue(new EventManager(options).LoadByHobbyId(hobbyId).Count > 0);
         }
 
         [TestMethod]

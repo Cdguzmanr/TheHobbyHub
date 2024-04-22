@@ -10,7 +10,7 @@ namespace TheHobbyHub.BL
 
         }
 
-        public Guid Insert(Address address, bool rollback = false)
+        public int Insert(Address address, bool rollback = false)
         {
             try
             {
@@ -32,7 +32,7 @@ namespace TheHobbyHub.BL
         {
             try
             {
-                return base.Update(new tblAddress
+                int results = base.Update(new tblAddress
                 {
                     Id = address.Id,
                     PostalAddress = address.PostalAddress,
@@ -40,6 +40,7 @@ namespace TheHobbyHub.BL
                     Zip = address.Zip,
                     State = address.State
                 }, rollback);
+                return results;
             }
             catch (Exception ex)
             {
@@ -59,26 +60,56 @@ namespace TheHobbyHub.BL
         }
         public List<Address> Load()
         {
+
             try
             {
-                List<Address> rows = new List<Address>();
-                base.Load()
-                .ForEach(address => rows.Add(
-                    new Address
-                    {
-                        Id = address.Id,
-                        PostalAddress = address.PostalAddress,
-                        City = address.City,
-                        Zip = address.Zip,
-                        State = address.State
-                    }));
-                return rows;
+                List<Address> addresses = new List<Address>();
 
+                using (HobbyHubEntities dc = new HobbyHubEntities(options))
+                {
+                    addresses = (from a in dc.tblAddresses
+                              join ca in dc.tblCompanies on a.Id equals ca.AddressId
+                              join ea in dc.tblEvents on a.Id equals ea.AddressId
+                              select new Address
+                              {
+                                  Id = a.Id,
+                                  PostalAddress = a.PostalAddress,
+                                  City = a.City,
+                                  Zip = a.Zip,
+                                  State = a.State
+                              }
+                              )
+                              .ToList();
+                }
+                return addresses;
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                throw ex;
+                throw;
             }
+
+
+
+            //try
+            //{
+            //    List<Address> rows = new List<Address>();
+            //    base.Load()
+            //    .ForEach(address => rows.Add(
+            //        new Address
+            //        {
+            //            Id = address.Id,
+            //            PostalAddress = address.PostalAddress,
+            //            City = address.City,
+            //            Zip = address.Zip,
+            //            State = address.State
+            //        }));
+            //    return rows;
+
+            //}
+            //catch (Exception ex)
+            //{
+            //    throw ex;
+            //}
         }
         public Address LoadById(Guid id)
         {

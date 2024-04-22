@@ -12,16 +12,13 @@ namespace TheHobbyHub.BL
 
         }
 
-        public Guid Insert(Company company, bool rollback = false)
+        public int Insert(Company company, bool rollback = false)
         {
             try
             {
                 tblCompany row = new tblCompany();
                 row.Id = Guid.NewGuid();
                 row.CompanyName = company.CompanyName;
-                row.UserName = company.UserName;
-                row.Password = company.Password;
-                row.Image = company.Image;
                 row.AddressId = company.AddressId;
                 row.User.Image = company.Image;
 
@@ -40,9 +37,6 @@ namespace TheHobbyHub.BL
                 {
                     Id = company.Id,
                     CompanyName = company.CompanyName,
-                    UserName = company.UserName,
-                    Password = company.Password,
-                    Image = company.Image,
                     AddressId = company.AddressId,
 
                 }, rollback);
@@ -56,7 +50,38 @@ namespace TheHobbyHub.BL
         {
             try
             {
-                return base.Delete(id, rollback);
+                int results = 0;
+                
+                using (HobbyHubEntities dc = new HobbyHubEntities(options))
+                {
+                    IDbContextTransaction transaction = null;
+                    if(rollback) transaction = dc.Database.BeginTransaction();
+
+                    tblCompany deleteRow = dc.tblCompanies.FirstOrDefault(x => x.Id == id);
+
+                    if (deleteRow != null)
+                    {
+                        //delete all the associated tblEvent Rows
+                        var Events = dc.tblEvents.Where(i => i.CompanyId == id);
+                        dc.tblEvents.RemoveRange(Events);
+
+                        //delete all the associated tblFriend Rows
+                        var Friends = dc.tblFriends.Where(f => f.CompanyId == id);
+                        dc.tblFriends.RemoveRange(Friends);
+
+                        //Remove the company
+                        dc.tblCompanies.Remove(deleteRow);
+
+                        results = dc.SaveChanges();
+
+                        if (rollback) transaction.Rollback();
+                    }
+                    else
+                    {
+                        throw new Exception("Row not Found");
+                    }
+                    return results;
+                }
             }
             catch (Exception ex)
             {
@@ -65,27 +90,53 @@ namespace TheHobbyHub.BL
         }
         public List<Company> Load()
         {
+
             try
             {
-                List<Company> rows = new List<Company>();
-                base.Load()
-                .ForEach(company => rows.Add(
-                    new Company
-                    {
-                        Id = company.Id,
-                        CompanyName = company.CompanyName,
-                        UserName = company.UserName,
-                        Password = company.Password,
-                        Image = company.Image,
-                        AddressId = company.AddressId,
-                    }));
-                return rows;
+                List<Company> movies = new List<Company>();
 
+                using (HobbyHubEntities dc = new HobbyHubEntities(options))
+                {
+                    movies = (from c in dc.tblCompanies
+                              join ca in dc.tblAddresses on c.AddressId equals ca.Id
+                              select new Company
+                              {
+                                  Id = c.Id,
+                                  CompanyName = c.CompanyName,
+                                  AddressId = c.AddressId,
+                              }
+                              )
+                              .ToList();
+                }
+                return movies;
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                throw ex;
+                throw;
             }
+
+
+            //try
+            //{
+            //    List<Company> rows = new List<Company>();
+            //    base.Load()
+            //    .ForEach(company => rows.Add(
+            //        new Company
+            //        {
+            //            Id = company.Id,
+            //            CompanyName = company.CompanyName,
+            //            UserName = company.UserName,
+            //            Password = company.Password,
+            //            Image = company.Image,
+            //            AddressId = company.AddressId,
+            //        }));
+            //    return rows;
+
+            //}
+            //catch (Exception ex)
+            //{
+            //    throw ex;
+            //}
         }
         public Company LoadById(Guid id)
         {
@@ -99,9 +150,6 @@ namespace TheHobbyHub.BL
                     {
                         Id = row.Id,
                         CompanyName = row.CompanyName,
-                        UserName = row.UserName,
-                        Password = row.Password,
-                        Image = row.Image,
                         AddressId = row.AddressId,
                         Image = row.User.Image,
                     };
@@ -134,9 +182,6 @@ namespace TheHobbyHub.BL
                                    {
                                        Id = cm.Id,
                                        CompanyName = cm.CompanyName,
-                                       UserName = cm.UserName,
-                                       Password = cm.Password,
-                                       Image = cm.Image,
                                        AddressId = cm.AddressId
                                    }).ToList();
 
@@ -145,9 +190,6 @@ namespace TheHobbyHub.BL
                          {
                              Id = r.Id,
                              CompanyName = r.CompanyName,
-                             UserName = r.UserName,
-                             Password = r.Password,
-                             Image = r.Image,
                              AddressId = r.AddressId
                          }
                         ));

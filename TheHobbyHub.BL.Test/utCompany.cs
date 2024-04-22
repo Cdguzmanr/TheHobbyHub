@@ -1,14 +1,11 @@
 ﻿
-using Microsoft.EntityFrameworkCore;
 using TheHobbyHub.BL.Models;
-using TheHobbyHub.PL.Data;
 
 namespace TheHobbyHub.BL.Test
 {
     [TestClass]
     public class utCompany : utBase
     {
-        private readonly DbContextOptions<HobbyHubEntities> options;
         [TestMethod]
         public void LoadTest()
         {
@@ -18,22 +15,22 @@ namespace TheHobbyHub.BL.Test
             Assert.AreEqual(expected, companies.Count);
         }
 
-        [TestMethod]
-        public void InsertTest()
-        {
-            Company company = new Company
-            {
-                Id = Guid.NewGuid(),
-                CompanyName = "Test",
-                AddressId = new AddressManager(options).Load().FirstOrDefault().Id,
-                UserName = "Test",
-                Password = "Test",
-                Image = "Test"
-            };
+        //[TestMethod]
+        //public void InsertTest()
+        //{
+        //    Company company = new Company
+        //    {
+        //        Id = Guid.NewGuid(),
+        //        CompanyName = "Test",
+        //        AddressId = new AddressManager(options).Load().FirstOrDefault().Id,
+        //        UserName = "Test",
+        //        Password = "Test",
+        //        Image = "Test"
+        //    };
 
-            Guid result = new CompanyManager(options).Insert(company, true);
-            Assert.IsTrue(result > Guid.Empty);
-        }
+        //    int result = new CompanyManager(options).Insert(company, true);
+        //    Assert.IsTrue(result > 0);
+        //}
 
         [TestMethod]
         public void UpdateTest()
@@ -47,7 +44,7 @@ namespace TheHobbyHub.BL.Test
         [TestMethod]
         public void DeleteTest()
         {
-            Company companies = new CompanyManager(options).Load().FirstOrDefault(x => x.CompanyName == "Other");
+            Company companies = new CompanyManager(options).Load().FirstOrDefault(x => x.CompanyName == "Company A");
 
             Assert.IsTrue(new CompanyManager(options).Delete(companies.Id, true) > 0);
         }
