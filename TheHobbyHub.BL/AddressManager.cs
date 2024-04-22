@@ -32,7 +32,7 @@ namespace TheHobbyHub.BL
         {
             try
             {
-                return base.Update(new tblAddress
+                int results = base.Update(new tblAddress
                 {
                     Id = address.Id,
                     PostalAddress = address.PostalAddress,
@@ -40,6 +40,7 @@ namespace TheHobbyHub.BL
                     Zip = address.Zip,
                     State = address.State
                 }, rollback);
+                return results;
             }
             catch (Exception ex)
             {
@@ -50,43 +51,11 @@ namespace TheHobbyHub.BL
         {
             try
             {
-                int results = 0;
-
-                using (HobbyHubEntities dc = new HobbyHubEntities(options))
-                {
-                    IDbContextTransaction transaction = null;
-                    if (rollback) transaction = dc.Database.BeginTransaction();
-
-                    tblAddress deleteRow = dc.tblAddresses.FirstOrDefault(f => f.Id == id);
-
-                    if (deleteRow != null)
-                    {
-                        // delete all the associated tblEvent
-                        var events = dc.tblEvents.Where(g => g.AddressId == id);
-                        dc.tblEvents.RemoveRange(events);
-
-                        // delete all the associated tblCompany
-                        var comapnies = dc.tblCompanies.Where(i => i.AddressId == id);
-                        dc.tblCompanies.RemoveRange(comapnies);
-
-                        // remove the movie
-                        dc.tblAddresses.Remove(deleteRow);
-
-                        // Commit the changes and get the number of rows affected
-                        results = dc.SaveChanges();
-
-                        if (rollback) transaction.Rollback();
-                    }
-                    else
-                    {
-                        throw new Exception("Row was not found.");
-                    }
-                }
-                return results;
+                return base.Delete(id, rollback);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                throw;
+                throw ex;
             }
         }
         public List<Address> Load()

@@ -257,7 +257,7 @@ namespace TheHobbyHub.BL
                     IDbContextTransaction dbTransaction = null;
                     if (rollback) dbTransaction = dc.Database.BeginTransaction();
 
-                    dc.Entry(entity).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
+                    dc.Entry(entity).State = EntityState.Modified;
 
                     results = dc.SaveChanges();
 

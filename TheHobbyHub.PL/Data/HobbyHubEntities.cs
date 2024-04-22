@@ -282,15 +282,16 @@ namespace TheHobbyHub.PL.Data
                     .IsRequired()
                     .HasMaxLength(50)
                     .IsUnicode(false);
-                entity.Property(e => e.Image).IsUnicode(false);
-                entity.Property(e => e.Password)
+                entity.Property(e => e.Description)
                     .IsRequired()
                     .HasMaxLength(50)
                     .IsUnicode(false);
-                entity.Property(e => e.UserName)
-                    .IsRequired()
-                    .HasMaxLength(50)
-                    .IsUnicode(false);
+
+                entity.HasOne(d => d.User)
+               .WithMany(p => p.Companies)
+               .HasForeignKey(d => d.UserId)
+               .OnDelete(DeleteBehavior.ClientSetNull)
+               .HasConstraintName("fk_tblCompany_UserId");
 
                 entity.HasOne(d => d.Address)
                .WithMany(p => p.Companies)
@@ -305,25 +306,22 @@ namespace TheHobbyHub.PL.Data
             {
                 new tblCompany {    Id = companyId[0], 
                                     CompanyName = "Company A", 
-                                    UserName = "copanyA", 
-                                    Password = GetHash("passwordA"), 
-                                    Image = "imageA.jpg" , 
+                                    Description = "about company A", 
+                                    UserId = userId[0], 
                                     AddressId = addressId[0]},
 
                 new tblCompany {    Id = companyId[1],
-                                    CompanyName = "Company B", 
-                                    UserName = "companyB", 
-                                    Password = GetHash("passwordB"),
-                                    Image = "imageB.jpg", 
-                                    AddressId = addressId[1] 
+                                    CompanyName = "Company B",
+                                    Description = "about company B",
+                                    UserId = userId[1],
+                                    AddressId = addressId[1]
                 },
 
-                new tblCompany {    Id = companyId[2], 
-                                    CompanyName = "Company C", 
-                                    UserName = "companyC", 
-                                    Password = GetHash("passwordC"), 
-                                    Image = "imageC.jpg", 
-                                    AddressId = addressId[2] 
+                new tblCompany {    Id = companyId[2],
+                                    CompanyName = "Company C",
+                                    Description = "about company C",
+                                    UserId = userId[2],
+                                    AddressId = addressId[2]
                 }
             };
 
