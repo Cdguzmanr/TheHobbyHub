@@ -12,7 +12,7 @@ namespace TheHobbyHub.BL
 
         }
 
-        public Guid Insert(Company company, bool rollback = false)
+        public int Insert(Company company, bool rollback = false)
         {
             try
             {
@@ -56,7 +56,38 @@ namespace TheHobbyHub.BL
         {
             try
             {
-                return base.Delete(id, rollback);
+                int results = 0;
+                
+                using (HobbyHubEntities dc = new HobbyHubEntities(options))
+                {
+                    IDbContextTransaction transaction = null;
+                    if(rollback) transaction = dc.Database.BeginTransaction();
+
+                    tblCompany deleteRow = dc.tblCompanies.FirstOrDefault(x => x.Id == id);
+
+                    if (deleteRow != null)
+                    {
+                        //delete all the associated tblEvent Rows
+                        var Events = dc.tblEvents.Where(i => i.CompanyId == id);
+                        dc.tblEvents.RemoveRange(Events);
+
+                        //delete all the associated tblFriend Rows
+                        var Friends = dc.tblFriends.Where(f => f.CompanyId == id);
+                        dc.tblFriends.RemoveRange(Friends);
+
+                        //Remove the company
+                        dc.tblCompanies.Remove(deleteRow);
+
+                        results = dc.SaveChanges();
+
+                        if (rollback) transaction.Rollback();
+                    }
+                    else
+                    {
+                        throw new Exception("Row not Found");
+                    }
+                    return results;
+                }
             }
             catch (Exception ex)
             {
@@ -65,27 +96,56 @@ namespace TheHobbyHub.BL
         }
         public List<Company> Load()
         {
+
             try
             {
-                List<Company> rows = new List<Company>();
-                base.Load()
-                .ForEach(company => rows.Add(
-                    new Company
-                    {
-                        Id = company.Id,
-                        CompanyName = company.CompanyName,
-                        UserName = company.UserName,
-                        Password = company.Password,
-                        Image = company.Image,
-                        AddressId = company.AddressId,
-                    }));
-                return rows;
+                List<Company> movies = new List<Company>();
 
+                using (HobbyHubEntities dc = new HobbyHubEntities(options))
+                {
+                    movies = (from c in dc.tblCompanies
+                              join ca in dc.tblAddresses on c.AddressId equals ca.Id
+                              select new Company
+                              {
+                                  Id = c.Id,
+                                  CompanyName = c.CompanyName,
+                                  UserName = c.UserName,
+                                  Password = c.Password,
+                                  Image = c.Image,
+                                  AddressId = c.AddressId,
+                              }
+                              )
+                              .ToList();
+                }
+                return movies;
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                throw ex;
+                throw;
             }
+
+
+            //try
+            //{
+            //    List<Company> rows = new List<Company>();
+            //    base.Load()
+            //    .ForEach(company => rows.Add(
+            //        new Company
+            //        {
+            //            Id = company.Id,
+            //            CompanyName = company.CompanyName,
+            //            UserName = company.UserName,
+            //            Password = company.Password,
+            //            Image = company.Image,
+            //            AddressId = company.AddressId,
+            //        }));
+            //    return rows;
+
+            //}
+            //catch (Exception ex)
+            //{
+            //    throw ex;
+            //}
         }
         public Company LoadById(Guid id)
         {

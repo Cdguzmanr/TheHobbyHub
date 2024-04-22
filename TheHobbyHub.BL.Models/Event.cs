@@ -2,6 +2,13 @@
 {
     public class Event
     {
+        public Event()
+        {
+            this.Addresses = new List<Address>();
+        }
+
+        public List<Address> Addresses { get; set; }
+
         public Guid Id { get; set; }
         public Guid AddressId { get; set; }
         public Guid UserId { get; set; }

@@ -27,6 +27,10 @@ body {
     width: 100%;
 }
 
+input[type="password"] {
+    -webkit-text-security: disc;
+}
+
 /* Added CSS atributes */
 
 .bg-gradient-orange {
@@ -73,13 +77,33 @@ body {
     -ms-transform: translate(-50%, -50%)
 }
 
-/* Card Design */
+/* Card styling for displaying hobbies */
+.card {
+    background-color: #fff;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    margin-bottom: 20px;
+}
+
 .card-img {
     height: 300px;
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
 }
+
+.card-title {
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.card-text {
+    font-size: 16px;
+    line-height: 1.6;
+}
+
 
 /* Align container to the left */
 .align-left {
@@ -94,6 +118,36 @@ body {
 /* Clear alignments */
 .clear-align {
     clear: both;
+}
+
+/* ------------------------------ User Design ------------------------------- */
+.profile-banner {
+    background-color: #f0f0f0;
+    padding: 20px;
+    text-align: center;
+}
+
+.profile-picture {
+    border-radius: 50%;
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
+}
+
+.user-details {
+    margin-top: 20px;
+}
+
+.user-details dt {
+    font-weight: bold;
+}
+
+.user-details dd {
+    margin-left: 0;
+}
+
+.password {
+    -webkit-text-security: disc;
 }
 
 

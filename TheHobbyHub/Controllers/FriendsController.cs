@@ -44,7 +44,7 @@ namespace TheHobbyHub.UI.Controllers
         {
             try
             {
-                Guid result = new FriendsManager(options).Insert(friends);
+                int result = new FriendsManager(options).Insert(friends);
                 return RedirectToAction(nameof(Index));
             }
             catch (Exception)
@@ -72,7 +72,7 @@ namespace TheHobbyHub.UI.Controllers
         {
             try
             {
-                Guid result = new FriendsManager(options).Insert(friends, rollback);
+                int result = new FriendsManager(options).Insert(friends, rollback);
                 return RedirectToAction(nameof(Index));
             }
             catch (Exception ex)
