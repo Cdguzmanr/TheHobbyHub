@@ -19,9 +19,6 @@ namespace TheHobbyHub.BL
                 tblCompany row = new tblCompany();
                 row.Id = Guid.NewGuid();
                 row.CompanyName = company.CompanyName;
-                row.UserName = company.UserName;
-                row.Password = company.Password;
-                row.Image = company.Image;
                 row.AddressId = company.AddressId;
 
 
@@ -40,9 +37,6 @@ namespace TheHobbyHub.BL
                 {
                     Id = company.Id,
                     CompanyName = company.CompanyName,
-                    UserName = company.UserName,
-                    Password = company.Password,
-                    Image = company.Image,
                     AddressId = company.AddressId,
 
                 }, rollback);
@@ -109,9 +103,6 @@ namespace TheHobbyHub.BL
                               {
                                   Id = c.Id,
                                   CompanyName = c.CompanyName,
-                                  UserName = c.UserName,
-                                  Password = c.Password,
-                                  Image = c.Image,
                                   AddressId = c.AddressId,
                               }
                               )
@@ -159,9 +150,6 @@ namespace TheHobbyHub.BL
                     {
                         Id = row.Id,
                         CompanyName = row.CompanyName,
-                        UserName = row.UserName,
-                        Password = row.Password,
-                        Image = row.Image,
                         AddressId = row.AddressId,
                     };
                     return company;
@@ -193,9 +181,6 @@ namespace TheHobbyHub.BL
                                    {
                                        Id = cm.Id,
                                        CompanyName = cm.CompanyName,
-                                       UserName = cm.UserName,
-                                       Password = cm.Password,
-                                       Image = cm.Image,
                                        AddressId = cm.AddressId
                                    }).ToList();
 
@@ -204,9 +189,6 @@ namespace TheHobbyHub.BL
                          {
                              Id = r.Id,
                              CompanyName = r.CompanyName,
-                             UserName = r.UserName,
-                             Password = r.Password,
-                             Image = r.Image,
                              AddressId = r.AddressId
                          }
                         ));
