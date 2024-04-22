@@ -14,6 +14,48 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Include="Views\Address\Create.cshtml" />
+    <None Include="Views\Address\Delete.cshtml" />
+    <None Include="Views\Address\Details.cshtml" />
+    <None Include="Views\Address\Edit.cshtml" />
+    <None Include="Views\Address\Index.cshtml" />
+    <None Include="Views\Company\Create.cshtml" />
+    <None Include="Views\Company\Delete.cshtml" />
+    <None Include="Views\Company\Details.cshtml" />
+    <None Include="Views\Company\Edit.cshtml" />
+    <None Include="Views\Company\Index.cshtml" />
+    <None Include="Views\Event\Create.cshtml" />
+    <None Include="Views\Event\Delete.cshtml" />
+    <None Include="Views\Event\Details.cshtml" />
+    <None Include="Views\Event\Edit.cshtml" />
+    <None Include="Views\Event\Index.cshtml" />
+    <None Include="Views\Friends\Create.cshtml" />
+    <None Include="Views\Friends\Delete.cshtml" />
+    <None Include="Views\Friends\Details.cshtml" />
+    <None Include="Views\Friends\Edit.cshtml" />
+    <None Include="Views\Friends\Index.cshtml" />
+    <None Include="Views\Hobby\Create.cshtml" />
+    <None Include="Views\Hobby\Delete.cshtml" />
+    <None Include="Views\Hobby\Details.cshtml" />
+    <None Include="Views\Hobby\Edit.cshtml" />
+    <None Include="Views\Hobby\Index.cshtml" />
+    <None Include="Views\Home\Index.cshtml" />
+    <None Include="Views\Home\Privacy.cshtml" />
+    <None Include="Views\Shared\Error.cshtml" />
+    <None Include="Views\Shared\_Layout.cshtml" />
+    <None Include="Views\Shared\_ValidationScriptsPartial.cshtml" />
+    <None Include="Views\User\Create.cshtml" />
+    <None Include="Views\User\Delete.cshtml" />
+    <None Include="Views\User\Details.cshtml" />
+    <None Include="Views\User\Edit.cshtml" />
+    <None Include="Views\User\Index.cshtml" />
+    <None Include="Views\User\Login.cshtml" />
+    <None Include="Views\User\LogOut.cshtml" />
+    <None Include="Views\_ViewImports.cshtml" />
+    <None Include="Views\_ViewStart.cshtml" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Components.QuickGrid.EntityFrameworkAdapter" Version="8.0.3" />
     <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="8.0.0" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="8.0.2" />
