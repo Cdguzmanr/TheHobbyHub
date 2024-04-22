@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace TheHobbyHub.BL.Models
+﻿namespace TheHobbyHub.BL.Models
 {
     public class Event
     {
@@ -17,5 +11,7 @@ namespace TheHobbyHub.BL.Models
         public string Image {  get; set; }
         public DateTime Date {  get; set; }
 
+        public List<Address> AddressList { get; set; }
+        public List<Hobby> Hobbies { get; set; }
     }
 }
