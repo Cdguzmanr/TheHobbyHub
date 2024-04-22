@@ -84,7 +84,7 @@ namespace TheHobbyHub.PL.Data
 
                 entity.Property(e => e.Id).ValueGeneratedNever();
                 entity.Property(e => e.Description).IsUnicode(false)
-                .IsRequired()
+                    .IsRequired()
                     .HasMaxLength(50)
                     .IsUnicode(false);
                 entity.Property(e => e.HobbyName).IsRequired()
