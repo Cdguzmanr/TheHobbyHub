@@ -51,66 +51,65 @@ namespace TheHobbyHub.BL
         {
             try
             {
-                int results = 0;
-
-                using (HobbyHubEntities dc = new HobbyHubEntities(options))
-                {
-                    IDbContextTransaction transaction = null;
-                    if (rollback) transaction = dc.Database.BeginTransaction();
-
-                    tblAddress deleteRow = dc.tblAddresses.FirstOrDefault(f => f.Id == id);
-
-                    if (deleteRow != null)
-                    {
-                        // delete all the associated tblMovieGenre rows. 
-                        var companies = dc.tblCompanies.Where(g => g.AddressId == id);
-                        dc.tblCompanies.RemoveRange(companies);
-
-
-                        var events = dc.tblEvents.Where(g => g.AddressId == id);
-                        dc.tblEvents.RemoveRange(events);
-                        // remove the movie
-                        dc.tblAddresses.Remove(deleteRow);
-
-                        // Commit the changes and get the number of rows affected
-                        results = dc.SaveChanges();
-
-                        if (rollback) transaction.Rollback();
-                    }
-                    else
-                    {
-                        throw new Exception("Row was not found.");
-                    }
-                }
-                return results;
-            }
-            catch (Exception)
-            {
-                throw;
-            }
-        }
-        public List<Address> Load()
-        {
-            try
-            {
-                List<Address> rows = new List<Address>();
-                base.Load()
-                .ForEach(address => rows.Add(
-                    new Address
-                    {
-                        Id = address.Id,
-                        PostalAddress = address.PostalAddress,
-                        City = address.City,
-                        Zip = address.Zip,
-                        State = address.State
-                    }));
-                return rows;
-
+                return base.Delete(id, rollback);
             }
             catch (Exception ex)
             {
                 throw ex;
             }
+        }
+        public List<Address> Load()
+        {
+
+            try
+            {
+                List<Address> addresses = new List<Address>();
+
+                using (HobbyHubEntities dc = new HobbyHubEntities(options))
+                {
+                    addresses = (from a in dc.tblAddresses
+                              join ca in dc.tblCompanies on a.Id equals ca.AddressId
+                              join ea in dc.tblEvents on a.Id equals ea.AddressId
+                              select new Address
+                              {
+                                  Id = a.Id,
+                                  PostalAddress = a.PostalAddress,
+                                  City = a.City,
+                                  Zip = a.Zip,
+                                  State = a.State
+                              }
+                              )
+                              .ToList();
+                }
+                return addresses;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+
+
+
+            //try
+            //{
+            //    List<Address> rows = new List<Address>();
+            //    base.Load()
+            //    .ForEach(address => rows.Add(
+            //        new Address
+            //        {
+            //            Id = address.Id,
+            //            PostalAddress = address.PostalAddress,
+            //            City = address.City,
+            //            Zip = address.Zip,
+            //            State = address.State
+            //        }));
+            //    return rows;
+
+            //}
+            //catch (Exception ex)
+            //{
+            //    throw ex;
+            //}
         }
         public Address LoadById(Guid id)
         {

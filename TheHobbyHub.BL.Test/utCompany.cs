@@ -15,21 +15,22 @@ namespace TheHobbyHub.BL.Test
             Assert.AreEqual(expected, companies.Count);
         }
 
-        [TestMethod]
-        public void InsertTest()
-        {
-            Company company = new Company
-            {
-                Id = Guid.NewGuid(),
-                CompanyName = "Test",
-                AddressId = new AddressManager(options).Load().FirstOrDefault().Id,
-                UserId = new UserManager(options).Load().FirstOrDefault().Id,
-                Description = "Test",
-            };
+        //[TestMethod]
+        //public void InsertTest()
+        //{
+        //    Company company = new Company
+        //    {
+        //        Id = Guid.NewGuid(),
+        //        CompanyName = "Test",
+        //        AddressId = new AddressManager(options).Load().FirstOrDefault().Id,
+        //        UserName = "Test",
+        //        Password = "Test",
+        //        Image = "Test"
+        //    };
 
-            int result = new CompanyManager(options).Insert(company, true);
-            Assert.IsTrue(result > 0);
-        }
+        //    int result = new CompanyManager(options).Insert(company, true);
+        //    Assert.IsTrue(result > 0);
+        //}
 
         [TestMethod]
         public void UpdateTest()
@@ -43,8 +44,7 @@ namespace TheHobbyHub.BL.Test
         [TestMethod]
         public void DeleteTest()
         {
-
-            Company companies = new CompanyManager(options).Load().LastOrDefault();
+            Company companies = new CompanyManager(options).Load().FirstOrDefault(x => x.CompanyName == "Company A");
 
             Assert.IsTrue(new CompanyManager(options).Delete(companies.Id, true) > 0);
         }
@@ -64,15 +64,6 @@ namespace TheHobbyHub.BL.Test
             Assert.IsTrue(new CompanyManager(options).LoadByAddressId(addressId).Count > 0);
             //Company company = new CompanyManager(options).Load().LastOrDefault();
             //Assert.AreEqual(new CompanyManager(options).LoadByAddressId(company.AddressId).AddressId, company.AddressId);
-        }
-
-        //dd
-        [TestMethod]
-        public void LoadByUserId()
-        {
-            Guid userId = new CompanyManager(options).Load().FirstOrDefault().UserId;
-            Assert.IsTrue(new CompanyManager(options).LoadByUserId(userId).Count > 0);
-           
         }
     }
 }

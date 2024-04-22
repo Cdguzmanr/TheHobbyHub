@@ -61,7 +61,38 @@
         {
             try
             {
-                return base.Delete(id, rollback);
+                int results = 0;
+                
+                using(HobbyHubEntities dc = new HobbyHubEntities(options))
+                {
+                    IDbContextTransaction transaction = null;
+                    if(rollback) transaction = dc.Database.BeginTransaction();
+
+                    tblHobby deleteRow = dc.tblHobbies.FirstOrDefault(x => x.Id == id);
+
+                    if(deleteRow != null)
+                    {
+                        //Delete all the associated tblUserhobby rows
+                        var Userhobbies = dc.tblUserHobbies.Where(u => u.HobbyId == id);
+                        dc.tblUserHobbies.RemoveRange(Userhobbies);
+
+                        //Delete all the associated tblEvent rows
+                        var Events = dc.tblEvents.Where(e => e.HobbyId == id);
+                        dc.tblEvents.RemoveRange(Events);
+
+                        //Remove the hobby
+                        dc.tblHobbies.Remove(deleteRow);
+
+                        results = dc.SaveChanges();
+
+                        if (rollback) transaction.Rollback();
+                    }
+                    else
+                    {
+                        throw new Exception("Row was not Found");
+                    }
+                } 
+                return results;
             }
             catch (Exception ex)
             {
