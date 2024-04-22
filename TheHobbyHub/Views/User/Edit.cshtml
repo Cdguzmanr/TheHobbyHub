@@ -5,29 +5,28 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Edit</h1>
+<div class="profile-banner">
+    <div class="form-group">
+        <img class="imagepropmedium m-2"
+             alt="User Image"
+             id="userimage"
+             src="~/images/@Model.Image" 
+             onchange="loadFile(event)" />
 
-<h4>User</h4>
-<hr />
-<div class="row">
+        <br />
+        <input hidden type="file" name="File" id="File" accept="image/" onchange="loadFile(event)" />
+
+    </div>
+</div>
+
+
+<div class="row m-2">
     <div class="col-md-4">
-        <form asp-action="Edit">
+        <form asp-action="Edit" method="post" enctype="multipart/form-data">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="Id" class="control-label"></label>
-                <input asp-for="Id" class="form-control" />
-                <span asp-validation-for="Id" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="UserName" class="control-label"></label>
-                <input asp-for="UserName" class="form-control" />
-                <span asp-validation-for="UserName" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Password" class="control-label"></label>
-                <input asp-for="Password" class="form-control" />
-                <span asp-validation-for="Password" class="text-danger"></span>
-            </div>
+            
+            <input hidden asp-for="Id" class="form-control" />
+
             <div class="form-group">
                 <label asp-for="FirstName" class="control-label"></label>
                 <input asp-for="FirstName" class="form-control" />
@@ -38,10 +37,22 @@
                 <input asp-for="LastName" class="form-control" />
                 <span asp-validation-for="LastName" class="text-danger"></span>
             </div>
+
             <div class="form-group">
                 <label asp-for="Email" class="control-label"></label>
                 <input asp-for="Email" class="form-control" />
                 <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <img class="imagepropsmall m-2"
+                     alt="@Model.UserName"
+                     id="userimage"
+                     onclick="on('/images/@Model.Image')"
+                     src="~/images/@Model.Image"
+                     onchange="loadFile(event)" />
+                <input type="file" name="File" id="File" accept="image/" onchange="loadFile(event)" />
+                <span asp-validation-for="Image" class="text-danger"></span>
+
             </div>
             <div class="form-group">
                 <label asp-for="PhoneNumber" class="control-label"></label>
@@ -49,15 +60,16 @@
                 <span asp-validation-for="PhoneNumber" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Image" class="control-label"></label>
-                <input asp-for="Image" class="form-control" />
-                <span asp-validation-for="Image" class="text-danger"></span>
+                <label asp-for="UserName" class="control-label"></label>
+                <input asp-for="UserName" class="form-control" />
+                <span asp-validation-for="UserName" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="FullName" class="control-label"></label>
-                <input asp-for="FullName" class="form-control" />
-                <span asp-validation-for="FullName" class="text-danger"></span>
+                <label asp-for="Password" class="control-label"></label>
+                <input asp-for="Password" class="form-control password" disabled/>
+                <span asp-validation-for="Password" class="text-danger"></span>
             </div>
+
             <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-primary" />
             </div>
@@ -72,3 +84,10 @@
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }
+
+<script>
+    var loadFile = function (event) {
+        var output = document.getElementById('userimage');
+        output.src = URL.createObjectURL(event.target.files[0]);
+    }
+</script>

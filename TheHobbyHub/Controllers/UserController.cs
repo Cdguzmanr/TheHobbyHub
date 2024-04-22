@@ -32,7 +32,9 @@ namespace TheHobbyHub.Controllers
             HttpContext.Session.SetObject("user", user);
             if (user != null)
             {
-                HttpContext.Session.SetObject("fullname", "Welcome " + user.FullName);
+                HttpContext.Session.SetObject("fullname", user.FullName);
+                HttpContext.Session.SetObject("userId", user.Id);
+                HttpContext.Session.SetObject("userImage", user.Image);
             }
             else
             {
@@ -116,10 +118,12 @@ namespace TheHobbyHub.Controllers
         }
         public IActionResult Edit(Guid id)
         {
+
+            var item = new UserManager(options).LoadById(id);
+            ViewBag.Title = "Edit";
+
             if (Authentication.IsAuthenticated(HttpContext))
-            {
-                var item = new UserManager(options).LoadById(id);
-                ViewBag.Title = "Edit";
+            {                
                 return View(item);
             }
             else
@@ -133,12 +137,12 @@ namespace TheHobbyHub.Controllers
         {
             try
             {
-                int result = new UserManager(options).Insert(user, rollback);
+                int result = new UserManager(options).Update(user, rollback);
                 return RedirectToAction(nameof(Index));
             }
             catch (Exception ex)
             {
-
+                ViewBag.Title = "Edit";
                 ViewBag.Error = ex.Message;
                 return View();
             }
