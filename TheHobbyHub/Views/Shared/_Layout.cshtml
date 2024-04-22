@@ -12,8 +12,6 @@
     <link rel="stylesheet" href="~/TheHobbyHub.styles.css" asp-append-version="true" />
 </head>
 <body>
-
-    <!-- Header object: Logo | Menu Buttons | Login/Logout | Welcome User | User Icon  -->
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-gradient-orange border-bottom box-shadow mb-3">
             <div class="container-fluid">
@@ -44,61 +42,42 @@
                         </li>
                     </ul>
 
-                    <!-- Login/Logout Display -->
+                    <!-- Login  Display -->
+
                     <ul class="navbar-nav">
                         @{
                             var fullname = HttpContextAccessor.HttpContext?.Session.GetString("fullname");
-                            var userLoggedIn = !string.IsNullOrEmpty(fullname) && fullname != "\"\"";
+
+                            if (fullname != null) fullname = fullname.Replace("\"", "");
                         }
 
-                            @if (!userLoggedIn)
+                        <li class="nav-item">
+                            @if (fullname == null || fullname == "")
                             {
-                            <li class="nav-item">
                                 <a asp-controller="User" asp-action="Login" class="nav-link text-light">Login</a>
-                            </li>
                             }
                             else
                             {
-                            <li class="nav-item">
                                 <a asp-controller="User" asp-action="Logout" class="nav-link text-light">Logout |</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-light">Welcome @fullname</a>
-                            </li>
                             }
-   
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link text-light">@fullname</a>
+                        </li>
                     </ul>
 
-
-                    <!-- Favicon -->
-                    <a asp-controller="User" asp-action="@(!userLoggedIn ? "Login" : "Edit")" asp-route-id="@(!userLoggedIn ? "" : @HttpContextAccessor.HttpContext?.Session.GetString("userId").Trim('"'))" class="nav-link">
-                        @if (!userLoggedIn)
-                        {
-                            <img src="/images/noUserIcon.png" alt="Favicon" width="30" height="30">
-                        }
-                        else
-                        {
-                            var userImage = HttpContextAccessor.HttpContext?.Session.GetString("userImage").Trim('"');
-                            <img src="~/images/@userImage" alt="Favicon" width="30" height="30">
-                        }
-                    </a>
-
-
+                    <!-- User Icon -->
+                    <a asp-controller="User" asp-action="Login" class="nav-link"><img src="/images/noUserIcon.png" alt="Favicon" width="30" height="30"></a>
+                    
                 </div>
             </div>
         </nav>
     </header>
-
-
-    <!-- Main Container -->
-    <div class="container full-size"> <!-- full-size class added: pushes the footer down 700px -->
-        
-        
+    <div class="container full-size"> <!-- full-size class added -->
         <main role="main" class="pb-3">
             @RenderBody()
         </main>
-
-
     </div>
 
     <footer class="border-top footer text-muted">

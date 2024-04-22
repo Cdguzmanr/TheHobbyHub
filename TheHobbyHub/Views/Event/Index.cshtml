@@ -4,75 +4,43 @@
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
-<h1>Index</h1>
-
 <p>
     <a asp-action="Create">Create New</a>
 </p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Id)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.AddressId)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.UserId)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.CompanyId)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.HobbyId)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Description)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Image)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Date)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Id)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.AddressId)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.UserId)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.CompanyId)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.HobbyId)
-            </td>
-            <td>
+    @foreach (var item in Model)
+    {
+        @* <div id="event">
+            <h3> name @Html.DisplayFor(modelItem => item.EventName)</h3>
+            <img id="EventImage" href="/images/@item.Image" />
+            <ul>
+                <li> @Html.DisplayFor(modelItem => item.EventHobbies) hobbies</li>
+            </ul>
+            <p>
+                @Html.DisplayFor(modelItem => item.EventAddress.PostalAddress)
+                address
+                @Html.DisplayFor(modelItem => item.EventAddress.City)
+                city
+                @Html.DisplayFor(modelItem => item.EventAddress.State)
+                state
+                @Html.DisplayFor(modelItem => item.EventAddress.Zip)
+                zip
+            </p>
+            <p>
+                @Html.DisplayFor(modelItem => item.EventUser.FullName)
+                posting user's name
+            </p>
+            <p>
+                @Html.DisplayFor(modelItem => item.EventCompany.CompanyName)
+                posting company's name
+            </p>
+            <p>
                 @Html.DisplayFor(modelItem => item.Description)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Image)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Date)
-            </td>
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+            </p>
+            <button id="EditButton"> @Html.ActionLink("Edit", "Edit", new { id = item.Id }) </button>
+            <button id="DeleteButton"> @Html.ActionLink("Delete", "Delete", new { id = item.Id }) </button>
+            <hr />
+        </div> *@
+    }
+    <script>
+        
+    </script>

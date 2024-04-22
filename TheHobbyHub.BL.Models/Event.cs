@@ -10,10 +10,10 @@ namespace TheHobbyHub.BL.Models
     {
         public Event()
         {
-            this.Addresses = new List<Address>();
+            //this.Addresses = new List<Address>();
         }
 
-        public List<Address> Addresses { get; set; }
+        
 
         public Guid Id { get; set; }
         public Guid AddressId { get; set; }
