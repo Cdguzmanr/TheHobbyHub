@@ -7,35 +7,40 @@
 <p>
     <a asp-action="Create">Create New</a>
 </p>
-
-              
-@foreach (var item in Model) {
-    <ul>
-        <li>@Html.DisplayNameFor(model => model.HobbyId)</li>
-        <li>@Html.DisplayFor(modelItem => item.HobbyId)</li>
-
-        <li>@Html.DisplayNameFor(model => model.Image)</li>
-        <li>@Html.DisplayFor(modelItem => item.Image)</li>
-
-        <li>@Html.DisplayNameFor(model => model.AddressId)</li>
-        <li>@Html.DisplayFor(modelItem => item.AddressId)</li>
-
-        <li>@Html.DisplayNameFor(model => model.Date)</li>
-        <li>@Html.DisplayFor(modelItem => item.Date)</li>
-
-        <li>@Html.DisplayNameFor(model => model.UserId)</li>
-        <li>@Html.DisplayFor(modelItem => item.UserId)</li>
-
-        <li>@Html.DisplayNameFor(model => model.CompanyId)</li>
-        <li>@Html.DisplayFor(modelItem => item.CompanyId)</li>
-
-        <li>@Html.DisplayNameFor(model => model.Description)</li>
-        <li>@Html.DisplayFor(modelItem => item.Description)</li>
-
-        <li>@Html.ActionLink("Details", "Details", new { id = item.Id })</li>
-    </ul>
-            
-                @* @Html.ActionLink("Edit", "Edit", new { id=item.Id }) | 
-                 |
-                 @Html.ActionLink("Delete", "Delete", new { id=item.Id }) *@
-}
+    @foreach (var item in Model)
+    {
+        <div id="event">
+            <h3> name @Html.DisplayFor(modelItem => item.EventName)</h3>
+            <img id="EventImage" href="/images/@item.Image" />
+            <ul>
+                <li> @Html.DisplayFor(modelItem => item.EventHobbies) hobbies</li>
+            </ul>
+            <p>
+                @Html.DisplayFor(modelItem => item.EventAddress.PostalAddress)
+                address
+                @Html.DisplayFor(modelItem => item.EventAddress.City)
+                city
+                @Html.DisplayFor(modelItem => item.EventAddress.State)
+                state
+                @Html.DisplayFor(modelItem => item.EventAddress.Zip)
+                zip
+            </p>
+            <p>
+                @Html.DisplayFor(modelItem => item.EventUser.FullName)
+                posting user's name
+            </p>
+            <p>
+                @Html.DisplayFor(modelItem => item.EventCompany.CompanyName)
+                posting company's name
+            </p>
+            <p>
+                @Html.DisplayFor(modelItem => item.Description)
+            </p>
+            <button id="EditButton"> @Html.ActionLink("Edit", "Edit", new { id = item.Id }) </button>
+            <button id="DeleteButton"> @Html.ActionLink("Delete", "Delete", new { id = item.Id }) </button>
+            <hr />
+        </div>
+    }
+    <script>
+        
+    </script>

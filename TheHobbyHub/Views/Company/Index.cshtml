@@ -9,8 +9,8 @@
     <a asp-action="Create">Create New</a>
 </p>
 @foreach (var item in Model) {
-   <img id="profileListImg" src="~/images/@item.Image" />
-    @Html.ActionLink("CompanyName", "Details", new { id = item.Id })
+    <img id="profileListImg" src="~/images/@item.Image" />
+    @Html.ActionLink(item.CompanyName, "Details", new { id = item.Id })
     <hr />
 }
 <!--@* <input class="btn-sm btn-primary" type="button" onclick="" value="Add to Cart">-->

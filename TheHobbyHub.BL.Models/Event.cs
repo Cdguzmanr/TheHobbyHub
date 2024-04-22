@@ -11,7 +11,12 @@
         public string Image {  get; set; }
         public DateTime Date {  get; set; }
 
+
+        public string EventName { get; set; }
         public Address EventAddress { get; set; }
-        public Hobby EventHobby { get; set; }
+        public List<Hobby> EventHobbies { get; set; }
+        public User EventUser { get; set; }
+        public Company EventCompany { get; set; }
+
     }
 }

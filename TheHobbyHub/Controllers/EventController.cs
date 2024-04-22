@@ -59,6 +59,7 @@ namespace TheHobbyHub.UI.Controllers
             {
                 var item = new EventManager(options).LoadById(id);
                 ViewBag.Title = "Edit";
+                
                 return View(item);
             }
             else

@@ -439,3 +439,10 @@ dl dt{
     width: 100px;
     height:100px;
 }
+#event {
+    float: left;
+    padding: 0;
+    background-color: rebeccapurple;
+    width: 23%;
+    margin: 2% 5%;
+}
