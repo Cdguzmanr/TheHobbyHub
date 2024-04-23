@@ -110,6 +110,10 @@ namespace TheHobbyHub.BL
                                   Id = c.Id,
                                   UserId = c.UserId,
                                   CompanyName = c.CompanyName,
+                                  CompanyPostalAddress = ca.PostalAddress,
+                                  CompanyCity = ca.City,
+                                  CompanyState = ca.State,
+                                  CompanyZip = ca.Zip,
                                   AddressId = c.AddressId,
                                   Description = c.Description,
                                   ImagePath = u.Image, 
@@ -151,25 +155,29 @@ namespace TheHobbyHub.BL
         {
             try
             {
-                tblCompany row = base.LoadById(id);
-
-                if (row != null)
+                using (HobbyHubEntities dc = new HobbyHubEntities(options))
                 {
-                    Company company = new Company
+                    tblCompany row = dc.tblCompanies.FirstOrDefault(c => c.Id == id);
+
+                    if (row != null)
                     {
-                        Id = row.Id,
-                        UserId = row.UserId,
-                        Description = row.Description,
-                        CompanyName = row.CompanyName,
-                        AddressId = row.AddressId,
-                    };
-                    return company;
+                        Company company = new Company
+                        {
+                            Id = row.Id,
+                            CompanyName = row.CompanyName,
+                            AddressId = row.AddressId,
+                            CompanyPostalAddress = new AddressManager(options).LoadById(row.AddressId).PostalAddress,
+                            CompanyCity = new AddressManager(options).LoadById(row.AddressId).City,
+                            CompanyState = new AddressManager(options).LoadById(row.AddressId).State,
+                            CompanyZip = new AddressManager(options).LoadById(row.AddressId).Zip,
+                        };
+                        return company;
+                    }
+                    else
+                    {
+                        throw new Exception("Row was not found.");
+                    }
                 }
-                else
-                {
-                    throw new Exception("Row was not found.");
-                }
-
             }
             catch (Exception ex)
             {
