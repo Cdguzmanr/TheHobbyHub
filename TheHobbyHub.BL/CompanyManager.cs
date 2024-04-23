@@ -161,9 +161,9 @@ namespace TheHobbyHub.BL
                             CompanyName = row.CompanyName,
                             AddressId = row.AddressId,
                             CompanyPostalAddress = new AddressManager(options).LoadById(row.AddressId).PostalAddress,
-                            CompanyCity = new AddressManager(options).LoadById(row.AddressId).PostalAddress,
-                            CompanyState = new AddressManager(options).LoadById(row.AddressId).PostalAddress,
-                            CompanyZip = new AddressManager(options).LoadById(row.AddressId).PostalAddress,
+                            CompanyCity = new AddressManager(options).LoadById(row.AddressId).City,
+                            CompanyState = new AddressManager(options).LoadById(row.AddressId).State,
+                            CompanyZip = new AddressManager(options).LoadById(row.AddressId).Zip,
                         };
                         return company;
                     }
