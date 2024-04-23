@@ -311,6 +311,142 @@ input[type="password"] {
         color: rgba(34, 34, 34, 0.85);
         background-color: #ccc;
     }
+/**
+ * Login and signup forms
+ */
+.user_options-forms {
+    position: absolute;
+    top: 50%;
+    left: 30px;
+    width: calc(50% - 30px);
+    min-height: 420px;
+    height: auto; /* Adjust height dynamically based on content */
+    background-color: #fff;
+    border-radius: 3px;
+    box-shadow: 2px 0 15px rgba(0, 0, 0, 0.25);
+    overflow: hidden;
+    transform: translate3d(100%, -50%, 0);
+    transition: transform .4s ease-in-out;
+}
+
+    .user_options-forms .user_forms-login {
+        transition: opacity .4s ease-in-out, visibility .4s ease-in-out;
+    }
+
+    .user_options-forms .forms_title {
+        margin-bottom: 45px;
+        font-size: 1.5rem;
+        font-weight: 500;
+        line-height: 1em;
+        text-transform: uppercase;
+        color: #e8716d;
+        letter-spacing: .1rem;
+    }
+
+    .user_options-forms .forms_field:not(:last-of-type) {
+        margin-bottom: 20px;
+    }
+
+    .user_options-forms .forms_field-input {
+        width: 100%;
+        border-bottom: 1px solid #ccc;
+        padding: 6px 20px 6px 6px;
+        font-family: "Montserrat", sans-serif;
+        font-size: 1rem;
+        font-weight: 300;
+        color: gray;
+        letter-spacing: .1rem;
+        transition: border-color .2s ease-in-out;
+    }
+
+.forms_field-input-inline {
+    width: calc(50% - 12px); /* Adjust the width as needed */
+    display: inline-block;
+    margin-right: 10px; /* Adjust spacing between inputs if necessary */
+    box-sizing: border-box;
+}
+
+.user_options-forms .forms_field-input:focus {
+    border-color: gray;
+}
+
+.user_options-forms .forms_buttons {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 35px;
+}
+
+.user_options-forms .forms_buttons-forgot {
+    font-family: "Montserrat", sans-serif;
+    letter-spacing: .1rem;
+    color: #ccc;
+    text-decoration: underline;
+    transition: color .2s ease-in-out;
+}
+
+    .user_options-forms .forms_buttons-forgot:hover {
+        color: #b3b3b3;
+    }
+
+.user_options-forms .forms_buttons-action {
+    background-color: #e8716d;
+    border-radius: 3px;
+    padding: 10px 35px;
+    font-size: 1rem;
+    font-family: "Montserrat", sans-serif;
+    font-weight: 300;
+    color: #fff;
+    text-transform: uppercase;
+    letter-spacing: .1rem;
+    transition: background-color .2s ease-in-out;
+}
+
+    .user_options-forms .forms_buttons-action:hover {
+        background-color: #e14641;
+    }
+
+.user_options-forms .user_forms-signup,
+.user_options-forms .user_forms-login {
+    position: absolute;
+    top: 70px;
+    left: 40px;
+    width: calc(100% - 80px);
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity .4s ease-in-out, visibility .4s ease-in-out, transform .5s ease-in-out;
+}
+
+.user_options-forms .user_forms-signup {
+    transform: translate3d(120px, 0, 0);
+}
+
+    .user_options-forms .user_forms-signup .forms_buttons {
+        justify-content: flex-end;
+    }
+
+.user_options-forms .user_forms-login {
+    transform: translate3d(0, 0, 0);
+    opacity: 1;
+    visibility: visible;
+}
+
+/**
+ * Triggers
+ */
+.user_options-forms.bounceLeft {
+    animation: bounceLeft 1s forwards;
+}
+
+    .user_options-forms.bounceLeft .user_forms-signup {
+        animation: showSignUp 1s forwards;
+    }
+
+    .user_options-forms.bounceLeft .user_forms-login {
+        opacity: 0;
+        visibility: hidden;
+        transform: translate3d(-120px, 0, 0);
+    }
 
     .user_options-forms.bounceRight {
         animation: bounceRight 1s forwards;

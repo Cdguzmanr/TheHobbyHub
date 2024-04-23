@@ -55,7 +55,7 @@
             <!-- Sign Up Form -->
             <div class="user_forms-signup">
                 <h2 class="forms_title">Sign Up</h2>
-                <form asp-action="Create" asp-controller="User" method="post" enctype="multipart/form-data" class="forms_form" >
+                <form asp-action="Create" asp-controller="User" method="post" enctype="multipart/form-data" class="forms_form">
                     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                     <fieldset class="forms_fieldset">
                         <div class="forms_field forms_field-input-inline">
@@ -75,7 +75,7 @@
                             <span asp-validation-for="PhoneNumber" class="text-danger"></span>
                         </div>
                         <div class="forms_field">
-                            <label asp-for="Image" class="control-label" style="font-family: 'Montserrat', sans-serif; color: gray" >Profile Picture</label>
+                            <label asp-for="Image" class="control-label" style="font-family: 'Montserrat', sans-serif; color: gray">Profile Picture</label>
                             <input asp-for="Image" type="file" class="forms_field-input login-input" accept="image/*" placeholder="Profile Picture" required />
                             <span asp-validation-for="Image" class="text-danger"></span>
                         </div>
