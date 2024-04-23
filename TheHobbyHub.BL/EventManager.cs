@@ -1,4 +1,5 @@
 ﻿using Mono.TextTemplating;
+using NuGet.Protocol;
 using TheHobbyHub.BL.Models;
 
 namespace TheHobbyHub.BL
@@ -38,12 +39,12 @@ namespace TheHobbyHub.BL
                 return base.Update(new tblEvent
                 {
                     Id = eventt.Id,
+                    AddressId = eventt.AddressId,
                     UserId = eventt.UserId,
                     CompanyId = eventt.CompanyId,
                     HobbyId = eventt.HobbyId,
                     Description = eventt.Description,
                     Image = eventt.ImagePath,
-                    AddressId = eventt.AddressId,
                     Date = eventt.Date,
 
             }, rollback);
@@ -78,9 +79,13 @@ namespace TheHobbyHub.BL
                                  select new Event
                                  {
                                      Id = e.Id,
+                                     AddressId = e.AddressId,
+                                     UserId = e.UserId,
+                                     CompanyId = e.CompanyId,
+                                     HobbyId = e.HobbyId,
+                                     Date = e.Date,
                                      EventHobby = h.HobbyName,
                                      EventUser = u.FirstName + " " + u.LastName,
-                                     AddressId = e.AddressId,
                                      EventPostalAddress = ea.PostalAddress,
                                      EventCity = ea.City,
                                      EventState = ea.State,
@@ -130,6 +135,50 @@ namespace TheHobbyHub.BL
                 throw ex;
             }
         }
+
+
+        //public List<Event> LoadByUserId(Guid userId)
+        //{
+        //    try
+        //    {
+        //        List<Event> rows = new List<Event>();
+        //        using (HobbyHubEntities dc = new HobbyHubEntities(options))
+        //        {
+        //            var results = (from e in dc.tblEvents
+        //                           join eu in dc.tblUsers on e.UserId equals eu.Id
+        //                           where e.UserId == userId
+        //                           select new Event
+        //                           {
+        //                               Id = e.Id,
+        //                               UserId = e.UserId,
+        //                               ImagePath = e.Image,
+        //                               Date = e.Date
+        //                           }).ToList();
+        //            results.ForEach(r => rows.Add(
+        //                 new Event
+        //                 {
+        //                     Id = r.Id,
+        //                     AddressId = r.AddressId,
+        //                     UserId = r.UserId,
+        //                     CompanyId = r.CompanyId,
+        //                     HobbyId = r.HobbyId,
+        //                     Description = r.Description,
+        //                     ImagePath = r.ImagePath,
+        //                     Date = r.Date
+        //                 }
+        //                ));
+
+        //            return rows;
+        //        }
+
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        throw ex;
+        //    }
+        //}
+
+
 
         public List<Event> LoadByHobbyId(Guid hobbyId)
         {
