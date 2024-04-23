@@ -47,6 +47,8 @@ namespace TheHobbyHub.BL
                 throw ex;
             }
         }
+
+
         public int Delete(Guid id, bool rollback = false)
         {
             try
@@ -58,6 +60,55 @@ namespace TheHobbyHub.BL
                 throw ex;
             }
         }
+
+
+
+        //public int Delete(Guid id, bool rollback = false)
+        //{
+        //    try
+        //    {
+        //        int results = 0;
+
+        //        using (HobbyHubEntities dc = new HobbyHubEntities(options))
+        //        {
+        //            IDbContextTransaction transaction = null;
+        //            if (rollback) transaction = dc.Database.BeginTransaction();
+
+        //            tblAddress deleteRow = dc.tblAddresses.FirstOrDefault(x => x.Id == id);
+
+        //            if (deleteRow != null)
+        //            {
+        //                //Delete all the associated tblCompanyUser rows
+        //                //var address = dc.tblCompanies.Where(u => u.AddressId == id);
+        //                //dc.tblCompanies.RemoveRange(address);
+
+        //                var Event = dc.tblEvents.Where(u => u.AddressId == id);
+        //                dc.tblEvents.RemoveRange(Event);
+
+        //                var company = dc.tblCompanies.Where(u => u.AddressId == id);
+        //                dc.tblCompanies.RemoveRange(company);
+
+
+        //                //Remove the users
+        //                dc.tblAddresses.Remove(deleteRow);
+
+        //                results = dc.SaveChanges();
+
+        //                if (rollback) transaction.Rollback();
+        //            }
+        //            else
+        //            {
+        //                throw new Exception("Row was not Found");
+        //            }
+        //        }
+        //        return results;
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        throw ex;
+        //    }
+        //}
+
         public List<Address> Load()
         {
 
