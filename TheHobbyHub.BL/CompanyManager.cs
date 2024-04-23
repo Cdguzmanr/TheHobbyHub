@@ -22,6 +22,7 @@ namespace TheHobbyHub.BL
                 row.CompanyName = company.CompanyName;
                 row.AddressId = company.AddressId;
                 row.Description = company.Description;
+                row.UserId = company.UserId;
                 
 
                 return base.Insert(row, rollback);
