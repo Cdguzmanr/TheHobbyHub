@@ -15,22 +15,22 @@ namespace TheHobbyHub.BL.Test
             Assert.AreEqual(expected, companies.Count);
         }
 
-        //[TestMethod]
-        //public void InsertTest()
-        //{
-        //    Company company = new Company
-        //    {
-        //        Id = Guid.NewGuid(),
-        //        CompanyName = "Test",
-        //        AddressId = new AddressManager(options).Load().FirstOrDefault().Id,
-        //        UserName = "Test",
-        //        Password = "Test",
-        //        Image = "Test"
-        //    };
+        [TestMethod]
+        public void InsertTest()
+        {
+            Company company = new Company
+            {
+                Id = Guid.NewGuid(),
+                CompanyName = "Test",
+                AddressId = new AddressManager(options).Load().FirstOrDefault().Id,
+                UserName = "Test",
+                Password = "Test",
+                Image = "Test"
+            };
 
-        //    int result = new CompanyManager(options).Insert(company, true);
-        //    Assert.IsTrue(result > 0);
-        //}
+            int result = new CompanyManager(options).Insert(company, true);
+            Assert.IsTrue(result > 0);
+        }
 
         [TestMethod]
         public void UpdateTest()
