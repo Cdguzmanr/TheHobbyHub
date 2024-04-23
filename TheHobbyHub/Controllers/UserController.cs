@@ -123,7 +123,7 @@ namespace TheHobbyHub.Controllers
             ViewBag.Title = "Edit";
 
             if (Authentication.IsAuthenticated(HttpContext))
-            {                
+            {
                 return View(item);
             }
             else
