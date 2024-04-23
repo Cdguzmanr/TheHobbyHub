@@ -499,7 +499,7 @@ namespace TheHobbyHub.PL.Data
                                 CompanyId = companyId[0],
                                 HobbyId = hobbyId[0],
                                 Description = "Event A",
-                                Image = "gym.jpg",
+                                Image = "gym.jpeg",
                                 Date = new DateTime(2024, 2, 15) },
 
                  new tblEvent {  Id = Guid.NewGuid(),
@@ -517,7 +517,7 @@ namespace TheHobbyHub.PL.Data
                                 CompanyId = companyId[2],
                                 HobbyId = hobbyId[2],
                                 Description = "Event C",
-                                Image = "running.jpg",
+                                Image = "running.jpeg",
                                 Date = new DateTime(2024, 2, 15) }
             };
 
