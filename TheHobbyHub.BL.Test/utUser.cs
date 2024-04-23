@@ -65,7 +65,23 @@ namespace TheHobbyHub.BL.Test
             }
         }
 
+        [TestMethod]
+        public void UpdateTest()
+        {
+            User user = new UserManager(options).Load().FirstOrDefault();
+            user.UserName = "Test Update";
+            user.Password = "Test Update";
+            user.FirstName = "Test update";
+            user.LastName = "Test Update";
+            user.Email = "Test Update";
+            user.PhoneNumber = "1234567890";
+            user.Image = "Test Update";
+
+            Assert.IsTrue(new UserManager(options).Update(user, true) > 0);
+        }
     }
+
+        
     
     //}
     //public class utUser : utBase<User>

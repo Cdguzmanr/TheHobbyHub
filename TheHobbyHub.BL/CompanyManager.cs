@@ -38,6 +38,7 @@ namespace TheHobbyHub.BL
                     Id = company.Id,
                     CompanyName = company.CompanyName,
                     AddressId = company.AddressId,
+                    Description = company.Description,
 
                 }, rollback);
             }
