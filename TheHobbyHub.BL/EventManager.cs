@@ -90,7 +90,7 @@ namespace TheHobbyHub.BL
                                      EventCity = ea.City,
                                      EventState = ea.State,
                                      EventZip = ea.Zip,
-                                     ImagePath = u.Image,
+                                     ImagePath = e.Image,
                                  }
                               )
                               .ToList();
