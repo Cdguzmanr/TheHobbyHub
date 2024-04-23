@@ -21,11 +21,10 @@ namespace TheHobbyHub.BL.Test
             Company company = new Company
             {
                 Id = Guid.NewGuid(),
+                UserId = new UserManager(options).Load().FirstOrDefault().Id,
                 CompanyName = "Test",
                 AddressId = new AddressManager(options).Load().FirstOrDefault().Id,
-                UserName = "Test",
-                Password = "Test",
-                Image = "Test"
+                Description = "Test"
             };
 
             int result = new CompanyManager(options).Insert(company, true);

@@ -21,6 +21,7 @@ namespace TheHobbyHub.BL
                 row.Id = Guid.NewGuid();
                 row.CompanyName = company.CompanyName;
                 row.AddressId = company.AddressId;
+                row.Description = company.Description;
                 
 
                 return base.Insert(row, rollback);
@@ -39,6 +40,8 @@ namespace TheHobbyHub.BL
                     Id = company.Id,
                     CompanyName = company.CompanyName,
                     AddressId = company.AddressId,
+                    Description = company.Description,
+                    UserId = company.UserId
 
                 }, rollback);
             }
@@ -104,8 +107,10 @@ namespace TheHobbyHub.BL
                               select new Company
                               {
                                   Id = c.Id,
+                                  UserId = c.UserId,
                                   CompanyName = c.CompanyName,
                                   AddressId = c.AddressId,
+                                  Description = c.Description,
                                   ImagePath = u.Image, 
                               }
                               )
@@ -152,6 +157,8 @@ namespace TheHobbyHub.BL
                     Company company = new Company
                     {
                         Id = row.Id,
+                        UserId = row.UserId,
+                        Description = row.Description,
                         CompanyName = row.CompanyName,
                         AddressId = row.AddressId,
                     };
