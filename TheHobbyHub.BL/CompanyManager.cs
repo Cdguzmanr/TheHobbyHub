@@ -105,6 +105,10 @@ namespace TheHobbyHub.BL
                               {
                                   Id = c.Id,
                                   CompanyName = c.CompanyName,
+                                  CompanyPostalAddress = ca.PostalAddress,
+                                  CompanyCity = ca.City,
+                                  CompanyState = ca.State,
+                                  CompanyZip = ca.Zip,
                                   AddressId = c.AddressId,
                                   ImagePath = u.Image, 
                               }
@@ -145,23 +149,29 @@ namespace TheHobbyHub.BL
         {
             try
             {
-                tblCompany row = base.LoadById(id);
-
-                if (row != null)
+                using (HobbyHubEntities dc = new HobbyHubEntities(options))
                 {
-                    Company company = new Company
+                    tblCompany row = dc.tblCompanies.FirstOrDefault(c => c.Id == id);
+
+                    if (row != null)
                     {
-                        Id = row.Id,
-                        CompanyName = row.CompanyName,
-                        AddressId = row.AddressId,
-                    };
-                    return company;
+                        Company company = new Company
+                        {
+                            Id = row.Id,
+                            CompanyName = row.CompanyName,
+                            AddressId = row.AddressId,
+                            CompanyPostalAddress = new AddressManager(options).LoadById(row.AddressId).PostalAddress,
+                            CompanyCity = new AddressManager(options).LoadById(row.AddressId).PostalAddress,
+                            CompanyState = new AddressManager(options).LoadById(row.AddressId).PostalAddress,
+                            CompanyZip = new AddressManager(options).LoadById(row.AddressId).PostalAddress,
+                        };
+                        return company;
+                    }
+                    else
+                    {
+                        throw new Exception("Row was not found.");
+                    }
                 }
-                else
-                {
-                    throw new Exception("Row was not found.");
-                }
-
             }
             catch (Exception ex)
             {
