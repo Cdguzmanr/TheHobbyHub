@@ -6,11 +6,14 @@
 }
 
 <div>
-            @Html.DisplayFor(model => model.CompanyName)
-            @Html.DisplayFor(model => model.CompanyPostalAddress)
-            @Html.DisplayFor(model => model.CompanyCity)
-            @Html.DisplayFor(model => model.CompanyState)
-            @Html.DisplayFor(model => model.CompanyZip)
+    <p>@Html.DisplayFor(model => model.CompanyName)</p>
+    <p>
+        @Html.DisplayFor(model => model.CompanyPostalAddress)
+        @Html.DisplayFor(model => model.CompanyCity),
+        @Html.DisplayFor(model => model.CompanyState)
+        @Html.DisplayFor(model => model.CompanyZip)
+    </p>
+            
 </div>
 <div class="ms-lg-3">
     @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
