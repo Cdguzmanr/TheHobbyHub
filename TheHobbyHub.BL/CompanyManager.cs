@@ -1,5 +1,6 @@
 ﻿using Azure.Identity;
 using Mono.TextTemplating;
+using System.Threading.Tasks.Dataflow;
 using TheHobbyHub.BL.Models;
 using TheHobbyHub.PL.Entities;
 
@@ -20,7 +21,7 @@ namespace TheHobbyHub.BL
                 row.Id = Guid.NewGuid();
                 row.CompanyName = company.CompanyName;
                 row.AddressId = company.AddressId;
-
+                
 
                 return base.Insert(row, rollback);
             }
@@ -93,22 +94,24 @@ namespace TheHobbyHub.BL
 
             try
             {
-                List<Company> movies = new List<Company>();
+                List<Company> companies = new List<Company>();
 
                 using (HobbyHubEntities dc = new HobbyHubEntities(options))
                 {
-                    movies = (from c in dc.tblCompanies
+                    companies = (from c in dc.tblCompanies
                               join ca in dc.tblAddresses on c.AddressId equals ca.Id
+                              join u in dc.tblUsers on c.UserId equals u.Id
                               select new Company
                               {
                                   Id = c.Id,
                                   CompanyName = c.CompanyName,
                                   AddressId = c.AddressId,
+                                  ImagePath = u.Image, 
                               }
                               )
                               .ToList();
                 }
-                return movies;
+                return companies;
             }
             catch (Exception)
             {

@@ -19,7 +19,7 @@ namespace TheHobbyHub.BL
                 row.CompanyId = eventt.CompanyId;
                 row.HobbyId = eventt.HobbyId;
                 row.Description = eventt.Description;
-                row.Image = eventt.Image;
+                row.Image = eventt.ImagePath;
                 row.AddressId = eventt.AddressId;
                 row.Date = eventt.Date;
 
@@ -42,7 +42,7 @@ namespace TheHobbyHub.BL
                     CompanyId = eventt.CompanyId,
                     HobbyId = eventt.HobbyId,
                     Description = eventt.Description,
-                    Image = eventt.Image,
+                    Image = eventt.ImagePath,
                     AddressId = eventt.AddressId,
                     Date = eventt.Date,
 
@@ -68,21 +68,29 @@ namespace TheHobbyHub.BL
         {
             try
             {
-                List<Event> rows = new List<Event>();
-                base.Load()
-                .ForEach(eventt => rows.Add(
-                    new Event
-                    {
-                        Id = eventt.Id,
-                        UserId = eventt.UserId,
-                        CompanyId = eventt.CompanyId,
-                        HobbyId = eventt.HobbyId,
-                        Description = eventt.Description,
-                        Image = eventt.Image,
-                        AddressId = eventt.AddressId,
-                        Date = eventt.Date,
-                    }));
-                return rows;
+                List<Event> events = new List<Event>();
+                using (HobbyHubEntities dc = new HobbyHubEntities(options))
+                {
+                    events = (from e in dc.tblEvents
+                                 join ea in dc.tblAddresses on e.AddressId equals ea.Id
+                                 join u in dc.tblUsers on e.UserId equals u.Id
+                                 join h in dc.tblHobbies on e.HobbyId equals h.Id
+                                 select new Event
+                                 {
+                                     Id = e.Id,
+                                     EventHobby = h.HobbyName,
+                                     EventUser = u.FirstName + " " + u.LastName,
+                                     AddressId = e.AddressId,
+                                     EventPostalAddress = ea.PostalAddress,
+                                     EventCity = ea.City,
+                                     EventState = ea.State,
+                                     EventZip = ea.Zip,
+                                     ImagePath = u.Image,
+                                 }
+                              )
+                              .ToList();
+                }
+                return events;
 
             }
             catch (Exception ex)
@@ -105,7 +113,7 @@ namespace TheHobbyHub.BL
                         CompanyId = row.CompanyId,
                         HobbyId = row.HobbyId,
                         Description = row.Description,
-                        Image = row.Image,
+                        ImagePath = row.Image,
                         AddressId = row.AddressId,
                         Date = row.Date,
                     };
@@ -141,7 +149,7 @@ namespace TheHobbyHub.BL
                                        CompanyId = e.CompanyId,
                                        HobbyId = e.HobbyId,
                                        Description = e.Description,
-                                       Image = e.Image,
+                                       ImagePath = e.Image,
                                        Date = e.Date
                                    }).ToList();
 
@@ -154,7 +162,7 @@ namespace TheHobbyHub.BL
                              CompanyId = r.CompanyId,
                              HobbyId = r.HobbyId,
                              Description = r.Description,
-                             Image = r.Image,
+                             ImagePath = r.ImagePath,
                              Date = r.Date
                          }
                         ));

@@ -21,7 +21,7 @@ namespace TheHobbyHub.PL.Test
             newRow.HobbyName = "Gym";
             newRow.Description = "Gymmm";
             newRow.Type = "Indoor";
-            newRow.Image = "none";
+            //newRow.Image = "none";
             int rowsAffected = InsertTest(newRow);
 
             Assert.AreEqual(1, rowsAffected);

@@ -14,5 +14,14 @@ namespace TheHobbyHub.BL.Models
         public string Description {  get; set; }
         public Guid AddressId { get; set; }
 
+        public User UserAccount { get; set; }
+        public string ImagePath { get; set; }
+        public string CompanyPostalAddress { get; set; }
+        public string CompanyCity { get; set; }
+        public string CompanyState { get; set; }
+        public string CompanyZip {  get; set; }
+        public List<Address> CompanyAddresses { get; set; }
+
+
     }
 }
