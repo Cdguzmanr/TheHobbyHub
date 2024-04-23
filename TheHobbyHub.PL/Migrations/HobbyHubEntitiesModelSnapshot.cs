@@ -59,7 +59,7 @@ namespace TheHobbyHub.PL.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("9c0edc25-e670-4197-a249-b2dab8cd83b9"),
+                            Id = new Guid("ba8e493c-bf79-4c00-b10a-4a7f76afe1b4"),
                             City = "Anytown",
                             PostalAddress = "123 Main St",
                             State = "CA",
