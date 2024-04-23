@@ -18,7 +18,7 @@
                     row.HobbyName = hobby.HobbyName;
                     row.Description = hobby.Description;
                     row.Type = hobby.Type;
-                    row.Image = hobby.Image;
+                    //row.Image = hobby.Image;
                     return base.Insert(row, rollback);
                 }
                 catch (Exception ex)
@@ -43,7 +43,7 @@
                         HobbyName = hobby.HobbyName,
                         Description = hobby.Description,
                         Type = hobby.Type,
-                        Image = hobby.Image
+                        //Image = hobby.Image
                     }, rollback);
                 }
                 catch (Exception ex)
@@ -112,7 +112,7 @@
                         HobbyName = hobby.HobbyName,
                         Description = hobby.Description,
                         Type = hobby.Type,
-                        Image = hobby.Image
+                        //Image = hobby.Image
                     }));
                 return rows;
 
@@ -135,7 +135,7 @@
                         Id = row.Id,
                         HobbyName = row.HobbyName,
                         Description = row.Description,
-                        Image = row.Image,
+                        //Image = row.Image,
                         Type = row.Type
                     };
                     return hobby;

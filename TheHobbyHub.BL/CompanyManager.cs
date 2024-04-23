@@ -1,5 +1,6 @@
 ﻿using Azure.Identity;
 using Mono.TextTemplating;
+using System.Threading.Tasks.Dataflow;
 using TheHobbyHub.BL.Models;
 using TheHobbyHub.PL.Entities;
 
@@ -20,7 +21,9 @@ namespace TheHobbyHub.BL
                 row.Id = Guid.NewGuid();
                 row.CompanyName = company.CompanyName;
                 row.AddressId = company.AddressId;
-                row.User.Image = company.Image;
+                row.Description = company.Description;
+                row.UserId = company.UserId;
+                
 
                 return base.Insert(row, rollback);
             }
@@ -39,6 +42,7 @@ namespace TheHobbyHub.BL
                     CompanyName = company.CompanyName,
                     AddressId = company.AddressId,
                     Description = company.Description,
+                    UserId = company.UserId
 
                 }, rollback);
             }
@@ -94,22 +98,30 @@ namespace TheHobbyHub.BL
 
             try
             {
-                List<Company> movies = new List<Company>();
+                List<Company> companies = new List<Company>();
 
                 using (HobbyHubEntities dc = new HobbyHubEntities(options))
                 {
-                    movies = (from c in dc.tblCompanies
+                    companies = (from c in dc.tblCompanies
                               join ca in dc.tblAddresses on c.AddressId equals ca.Id
+                              join u in dc.tblUsers on c.UserId equals u.Id
                               select new Company
                               {
                                   Id = c.Id,
+                                  UserId = c.UserId,
                                   CompanyName = c.CompanyName,
+                                  CompanyPostalAddress = ca.PostalAddress,
+                                  CompanyCity = ca.City,
+                                  CompanyState = ca.State,
+                                  CompanyZip = ca.Zip,
                                   AddressId = c.AddressId,
+                                  Description = c.Description,
+                                  ImagePath = u.Image, 
                               }
                               )
                               .ToList();
                 }
-                return movies;
+                return companies;
             }
             catch (Exception)
             {
@@ -143,24 +155,29 @@ namespace TheHobbyHub.BL
         {
             try
             {
-                tblCompany row = base.LoadById(id);
-
-                if (row != null)
+                using (HobbyHubEntities dc = new HobbyHubEntities(options))
                 {
-                    Company company = new Company
+                    tblCompany row = dc.tblCompanies.FirstOrDefault(c => c.Id == id);
+
+                    if (row != null)
                     {
-                        Id = row.Id,
-                        CompanyName = row.CompanyName,
-                        AddressId = row.AddressId,
-                        Image = row.User.Image,
-                    };
-                    return company;
+                        Company company = new Company
+                        {
+                            Id = row.Id,
+                            CompanyName = row.CompanyName,
+                            AddressId = row.AddressId,
+                            CompanyPostalAddress = new AddressManager(options).LoadById(row.AddressId).PostalAddress,
+                            CompanyCity = new AddressManager(options).LoadById(row.AddressId).City,
+                            CompanyState = new AddressManager(options).LoadById(row.AddressId).State,
+                            CompanyZip = new AddressManager(options).LoadById(row.AddressId).Zip,
+                        };
+                        return company;
+                    }
+                    else
+                    {
+                        throw new Exception("Row was not found.");
+                    }
                 }
-                else
-                {
-                    throw new Exception("Row was not found.");
-                }
-
             }
             catch (Exception ex)
             {

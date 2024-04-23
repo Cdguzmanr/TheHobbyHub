@@ -31,6 +31,15 @@ namespace TheHobbyHub.BL.Test
         }
 
         [TestMethod]
+
+        public void DeleteTest()
+        {
+            User user = new UserManager(options).Load().LastOrDefault();
+
+            Assert.IsTrue(new UserManager(options).Delete(user.Id, true) > 0);
+        }
+
+        [TestMethod]
         public void LoginSuccess()
         {
             User user = new User {

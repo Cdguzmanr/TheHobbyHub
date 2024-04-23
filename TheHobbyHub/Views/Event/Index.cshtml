@@ -9,29 +9,24 @@
 </p>
     @foreach (var item in Model)
     {
-        @* <div id="event">
+        <div id="event">
             <h3> name @Html.DisplayFor(modelItem => item.EventName)</h3>
-            <img id="EventImage" href="/images/@item.Image" />
+            <img id="EventImage" href="~/images/@item.ImagePath" />
             <ul>
-                <li> @Html.DisplayFor(modelItem => item.EventHobbies) hobbies</li>
+                <li> @Html.DisplayFor(modelItem => item.EventHobby) </li>
             </ul>
             <p>
-                @Html.DisplayFor(modelItem => item.EventAddress.PostalAddress)
-                address
-                @Html.DisplayFor(modelItem => item.EventAddress.City)
-                city
-                @Html.DisplayFor(modelItem => item.EventAddress.State)
-                state
-                @Html.DisplayFor(modelItem => item.EventAddress.Zip)
-                zip
+                @Html.DisplayFor(modelItem => item.EventPostalAddress)
+                
+                @Html.DisplayFor(modelItem => item.EventCity),
+                
+                @Html.DisplayFor(modelItem => item.EventState)
+                
+                @Html.DisplayFor(modelItem => item.EventZip)
+                
             </p>
             <p>
-                @Html.DisplayFor(modelItem => item.EventUser.FullName)
-                posting user's name
-            </p>
-            <p>
-                @Html.DisplayFor(modelItem => item.EventCompany.CompanyName)
-                posting company's name
+                @Html.DisplayFor(modelItem => item.EventUser)
             </p>
             <p>
                 @Html.DisplayFor(modelItem => item.Description)
@@ -39,7 +34,7 @@
             <button id="EditButton"> @Html.ActionLink("Edit", "Edit", new { id = item.Id }) </button>
             <button id="DeleteButton"> @Html.ActionLink("Delete", "Delete", new { id = item.Id }) </button>
             <hr />
-        </div> *@
+        </div>
     }
     <script>
         

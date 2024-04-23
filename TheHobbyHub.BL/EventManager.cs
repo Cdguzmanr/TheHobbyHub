@@ -1,4 +1,5 @@
 ﻿using Mono.TextTemplating;
+using NuGet.Protocol;
 using TheHobbyHub.BL.Models;
 
 namespace TheHobbyHub.BL
@@ -19,7 +20,7 @@ namespace TheHobbyHub.BL
                 row.CompanyId = eventt.CompanyId;
                 row.HobbyId = eventt.HobbyId;
                 row.Description = eventt.Description;
-                row.Image = eventt.Image;
+                row.Image = eventt.ImagePath;
                 row.AddressId = eventt.AddressId;
                 row.Date = eventt.Date;
 
@@ -38,12 +39,12 @@ namespace TheHobbyHub.BL
                 return base.Update(new tblEvent
                 {
                     Id = eventt.Id,
+                    AddressId = eventt.AddressId,
                     UserId = eventt.UserId,
                     CompanyId = eventt.CompanyId,
                     HobbyId = eventt.HobbyId,
                     Description = eventt.Description,
-                    Image = eventt.Image,
-                    AddressId = eventt.AddressId,
+                    Image = eventt.ImagePath,
                     Date = eventt.Date,
 
             }, rollback);
@@ -68,21 +69,33 @@ namespace TheHobbyHub.BL
         {
             try
             {
-                List<Event> rows = new List<Event>();
-                base.Load()
-                .ForEach(eventt => rows.Add(
-                    new Event
-                    {
-                        Id = eventt.Id,
-                        UserId = eventt.UserId,
-                        CompanyId = eventt.CompanyId,
-                        HobbyId = eventt.HobbyId,
-                        Description = eventt.Description,
-                        Image = eventt.Image,
-                        AddressId = eventt.AddressId,
-                        Date = eventt.Date,
-                    }));
-                return rows;
+                List<Event> events = new List<Event>();
+                using (HobbyHubEntities dc = new HobbyHubEntities(options))
+                {
+                    events = (from e in dc.tblEvents
+                                 join ea in dc.tblAddresses on e.AddressId equals ea.Id
+                                 join u in dc.tblUsers on e.UserId equals u.Id
+                                 join h in dc.tblHobbies on e.HobbyId equals h.Id
+                                 select new Event
+                                 {
+                                     Id = e.Id,
+                                     AddressId = e.AddressId,
+                                     UserId = e.UserId,
+                                     CompanyId = e.CompanyId,
+                                     HobbyId = e.HobbyId,
+                                     Date = e.Date,
+                                     EventHobby = h.HobbyName,
+                                     EventUser = u.FirstName + " " + u.LastName,
+                                     EventPostalAddress = ea.PostalAddress,
+                                     EventCity = ea.City,
+                                     EventState = ea.State,
+                                     EventZip = ea.Zip,
+                                     ImagePath = u.Image,
+                                 }
+                              )
+                              .ToList();
+                }
+                return events;
 
             }
             catch (Exception ex)
@@ -105,7 +118,7 @@ namespace TheHobbyHub.BL
                         CompanyId = row.CompanyId,
                         HobbyId = row.HobbyId,
                         Description = row.Description,
-                        Image = row.Image,
+                        ImagePath = row.Image,
                         AddressId = row.AddressId,
                         Date = row.Date,
                     };
@@ -122,6 +135,50 @@ namespace TheHobbyHub.BL
                 throw ex;
             }
         }
+
+
+        //public List<Event> LoadByUserId(Guid userId)
+        //{
+        //    try
+        //    {
+        //        List<Event> rows = new List<Event>();
+        //        using (HobbyHubEntities dc = new HobbyHubEntities(options))
+        //        {
+        //            var results = (from e in dc.tblEvents
+        //                           join eu in dc.tblUsers on e.UserId equals eu.Id
+        //                           where e.UserId == userId
+        //                           select new Event
+        //                           {
+        //                               Id = e.Id,
+        //                               UserId = e.UserId,
+        //                               ImagePath = e.Image,
+        //                               Date = e.Date
+        //                           }).ToList();
+        //            results.ForEach(r => rows.Add(
+        //                 new Event
+        //                 {
+        //                     Id = r.Id,
+        //                     AddressId = r.AddressId,
+        //                     UserId = r.UserId,
+        //                     CompanyId = r.CompanyId,
+        //                     HobbyId = r.HobbyId,
+        //                     Description = r.Description,
+        //                     ImagePath = r.ImagePath,
+        //                     Date = r.Date
+        //                 }
+        //                ));
+
+        //            return rows;
+        //        }
+
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        throw ex;
+        //    }
+        //}
+
+
 
         public List<Event> LoadByHobbyId(Guid hobbyId)
         {
@@ -141,7 +198,7 @@ namespace TheHobbyHub.BL
                                        CompanyId = e.CompanyId,
                                        HobbyId = e.HobbyId,
                                        Description = e.Description,
-                                       Image = e.Image,
+                                       ImagePath = e.Image,
                                        Date = e.Date
                                    }).ToList();
 
@@ -154,7 +211,7 @@ namespace TheHobbyHub.BL
                              CompanyId = r.CompanyId,
                              HobbyId = r.HobbyId,
                              Description = r.Description,
-                             Image = r.Image,
+                             ImagePath = r.ImagePath,
                              Date = r.Date
                          }
                         ));

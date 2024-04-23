@@ -84,14 +84,10 @@ namespace TheHobbyHub.PL.Data
 
                 entity.Property(e => e.Id).ValueGeneratedNever();
                 entity.Property(e => e.Description).IsUnicode(false)
-                .IsRequired()
+                    .IsRequired()
                     .HasMaxLength(50)
                     .IsUnicode(false);
                 entity.Property(e => e.HobbyName).IsRequired()
-                    .HasMaxLength(50)
-                    .IsUnicode(false);
-                entity.Property(e => e.Image).IsUnicode(false)
-                .IsRequired()
                     .HasMaxLength(50)
                     .IsUnicode(false);
                 entity.Property(e => e.Type)
@@ -113,7 +109,6 @@ namespace TheHobbyHub.PL.Data
                     HobbyName = "Gym",
                     Description = "Gyyymm",
                     Type ="Indoor",
-                    Image = "image.jpg",
                 },
                  new tblHobby
                 {
@@ -121,7 +116,6 @@ namespace TheHobbyHub.PL.Data
                     HobbyName = "Golf",
                     Description = "stick",
                     Type ="outdoor",
-                    Image = "outdoor.jpg",
                 },
                   new tblHobby
                 {
@@ -129,7 +123,6 @@ namespace TheHobbyHub.PL.Data
                     HobbyName = "Running",
                     Description = "Run",
                     Type ="Outdoor",
-                    Image = "run.jpg",
                 }
 
 
@@ -506,7 +499,7 @@ namespace TheHobbyHub.PL.Data
                                 CompanyId = companyId[0],
                                 HobbyId = hobbyId[0],
                                 Description = "Event A",
-                                Image = "imageA.jpg",
+                                Image = "gym.jpg",
                                 Date = new DateTime(2024, 2, 15) },
 
                  new tblEvent {  Id = Guid.NewGuid(),
@@ -515,7 +508,7 @@ namespace TheHobbyHub.PL.Data
                                 CompanyId = companyId[1],
                                 HobbyId = hobbyId[1],
                                 Description = "Event B",
-                                Image = "imageB.jpg",
+                                Image = "golf.jpg",
                                 Date = new DateTime(2024, 2, 15) },
 
                   new tblEvent {  Id = Guid.NewGuid(),
@@ -524,7 +517,7 @@ namespace TheHobbyHub.PL.Data
                                 CompanyId = companyId[2],
                                 HobbyId = hobbyId[2],
                                 Description = "Event C",
-                                Image = "imageC.jpg",
+                                Image = "running.jpg",
                                 Date = new DateTime(2024, 2, 15) }
             };
 

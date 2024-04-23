@@ -205,17 +205,72 @@ namespace TheHobbyHub.BL
                 throw ex;
             }
         }
+        //public int Delete(Guid id, bool rollback = false)
+        //{
+        //    try
+        //    {
+        //        return base.Delete(id, rollback);
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        throw ex;
+        //    }
+        //}
+
         public int Delete(Guid id, bool rollback = false)
         {
             try
             {
-                return base.Delete(id, rollback);
+                int results = 0;
+
+                using (HobbyHubEntities dc = new HobbyHubEntities(options))
+                {
+                    IDbContextTransaction transaction = null;
+                    if (rollback) transaction = dc.Database.BeginTransaction();
+
+                    tblUser deleteRow = dc.tblUsers.FirstOrDefault(x => x.Id == id);
+
+                    if (deleteRow != null)
+                    {
+                        //Delete all the associated tblCompanyUser rows
+                        var Companies = dc.tblCompanies.Where(u => u.UserId == id);
+                        dc.tblCompanies.RemoveRange(Companies);
+
+
+                        var Events = dc.tblEvents.Where(u => u.UserId == id);
+                        dc.tblEvents.RemoveRange(Events);
+
+                        var Friends = dc.tblFriends.Where(u => u.UserId == id);
+                        dc.tblFriends.RemoveRange(Friends);
+
+                        var UserHobby = dc.tblUserHobbies.Where(u => u.UserId == id);
+                        dc.tblUserHobbies.RemoveRange(UserHobby);
+
+
+                        //Remove the users
+                        dc.tblUsers.Remove(deleteRow);
+
+                        results = dc.SaveChanges();
+
+                        if (rollback) transaction.Rollback();
+                    }
+                    else
+                    {
+                        throw new Exception("Row was not Found");
+                    }
+                }
+                return results;
             }
             catch (Exception ex)
             {
                 throw ex;
             }
         }
+
+
+
+
+
         public List<User> Load()
         {
             try

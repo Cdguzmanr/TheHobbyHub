@@ -26,7 +26,7 @@ namespace TheHobbyHub.BL.Test
                 CompanyId = new CompanyManager(options).Load().FirstOrDefault().Id,
                 HobbyId = new HobbyManager(options).Load().FirstOrDefault().Id,
                 Description = "description",
-                Image = "Test",
+                ImagePath = "Test",
                 AddressId = new AddressManager(options).Load().FirstOrDefault().Id,
                 Date = DateTime.Now
 

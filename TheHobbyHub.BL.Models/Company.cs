@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace TheHobbyHub.BL.Models
 {
-    public class Company : User
+    public class Company
     {
         public Guid Id { get; set; }
         public Guid UserId { get; set; }
@@ -15,6 +15,13 @@ namespace TheHobbyHub.BL.Models
         public Guid AddressId { get; set; }
 
         public User UserAccount { get; set; }
+        public string ImagePath { get; set; }
+        public string CompanyPostalAddress { get; set; }
+        public string CompanyCity { get; set; }
+        public string CompanyState { get; set; }
+        public string CompanyZip {  get; set; }
+        public List<Address> CompanyAddresses { get; set; }
+
 
     }
 }
