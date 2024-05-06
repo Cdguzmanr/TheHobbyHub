@@ -18,8 +18,20 @@ namespace TheHobbyHub.UI.Controllers
 
         public IActionResult Index()
         {
-            ViewBag.Title = $"List of {className}";
-            return View(new FriendsManager(options).Load());
+
+            if (Authentication.IsAuthenticated(HttpContext))
+            {
+                ViewBag.Title = $"Create new {className}";
+                return View(new FriendsManager(options).Load());
+            }
+            else
+            {
+                return RedirectToAction("Login", "User", new { returnUrl = UriHelper.GetDisplayUrl(HttpContext.Request) });
+            }
+
+
+            //ViewBag.Title = $"List of {className}";
+            //return View(new FriendsManager(options).Load());
         }
         public IActionResult Details(Guid id)
         {

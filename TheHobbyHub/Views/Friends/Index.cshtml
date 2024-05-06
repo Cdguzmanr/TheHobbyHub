@@ -12,10 +12,13 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.UserId)
+                @Html.DisplayNameFor(model => model.UserName)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.CompanyId)
+                @Html.DisplayNameFor(model => model.CompanyName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ImagePath)
             </th>
             <th></th>
         </tr>
@@ -23,11 +26,12 @@
     <tbody>
 @foreach (var item in Model) {
         <tr>
+                <img id="EventImage" src="/images/@item.ImagePath" />
             <td>
-                @Html.DisplayFor(modelItem => item.UserId)
+                @Html.DisplayFor(modelItem => item.UserName)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.CompanyId)
+                    @Html.DisplayFor(modelItem => item.CompanyName)
             </td>
             <td>
                     @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
