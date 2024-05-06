@@ -58,16 +58,25 @@ namespace TheHobbyHub.BL
         {
             try
             {
-                List<Friends> rows = new List<Friends>();
-                base.Load()
-                .ForEach(friend => rows.Add(
-                    new Friends
-                    {
-                        Id = friend.Id,
-                        UserId = friend.UserId,
-                        CompanyId = friend.CompanyId,
-                    }));
-                return rows;
+                List<Friends> friends = new List<Friends>();
+                using (HobbyHubEntities dc = new HobbyHubEntities(options))
+                {
+                    friends = (from f in dc.tblFriends
+                              join u in dc.tblUsers on f.UserId equals u.Id
+                              join c in dc.tblCompanies on f.CompanyId equals c.Id
+                              select new Friends
+                              {
+                                  Id = f.Id,
+                                  UserId = f.UserId,
+                                  CompanyId = f.CompanyId,
+                                  UserName = u.UserName,
+                                  CompanyName = c.CompanyName,
+                                  ImagePath = u.Image,
+                              }
+                              )
+                              .ToList();
+                }
+                return friends;
 
             }
             catch (Exception ex)

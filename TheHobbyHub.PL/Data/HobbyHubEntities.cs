@@ -228,7 +228,7 @@ namespace TheHobbyHub.PL.Data
                               LastName = "Rosas",
                               Email = "Alexr@gmail.com",
                               UserName = "Arosas",
-                              Image = "image.jpg",
+                              Image = "ar.jpg",
                               PhoneNumber ="2627459097",
                               Password = GetHash("test")},
 
@@ -237,7 +237,7 @@ namespace TheHobbyHub.PL.Data
                               LastName = "Foote",
                               Email = "bfoote@fvtc.edu",
                               UserName = "bfoote",
-                              Image = "image.jpg",
+                              Image = "bfoote.jpg",
                               PhoneNumber ="3333333333",
                               Password = GetHash("maple")},
 
