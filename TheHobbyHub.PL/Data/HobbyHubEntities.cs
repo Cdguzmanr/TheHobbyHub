@@ -498,7 +498,8 @@ namespace TheHobbyHub.PL.Data
                                 UserId= userId[0],
                                 CompanyId = companyId[0],
                                 HobbyId = hobbyId[0],
-                                Description = "Event A",
+                                EventName = "Amatuer Powerlifting Event",
+                                Description = "Amatuer Powerlifting Event",
                                 Image = "gym.jpeg",
                                 Date = new DateTime(2024, 2, 15) },
 
@@ -507,7 +508,8 @@ namespace TheHobbyHub.PL.Data
                                 UserId= userId[1],
                                 CompanyId = companyId[1],
                                 HobbyId = hobbyId[1],
-                                Description = "Event B",
+                                EventName = "Amatuer Golf Tournament",
+                                Description = "Amatuer Golf Tournament",
                                 Image = "golf.jpg",
                                 Date = new DateTime(2024, 2, 15) },
 
@@ -516,7 +518,8 @@ namespace TheHobbyHub.PL.Data
                                 UserId= userId[2],
                                 CompanyId = companyId[2],
                                 HobbyId = hobbyId[2],
-                                Description = "Event C",
+                                EventName = "5k Fun Run",
+                                Description = "5K fun run",
                                 Image = "running.jpeg",
                                 Date = new DateTime(2024, 2, 15) }
             };

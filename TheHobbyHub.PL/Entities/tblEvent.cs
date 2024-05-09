@@ -16,6 +16,8 @@ namespace TheHobbyHub.PL.Entities
 
         public Guid HobbyId { get; set; }
 
+        public string EventName { get; set; }
+
         public string Description { get; set; } = null!;
 
         public string Image { get; set; } = null!;
