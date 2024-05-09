@@ -84,7 +84,7 @@ a {
 }
 
 /* Card styling for displaying hobbies */
-.card {
+/*.card {
     background-color: #fff;
     border-radius: 5px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
@@ -108,7 +108,8 @@ a {
 .card-text {
     font-size: 16px;
     line-height: 1.6;
-}
+}*/
+
 
 
 /* Align container to the left */
