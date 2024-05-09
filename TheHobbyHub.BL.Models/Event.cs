@@ -23,7 +23,6 @@ namespace TheHobbyHub.BL.Models
         public string Description { get; set; }
         public string ImagePath {  get; set; }
         public DateTime Date {  get; set; }
-
         public string EventName { get; set; }
         public string EventPostalAddress { get; set; }
         public string EventCity { get; set; }
