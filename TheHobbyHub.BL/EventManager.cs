@@ -19,6 +19,7 @@ namespace TheHobbyHub.BL
                 row.UserId = eventt.UserId;
                 row.CompanyId = eventt.CompanyId;
                 row.HobbyId = eventt.HobbyId;
+                row.EventName = eventt.EventName;
                 row.Description = eventt.Description;
                 row.Image = eventt.ImagePath;
                 row.AddressId = eventt.AddressId;
@@ -43,6 +44,7 @@ namespace TheHobbyHub.BL
                     UserId = eventt.UserId,
                     CompanyId = eventt.CompanyId,
                     HobbyId = eventt.HobbyId,
+                    EventName = eventt.EventName,
                     Description = eventt.Description,
                     Image = eventt.ImagePath,
                     Date = eventt.Date,

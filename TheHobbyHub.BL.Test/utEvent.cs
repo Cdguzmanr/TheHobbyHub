@@ -25,6 +25,7 @@ namespace TheHobbyHub.BL.Test
                 UserId = new UserManager(options).Load().FirstOrDefault().Id,
                 CompanyId = new CompanyManager(options).Load().FirstOrDefault().Id,
                 HobbyId = new HobbyManager(options).Load().FirstOrDefault().Id,
+                EventName = "Test Insert",
                 Description = "description",
                 ImagePath = "Test",
                 AddressId = new AddressManager(options).Load().FirstOrDefault().Id,
@@ -48,6 +49,7 @@ namespace TheHobbyHub.BL.Test
         public void UpdateTest()
         {
             Event @event = new EventManager(options).Load().FirstOrDefault();
+            @event.EventName = "test";
             @event.Description = "Test Update";
 
             Assert.IsTrue(new EventManager(options).Update(@event, true) > 0);
