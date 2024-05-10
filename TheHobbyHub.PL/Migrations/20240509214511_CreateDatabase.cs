@@ -175,9 +175,9 @@ namespace TheHobbyHub.PL.Migrations
                 columns: new[] { "Id", "City", "PostalAddress", "State", "Zip" },
                 values: new object[,]
                 {
-                    { new Guid("0486052e-6a29-42a9-b98a-ad28405903d7"), "Somewhere", "789 Oak St", "TX", "67890" },
-                    { new Guid("4fc71c1a-bd5c-46cc-a879-4fedfaecadc9"), "Anytown", "123 Main St", "CA", "12345" },
-                    { new Guid("d66a8e9c-f2e4-4cd9-850c-ba96c9b30f36"), "Othertown", "456 Elm St", "NY", "54321" }
+                    { new Guid("6ec5c6f3-dba9-480e-a209-90539399bbb3"), "Othertown", "456 Elm St", "NY", "54321" },
+                    { new Guid("91fcffd9-561e-4f21-a205-b7850a7a49bc"), "Somewhere", "789 Oak St", "TX", "67890" },
+                    { new Guid("9f6835a2-be48-4de0-9b01-7a91f738480b"), "Anytown", "123 Main St", "CA", "12345" }
                 });
 
             migrationBuilder.InsertData(
@@ -185,9 +185,9 @@ namespace TheHobbyHub.PL.Migrations
                 columns: new[] { "Id", "Description", "HobbyName", "Type" },
                 values: new object[,]
                 {
-                    { new Guid("3eaf2752-0ae4-4e8d-a7e3-a6b623a7c460"), "stick", "Golf", "outdoor" },
-                    { new Guid("906f55ed-8003-43ef-af6d-c91ecff9d462"), "Run", "Running", "Outdoor" },
-                    { new Guid("ae1d08c0-ad38-4c9a-a8f2-1c2b26e5de8e"), "Gyyymm", "Gym", "Indoor" }
+                    { new Guid("28dced8b-9093-4a22-82e8-e1d2c0b4b578"), "Gyyymm", "Gym", "Indoor" },
+                    { new Guid("3e74a3b1-c61d-464c-84c1-cdac989ec511"), "stick", "Golf", "outdoor" },
+                    { new Guid("409bf79c-399b-43da-88f7-967b3ab04950"), "Run", "Running", "Outdoor" }
                 });
 
             migrationBuilder.InsertData(
@@ -195,9 +195,9 @@ namespace TheHobbyHub.PL.Migrations
                 columns: new[] { "Id", "Email", "FirstName", "Image", "LastName", "Password", "PhoneNumber", "UserName" },
                 values: new object[,]
                 {
-                    { new Guid("8e4d07a2-9a9f-4bce-ab3c-51be8ca97feb"), "Alexr@gmail.com", "Alex", "ar.jpg", "Rosas", "qUqP5cyxm6YcTAhz05Hph5gvu9M=", "2627459097", "Arosas" },
-                    { new Guid("cdf26579-2a18-45f8-8e40-043aad8c52c5"), "sf@gmail.com", "sam", "sammy.jpg", "fisher", "qUqP5cyxm6YcTAhz05Hph5gvu9M=", "1111111111", "sammyfish" },
-                    { new Guid("fc0ba13e-91b7-431d-814d-28f10e34e3b1"), "bfoote@fvtc.edu", "Brian", "bfoote.jpg", "Foote", "pYfdnNb8sO0FgS4H0MRSwLGOIME=", "3333333333", "bfoote" }
+                    { new Guid("3ff8fd93-7833-4c60-a937-fc3ac0d8e97f"), "Alexr@gmail.com", "Alex", "ar.jpg", "Rosas", "qUqP5cyxm6YcTAhz05Hph5gvu9M=", "2627459097", "Arosas" },
+                    { new Guid("668ec8ef-6240-4482-8723-2c051d5a30e1"), "bfoote@fvtc.edu", "Brian", "bfoote.jpg", "Foote", "pYfdnNb8sO0FgS4H0MRSwLGOIME=", "3333333333", "bfoote" },
+                    { new Guid("f4d12cb8-d8fc-43b6-838b-a06be0861d76"), "sf@gmail.com", "sam", "sammy.jpg", "fisher", "qUqP5cyxm6YcTAhz05Hph5gvu9M=", "1111111111", "sammyfish" }
                 });
 
             migrationBuilder.InsertData(
@@ -205,9 +205,9 @@ namespace TheHobbyHub.PL.Migrations
                 columns: new[] { "Id", "AddressId", "CompanyName", "Description", "UserId" },
                 values: new object[,]
                 {
-                    { new Guid("3833c25e-352a-47e5-8df1-6989d4d16f50"), new Guid("4fc71c1a-bd5c-46cc-a879-4fedfaecadc9"), "Company A", "about company A", new Guid("8e4d07a2-9a9f-4bce-ab3c-51be8ca97feb") },
-                    { new Guid("6744ce82-002d-4305-8f52-5e28a342d2de"), new Guid("d66a8e9c-f2e4-4cd9-850c-ba96c9b30f36"), "Company B", "about company B", new Guid("fc0ba13e-91b7-431d-814d-28f10e34e3b1") },
-                    { new Guid("e60261f1-1da0-4234-b06f-3afec3070450"), new Guid("0486052e-6a29-42a9-b98a-ad28405903d7"), "Company C", "about company C", new Guid("cdf26579-2a18-45f8-8e40-043aad8c52c5") }
+                    { new Guid("183f2e93-5db1-4fb3-aae0-2b1de63d87d8"), new Guid("6ec5c6f3-dba9-480e-a209-90539399bbb3"), "Company B", "about company B", new Guid("668ec8ef-6240-4482-8723-2c051d5a30e1") },
+                    { new Guid("20948c5c-8850-44d1-9a3a-78ec5ba1b6e1"), new Guid("91fcffd9-561e-4f21-a205-b7850a7a49bc"), "Company C", "about company C", new Guid("f4d12cb8-d8fc-43b6-838b-a06be0861d76") },
+                    { new Guid("25518928-5bf1-4016-a453-1c05729b98f0"), new Guid("9f6835a2-be48-4de0-9b01-7a91f738480b"), "Company A", "about company A", new Guid("3ff8fd93-7833-4c60-a937-fc3ac0d8e97f") }
                 });
 
             migrationBuilder.InsertData(
@@ -215,9 +215,9 @@ namespace TheHobbyHub.PL.Migrations
                 columns: new[] { "Id", "HobbyId", "UserId" },
                 values: new object[,]
                 {
-                    { new Guid("5ecde5ec-bd9b-4966-b05f-530f16f96ac9"), new Guid("3eaf2752-0ae4-4e8d-a7e3-a6b623a7c460"), new Guid("fc0ba13e-91b7-431d-814d-28f10e34e3b1") },
-                    { new Guid("65134535-e95e-4ca3-ba2a-c63ace789012"), new Guid("906f55ed-8003-43ef-af6d-c91ecff9d462"), new Guid("cdf26579-2a18-45f8-8e40-043aad8c52c5") },
-                    { new Guid("ff0e36ed-7c03-40ee-b79c-dbc39c5230ee"), new Guid("ae1d08c0-ad38-4c9a-a8f2-1c2b26e5de8e"), new Guid("8e4d07a2-9a9f-4bce-ab3c-51be8ca97feb") }
+                    { new Guid("0aab5c2e-cfca-4400-89b2-4ed97a4e8dca"), new Guid("409bf79c-399b-43da-88f7-967b3ab04950"), new Guid("f4d12cb8-d8fc-43b6-838b-a06be0861d76") },
+                    { new Guid("c66165f4-828e-41fa-974b-6ce6ca6e3d67"), new Guid("3e74a3b1-c61d-464c-84c1-cdac989ec511"), new Guid("668ec8ef-6240-4482-8723-2c051d5a30e1") },
+                    { new Guid("d095a61d-6f35-4681-846c-95ef1587fffe"), new Guid("28dced8b-9093-4a22-82e8-e1d2c0b4b578"), new Guid("3ff8fd93-7833-4c60-a937-fc3ac0d8e97f") }
                 });
 
             migrationBuilder.InsertData(
@@ -225,9 +225,9 @@ namespace TheHobbyHub.PL.Migrations
                 columns: new[] { "Id", "AddressId", "CompanyId", "Date", "Description", "EventName", "HobbyId", "Image", "UserId" },
                 values: new object[,]
                 {
-                    { new Guid("7304c1bc-571d-4942-915b-3e2f536e5c8d"), new Guid("0486052e-6a29-42a9-b98a-ad28405903d7"), new Guid("e60261f1-1da0-4234-b06f-3afec3070450"), new DateTime(2024, 2, 15, 0, 0, 0, 0, DateTimeKind.Unspecified), "Join us for an exhilarating morning of fitness and fun at our annual 5K Fun Run! Lace up your running shoes and gather your friends, family, and furry companions for a memorable event that promises laughter, camaraderie, and a healthy dose of exercise.", "5k Fun Run", new Guid("906f55ed-8003-43ef-af6d-c91ecff9d462"), "running.jpeg", new Guid("cdf26579-2a18-45f8-8e40-043aad8c52c5") },
-                    { new Guid("bc018c0a-0aff-425a-a5a9-e7cdd36f3c0a"), new Guid("4fc71c1a-bd5c-46cc-a879-4fedfaecadc9"), new Guid("3833c25e-352a-47e5-8df1-6989d4d16f50"), new DateTime(2024, 2, 15, 0, 0, 0, 0, DateTimeKind.Unspecified), "Flex your muscles and lift your spirits at our Amateur Powerlifting Event! Calling all strength enthusiasts to showcase their prowess in squat, bench press, and deadlift. Join us for a thrilling day of competition, camaraderie, and personal bests. Whether you're a seasoned lifter or just starting out, all are welcome to test their strength and determination. Don't miss this chance to push your limits and celebrate the power within you. Register now and let's lift together!", "Amatuer Powerlifting Event", new Guid("ae1d08c0-ad38-4c9a-a8f2-1c2b26e5de8e"), "gym.jpeg", new Guid("8e4d07a2-9a9f-4bce-ab3c-51be8ca97feb") },
-                    { new Guid("c8465bc2-7634-4e2b-bf62-84956e447027"), new Guid("d66a8e9c-f2e4-4cd9-850c-ba96c9b30f36"), new Guid("6744ce82-002d-4305-8f52-5e28a342d2de"), new DateTime(2024, 2, 15, 0, 0, 0, 0, DateTimeKind.Unspecified), "Calling all amateur golfers! Tee up for a day of friendly competition at our Amateur Golf Tournament. Join us on the greens for a chance to showcase your skills, meet fellow enthusiasts, and enjoy a day of camaraderie. With prizes, refreshments, and beautiful fairways, it's an event you won't want to miss. Swing into action and register today!", "Amatuer Golf Tournament", new Guid("3eaf2752-0ae4-4e8d-a7e3-a6b623a7c460"), "golf.jpg", new Guid("fc0ba13e-91b7-431d-814d-28f10e34e3b1") }
+                    { new Guid("06e10c2e-6564-4c25-9cd6-c7baaeac9e91"), new Guid("91fcffd9-561e-4f21-a205-b7850a7a49bc"), new Guid("20948c5c-8850-44d1-9a3a-78ec5ba1b6e1"), new DateTime(2024, 2, 15, 0, 0, 0, 0, DateTimeKind.Unspecified), "Join us for an exhilarating morning of fitness and fun at our annual 5K Fun Run! Lace up your running shoes and gather your friends, family, and furry companions for a memorable event that promises laughter, camaraderie, and a healthy dose of exercise.", "5k Fun Run", new Guid("409bf79c-399b-43da-88f7-967b3ab04950"), "running.jpeg", new Guid("f4d12cb8-d8fc-43b6-838b-a06be0861d76") },
+                    { new Guid("901ae788-3439-4c0b-ac42-22fac9315b6e"), new Guid("9f6835a2-be48-4de0-9b01-7a91f738480b"), new Guid("25518928-5bf1-4016-a453-1c05729b98f0"), new DateTime(2024, 2, 15, 0, 0, 0, 0, DateTimeKind.Unspecified), "Flex your muscles and lift your spirits at our Amateur Powerlifting Event! Calling all strength enthusiasts to showcase their prowess in squat, bench press, and deadlift. Join us for a thrilling day of competition, camaraderie, and personal bests. Whether you're a seasoned lifter or just starting out, all are welcome to test their strength and determination. Don't miss this chance to push your limits and celebrate the power within you. Register now and let's lift together!", "Amatuer Powerlifting Event", new Guid("28dced8b-9093-4a22-82e8-e1d2c0b4b578"), "gym.jpeg", new Guid("3ff8fd93-7833-4c60-a937-fc3ac0d8e97f") },
+                    { new Guid("f66d0f74-ff50-4915-9516-49e6c35b3790"), new Guid("6ec5c6f3-dba9-480e-a209-90539399bbb3"), new Guid("183f2e93-5db1-4fb3-aae0-2b1de63d87d8"), new DateTime(2024, 2, 15, 0, 0, 0, 0, DateTimeKind.Unspecified), "Calling all amateur golfers! Tee up for a day of friendly competition at our Amateur Golf Tournament. Join us on the greens for a chance to showcase your skills, meet fellow enthusiasts, and enjoy a day of camaraderie. With prizes, refreshments, and beautiful fairways, it's an event you won't want to miss. Swing into action and register today!", "Amatuer Golf Tournament", new Guid("3e74a3b1-c61d-464c-84c1-cdac989ec511"), "golf.jpg", new Guid("668ec8ef-6240-4482-8723-2c051d5a30e1") }
                 });
 
             migrationBuilder.InsertData(
@@ -235,9 +235,9 @@ namespace TheHobbyHub.PL.Migrations
                 columns: new[] { "Id", "CompanyId", "UserId" },
                 values: new object[,]
                 {
-                    { new Guid("86190cb9-2ade-4619-9c78-cac54b56abdd"), new Guid("3833c25e-352a-47e5-8df1-6989d4d16f50"), new Guid("8e4d07a2-9a9f-4bce-ab3c-51be8ca97feb") },
-                    { new Guid("9e5258f7-9441-4c5a-8542-3c6a6fb0c4fd"), new Guid("6744ce82-002d-4305-8f52-5e28a342d2de"), new Guid("fc0ba13e-91b7-431d-814d-28f10e34e3b1") },
-                    { new Guid("d953422a-866e-40c8-83d9-f8cce297b642"), new Guid("e60261f1-1da0-4234-b06f-3afec3070450"), new Guid("cdf26579-2a18-45f8-8e40-043aad8c52c5") }
+                    { new Guid("49de7e55-78c2-41dc-befa-4086027d8732"), new Guid("183f2e93-5db1-4fb3-aae0-2b1de63d87d8"), new Guid("668ec8ef-6240-4482-8723-2c051d5a30e1") },
+                    { new Guid("5fc6b9b8-b395-4b0a-bb4c-1ec3ca330a0f"), new Guid("20948c5c-8850-44d1-9a3a-78ec5ba1b6e1"), new Guid("f4d12cb8-d8fc-43b6-838b-a06be0861d76") },
+                    { new Guid("cd6fd333-141d-4635-8845-e1cceafe3c21"), new Guid("25518928-5bf1-4016-a453-1c05729b98f0"), new Guid("3ff8fd93-7833-4c60-a937-fc3ac0d8e97f") }
                 });
 
             migrationBuilder.CreateIndex(

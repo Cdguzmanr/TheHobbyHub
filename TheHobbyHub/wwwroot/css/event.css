@@ -90,6 +90,7 @@
     opacity: .7;
 }
 
+
 .blog-title {
     line-height: 1.5rem;
     margin: 1rem 0;
@@ -110,12 +111,15 @@
     line-height: .2
 }
 
+
 .pimg {
     width: 60px;
     height: 60px;
     object-fit: cover;
     border-radius: 50%;
 }
+
+
 
 .card-profile-info {
     margin-left: 1rem;
@@ -143,4 +147,49 @@
             transform: none;
             box-shadow: none;
         }
+}
+
+/*CARDs FOR FRIENDS*/
+
+.blog-f {
+    text-align: center;
+    font-size: 25px;
+    font-weight: bold;
+    color: blue;
+    opacity: .7;
+}
+.card-profilef {
+    text-align: center;
+    display: flex;
+    padding-top: 50px;
+    line-height: .3;
+}
+
+.pimgf {
+    margin-left: 25px;
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    border-radius: 60%;
+}
+
+.cardf {
+    overflow: hidden;
+    box-shadow: 0px 2px 20px;
+    border-radius: 0.5rem;
+    position: relative;
+    width: 19rem;
+    height: 27rem;
+    margin: 1rem;
+    background-color: white;
+}
+
+    .card:hover {
+        transform: scale(1.05);
+        box-shadow: 0px 2px 40px;
+    }
+
+.card-bodyf {
+    text-align: center;
+    margin: 2rem 0.1rem 1rem 0.1rem;
 }
