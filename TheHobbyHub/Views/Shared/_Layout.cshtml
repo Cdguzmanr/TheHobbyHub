@@ -77,7 +77,7 @@
 
 
                     <!-- Favicon -->
-                    <a asp-controller="User" asp-action="@(!userLoggedIn ? "Login" : "Edit")" asp-route-id="@(!userLoggedIn ? "" : @HttpContextAccessor.HttpContext?.Session.GetString("userId").Trim('"'))" class="nav-link">
+                    <a asp-controller="User" asp-action="@(!userLoggedIn ? "Login" : "Details")" asp-route-id="@(!userLoggedIn ? "" : @HttpContextAccessor.HttpContext?.Session.GetString("userId").Trim('"'))" class="nav-link">
                         @if (!userLoggedIn)
                         {
                             <img src="/images/noUserIcon.png" alt="Favicon" width="30" height="30">
