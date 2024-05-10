@@ -5,9 +5,61 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<p>
+@* <p>
     <a asp-action="Create">Create New</a>
-</p>
+</p> *@
+
+
+<div class="event-card-list" id="event-card-list">
+    @foreach (var item in Model)
+    {
+        <article class="event-body">
+            <a class="event-link" href="@Url.Action("Edit", new { id = item.Id })">
+                <!-- Change to go see details -->
+                <div class='cardf'>
+                    @* <div class="banner">
+                        <img class="banner-img" src="/images/@item.ImagePath">
+                    </div> *@
+
+                    <div class="card-profilef">
+                        <img class="pimgf" src="/images/@item.ImagePath" alt='person'>
+                        <div class="card-profile-info">
+                            <h3 class="profile-namef">@Html.DisplayFor(modelItem => item.UserName)</h3>
+                            <p class="followersf">90.5K Followers</p>
+                        </div>
+                    </div>
+
+                    <!--Card 2 bio and author -->
+                    <div class="card-bodyf">
+
+                        <p class="blog-f">Is Friends with </p>
+                    </div>
+
+                    <div class="card-profilef">
+                        <img class="pimgf" src="/images/@item.ImagePath" alt='person'>
+                        <div class="card-profile-info">
+                            <h3 class="profile-namef">@Html.DisplayFor(modelItem => item.CompanyName)</h3>
+                            <p class="followersf">30.5K Followers</p>
+                        </div>
+                    </div>
+
+
+
+
+                </div>
+
+             
+
+
+            </a>
+
+
+        </article>
+    }
+</div>
+
+@* 
+
 <table class="table">
     <thead>
         <tr>
@@ -41,4 +93,4 @@
         </tr>
 }
     </tbody>
-</table>
+</table> *@

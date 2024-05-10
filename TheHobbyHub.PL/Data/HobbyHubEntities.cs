@@ -85,7 +85,7 @@ namespace TheHobbyHub.PL.Data
                 entity.Property(e => e.Id).ValueGeneratedNever();
                 entity.Property(e => e.Description).IsUnicode(false)
                     .IsRequired()
-                    .HasMaxLength(50)
+                    .HasMaxLength(200)
                     .IsUnicode(false);
                 entity.Property(e => e.HobbyName).IsRequired()
                     .HasMaxLength(50)
@@ -277,7 +277,7 @@ namespace TheHobbyHub.PL.Data
                     .IsUnicode(false);
                 entity.Property(e => e.Description)
                     .IsRequired()
-                    .HasMaxLength(50)
+                    .HasMaxLength(500)
                     .IsUnicode(false);
 
                 entity.HasOne(d => d.User)
@@ -454,7 +454,7 @@ namespace TheHobbyHub.PL.Data
                 entity.Property(e => e.Id).ValueGeneratedNever();
                 entity.Property(e => e.Description)
                     .IsRequired()
-                    .HasMaxLength(50)
+                    .HasMaxLength(500)
                     .IsUnicode(false);
                 entity.Property(e => e.Image)
                     .IsRequired()
@@ -498,7 +498,8 @@ namespace TheHobbyHub.PL.Data
                                 UserId= userId[0],
                                 CompanyId = companyId[0],
                                 HobbyId = hobbyId[0],
-                                Description = "Event A",
+                                EventName = "Amatuer Powerlifting Event",
+                                Description = "Flex your muscles and lift your spirits at our Amateur Powerlifting Event! Calling all strength enthusiasts to showcase their prowess in squat, bench press, and deadlift. Join us for a thrilling day of competition, camaraderie, and personal bests. Whether you're a seasoned lifter or just starting out, all are welcome to test their strength and determination. Don't miss this chance to push your limits and celebrate the power within you. Register now and let's lift together!",
                                 Image = "gym.jpeg",
                                 Date = new DateTime(2024, 2, 15) },
 
@@ -507,7 +508,8 @@ namespace TheHobbyHub.PL.Data
                                 UserId= userId[1],
                                 CompanyId = companyId[1],
                                 HobbyId = hobbyId[1],
-                                Description = "Event B",
+                                EventName = "Amatuer Golf Tournament",
+                                Description = "Calling all amateur golfers! Tee up for a day of friendly competition at our Amateur Golf Tournament. Join us on the greens for a chance to showcase your skills, meet fellow enthusiasts, and enjoy a day of camaraderie. With prizes, refreshments, and beautiful fairways, it's an event you won't want to miss. Swing into action and register today!",
                                 Image = "golf.jpg",
                                 Date = new DateTime(2024, 2, 15) },
 
@@ -516,7 +518,8 @@ namespace TheHobbyHub.PL.Data
                                 UserId= userId[2],
                                 CompanyId = companyId[2],
                                 HobbyId = hobbyId[2],
-                                Description = "Event C",
+                                EventName = "5k Fun Run",
+                                Description = "Join us for an exhilarating morning of fitness and fun at our annual 5K Fun Run! Lace up your running shoes and gather your friends, family, and furry companions for a memorable event that promises laughter, camaraderie, and a healthy dose of exercise.",
                                 Image = "running.jpeg",
                                 Date = new DateTime(2024, 2, 15) }
             };
