@@ -11,6 +11,7 @@ using System.Threading.Tasks;
 
 using TheHobbyHub.BL.Models;
 using TheHobbyHub.PL.Entities;
+using Humanizer.Localisation;
 
 
 namespace TheHobbyHub.BL
@@ -28,10 +29,7 @@ namespace TheHobbyHub.BL
 
     public class UserManager : GenericManager<tblUser>
     {
-        public UserManager(DbContextOptions<HobbyHubEntities> options) : base(options)
-        {
-
-        }
+        public UserManager(DbContextOptions<HobbyHubEntities> options) : base(options) { }
 
         // User only Methods
 
@@ -139,6 +137,30 @@ namespace TheHobbyHub.BL
         }
 
 
+        // ----------------------- Method to create List of Hobbys
+
+        private static List<Hobby> ConvertToHobbys(ICollection<tblUserHobby> userhobbys)
+        {
+            List<Hobby> hobbys = new List<Hobby>();
+            foreach (tblUserHobby mg in userhobbys)
+            {
+                hobbys.Add(new Hobby { Id = mg.HobbyId, Description = mg.Hobby.Description });
+            }
+            return hobbys;
+        }
+
+        private static List<tblUserHobby> ConvertToUserHobbys(User user)
+        {
+            List<tblUserHobby> userhobbys = new List<tblUserHobby>();
+            foreach (Hobby g in user.Hobbys)
+            {
+                userhobbys.Add(new tblUserHobby { Id = Guid.NewGuid(), UserId = user.Id, HobbyId = g.Id });
+            }
+            return userhobbys;
+        }
+
+
+
 
         // CRUD methods ------------------------------------------------- //
         public int Insert(User user, bool rollback = false)
@@ -158,16 +180,19 @@ namespace TheHobbyHub.BL
                     {
                         IDbContextTransaction transaction = null;
                         if (rollback) transaction = dc.Database.BeginTransaction();
-                        tblUser newUser = new tblUser(); ;
-                        newUser.Id = Guid.NewGuid();
-                        newUser.UserName = user.UserName;
-                        newUser.Password = GetHash(user.Password);
-                        newUser.FirstName = user.FirstName;
-                        newUser.LastName = user.LastName;
-                        newUser.Email = user.Email;
-                        newUser.PhoneNumber = user.Email;
-                        newUser.Image = user.Image;
 
+                        tblUser newUser = new tblUser
+                        {
+                            Id = Guid.NewGuid(),
+                            UserName = user.UserName,
+                            Password = GetHash(user.Password),
+                            FirstName = user.FirstName,
+                            LastName = user.LastName,
+                            Email = user.Email,
+                            PhoneNumber = user.PhoneNumber,
+                            Image = user.Image,
+                            UserHobbies = ConvertToUserHobbys(user)
+                        };
                         user.Id = newUser.Id;
                         dc.tblUsers.Add(newUser);
                         results = dc.SaveChanges();
@@ -192,12 +217,13 @@ namespace TheHobbyHub.BL
                     Id = user.Id,
 
                     UserName = user.UserName,
-                    Password = GetHash(user.Password),
+                    Password = user.Password, // -------------------------------- Deleted the Hashing since it is already hashed and don't want to change it
                     FirstName = user.FirstName,
                     LastName = user.LastName,
                     Email = user.Email,
                     PhoneNumber = user.PhoneNumber,
-                    Image = user.Image
+                    Image = user.Image,
+                    UserHobbies = ConvertToUserHobbys(user)
                 }, rollback);
             }
             catch (Exception ex)
@@ -269,6 +295,37 @@ namespace TheHobbyHub.BL
 
 
 
+        public List<User> Load(Guid? hobbyId = null)
+        {
+            List<User> users = new List<User>();
+            try
+            {
+
+                base.Load()
+                    .Where(uh => uh.UserHobbies.Any(_ => _.HobbyId == hobbyId) || (hobbyId == null))
+                    .ToList()
+                    .ForEach(user => users.Add(
+                        new User()
+                        {
+                            Id = user.Id,
+                            UserName = user.UserName,
+                            Password = GetHash(user.Password),
+                            FirstName = user.FirstName,
+                            LastName = user.LastName,
+                            Email = user.Email,
+                            PhoneNumber = user.PhoneNumber,
+                            Image = user.Image,
+                            Hobbys = ConvertToHobbys(user.UserHobbies.ToList())
+                        }));
+
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            return users;
+        }
+
 
 
         public List<User> Load()
@@ -287,7 +344,8 @@ namespace TheHobbyHub.BL
                         LastName = user.LastName,
                         Email = user.Email,
                         PhoneNumber = user.PhoneNumber,
-                        Image = user.Image
+                        Image = user.Image,
+                        Hobbys = new HobbyManager(options).Load(user.Id)
                     }));
                 return rows;
 
@@ -297,6 +355,10 @@ namespace TheHobbyHub.BL
                 throw ex;
             }
         }
+
+
+
+
         public User LoadById(Guid id)
         {
             try
@@ -314,7 +376,8 @@ namespace TheHobbyHub.BL
                         LastName = row.LastName,
                         Email = row.Email,
                         PhoneNumber = row.PhoneNumber,
-                        Image = row.Image
+                        Image = row.Image,
+                        Hobbys = new HobbyManager(options).Load(row.Id)
                     };
                     return user;
                 }

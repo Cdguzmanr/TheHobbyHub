@@ -95,6 +95,8 @@ namespace TheHobbyHub.Controllers
             ViewBag.Title = $"{className} details";
             return View(item);
         }
+
+        // Regular Create
         public IActionResult Create()
         {
             ViewBag.Title = $"Create new {className}";
@@ -116,6 +118,69 @@ namespace TheHobbyHub.Controllers
                 return View(user);
             }
         }
+
+
+        // View Model
+/*        public IActionResult Create()
+        {
+            ViewBag.Title = $"Create new {className}";
+
+            var userVM = new UserVM(options);
+            userVM.Hobbys = new HobbyManager(options).Load();
+            userVM.Events = new EventManager(options).Load();
+
+            return View(userVM);
+        }
+        [HttpPost]
+        public IActionResult Create(UserVM userVM)
+        {
+            try
+            {
+
+*//*                // Process the image
+                if (userVM.File != null) // Error doing populate of image. Its always null
+                {
+                    userVM.User.Image = userVM.File.FileName;
+                    string path = 
+                    using (var stream = System.IO.File.Create(path + userVM.File.FileName)) // You are going to process the characters enconded in the image
+                    {
+                        userVM.File.CopyTo(stream);
+                        ViewBag.Message = "File Uploaded Successfully...";
+                    }
+                }*//*
+
+
+                // Adds the user
+                int result = new UserManager(options).Insert(userVM.User);
+
+                // Adds the new Hobbies to the movie
+                IEnumerable<Guid> newGenreIds = new List<Guid>();
+                if (userVM.HobbyIds != null)
+                    newGenreIds = userVM.HobbyIds;
+                newGenreIds.ToList().ForEach(a => new UserHobbyManager(options).Insert(userVM.User.Id, a));
+
+
+                //newGenreIds.ToList().ForEach(a => new UserHobbyManager.Insert(userVM.User.Id, a)); // userId , hobbyId
+
+                SetUser(userVM.User); // LogIn with new user
+
+                return RedirectToAction(nameof(Index));
+
+                // ---- old - No ViewModel --- //
+
+*//*                int result = new UserManager(options).Insert(user.User);
+                SetUser(user); // LogIn with new user 
+                return RedirectToAction(nameof(Index));*//*
+            }
+            catch (Exception ex)
+            {
+                ViewBag.Title = $"Create new {className}";
+                ViewBag.Error = ex.Message;
+                return View(userVM.User);
+            }
+        }*/
+
+
         public IActionResult Edit(Guid id)
         {
 

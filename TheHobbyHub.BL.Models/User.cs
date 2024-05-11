@@ -29,5 +29,26 @@ namespace TheHobbyHub.BL.Models
         [DisplayName("Full Name")]
         public string FullName { get { return FirstName + " " + LastName; } }
 
+
+        public List<Hobby> Hobbys { get; set; } = new List<Hobby>();
+
+        [DisplayName("Hobbys")]
+        public string HobbyList
+        {
+            get
+            {
+                string hobbyList = string.Empty;
+                Hobbys.ForEach(a => hobbyList += a.Description + ", ");
+
+                if (!string.IsNullOrEmpty(hobbyList))
+                {
+                    hobbyList = hobbyList.Substring(0, hobbyList.Length - 2);
+
+                }
+                return hobbyList;
+            }
+
+        }
+
     }
 }
