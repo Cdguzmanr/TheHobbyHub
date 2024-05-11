@@ -1,4 +1,7 @@
-﻿namespace TheHobbyHub.BL
+﻿using Humanizer.Localisation;
+using TheHobbyHub.BL.Models;
+
+namespace TheHobbyHub.BL
 {
     public class HobbyManager : GenericManager<tblHobby>
     {
@@ -122,6 +125,102 @@
                 throw ex;
             }
         }
+
+/*        public List<Hobby> Load(Guid? hobbyId = null)
+        {
+            try
+            {
+                List<Hobby> rows = new List<Hobby>();
+
+
+                base.Load()
+                .ForEach(hobby => rows.Add(
+                    new Hobby
+                    {
+                        Id = hobby.Id,
+                        HobbyName = hobby.HobbyName,
+                        Description = hobby.Description,
+                        Type = hobby.Type,
+                        //Image = hobby.Image
+                    }));
+
+
+                return rows;
+
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }*/
+
+
+
+        public List<Hobby> Load(Guid? userId = null)
+        {
+            try
+            {
+                using (HobbyHubEntities dc = new HobbyHubEntities(options))
+                {
+                    List<Hobby> hobbys = new List<Hobby>();
+
+                    if (userId != null)
+                    {
+                        var results = (from g in dc.tblHobbies
+                                       join mg in dc.tblUserHobbies on g.Id equals mg.HobbyId
+                                       where mg.UserId == userId || userId == null
+                                       select new
+                                       {
+                                           g.Id,
+                                           g.HobbyName,
+                                           g.Description,
+                                           g.Type
+                                       }).Distinct().ToList();
+
+                        results.ForEach(hobby => hobbys.Add(new Hobby
+                        {
+                            Id = hobby.Id,
+                            HobbyName = hobby.HobbyName,
+                            Description = hobby.Description,
+                            Type = hobby.Type,
+
+                        }));
+
+                    }
+                    else
+                    {
+                        var results = (from g in dc.tblHobbies
+                                       select new
+                                       {
+                                           g.Id,
+                                           g.HobbyName,
+                                           g.Description,
+                                           g.Type
+                                       }).Distinct().ToList();
+
+                        results.ForEach(hobby => hobbys.Add(new Hobby
+                        {
+                            Id = hobby.Id,
+                            HobbyName = hobby.HobbyName,
+                            Description = hobby.Description,
+                            Type = hobby.Type,
+                        }));
+                    }
+
+                    return hobbys.OrderBy(g => g.HobbyName).ToList();
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+
+
+
+
+
         public Hobby LoadById(Guid id)
         {
             try

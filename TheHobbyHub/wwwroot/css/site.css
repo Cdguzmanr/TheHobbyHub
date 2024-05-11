@@ -157,6 +157,16 @@ a {
     -webkit-text-security: disc;
 }
 
+.password-short {
+    font-size: 0;
+}
+
+    .password-short::after {
+        content: '**********';
+        font-size: initial;
+    }
+
+
 
 
 /* ------------------------------ Login Design ------------------------------ */
