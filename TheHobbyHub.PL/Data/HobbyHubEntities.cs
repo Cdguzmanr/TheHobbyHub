@@ -114,7 +114,7 @@ namespace TheHobbyHub.PL.Data
                     HobbyName = "Gym",
                     Description = "Gyyymm",
                     Type = "Indoor",
-                    //Image = 
+                    Image = "gym.jpeg"
                 },
                  new tblHobby
                 {
@@ -122,7 +122,7 @@ namespace TheHobbyHub.PL.Data
                     HobbyName = "Golf",
                     Description = "stick",
                     Type ="outdoor",
-                   // Image =
+                    Image = "golf.jpg"
                 },
                   new tblHobby
                 {
@@ -130,7 +130,7 @@ namespace TheHobbyHub.PL.Data
                     HobbyName = "Running",
                     Description = "Run",
                     Type ="Outdoor",
-                    //Image =
+                    Image = "running.jpeg"
                 }
 
 
