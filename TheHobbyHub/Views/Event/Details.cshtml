@@ -1,4 +1,4 @@
-﻿@model TheHobbyHub.BL.Models.Company
+﻿@model TheHobbyHub.BL.Models.Event
 
 @{
     ViewData["Title"] = "Details";
@@ -6,40 +6,34 @@
 }
 
 <div class="profile-banner">
-    <h3> @Html.DisplayFor(model => model.CompanyName) </h3>
+    <h3> @Html.DisplayFor(model => model.EventName) </h3>
 </div>
 
 <div class="Company-details">
     <dl class="row">
-<dt class="col-sm-2">
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Description)
         </dt>
         <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Description)
         </dd>
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.CompanyPostalAddress)
+            @Html.DisplayNameFor(model => model.EventCompany)
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.CompanyPostalAddress)
+            @Html.DisplayFor(model => model.EventCompany)
         </dd>
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.CompanyCity)
+            @Html.DisplayNameFor(model => model.EventAddress)
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.CompanyCity)
+            @Html.DisplayFor(model => model.EventAddress)
         </dd>
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.CompanyState)
+            @Html.DisplayNameFor(model => model.EventHobby)
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.CompanyState)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.CompanyZip)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.CompanyZip)
+            @Html.DisplayFor(model => model.EventHobby)
         </dd>
     </dl>
 </div>

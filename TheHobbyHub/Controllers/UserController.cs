@@ -75,7 +75,7 @@ namespace TheHobbyHub.Controllers
             {
                 ViewBag.Title = "Login";
                 ViewBag.Error = ex.Message;
-                throw;
+                return View(user); //Return to user on a failed loggin
             }
         }
 
