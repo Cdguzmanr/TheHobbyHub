@@ -24,9 +24,7 @@
     <None Include="Views\Company\Details.cshtml" />
     <None Include="Views\Company\Edit.cshtml" />
     <None Include="Views\Company\Index.cshtml" />
-    <None Include="Views\Event\Create.cshtml" />
     <None Include="Views\Event\Delete.cshtml" />
-    <None Include="Views\Event\Edit.cshtml" />
     <None Include="Views\Event\Index.cshtml" />
     <None Include="Views\Friends\Create.cshtml" />
     <None Include="Views\Friends\Delete.cshtml" />

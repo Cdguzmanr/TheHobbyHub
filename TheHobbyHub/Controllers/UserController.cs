@@ -8,16 +8,20 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using TheHobbyHub.PL.Data;
 using TheHobbyHub.UI.Controllers;
+using TheHobbyHub.UI.ViewModels;
+using Humanizer.Localisation;
 
 namespace TheHobbyHub.Controllers
 {
     public class UserController : Controller
     {
         private readonly DbContextOptions<HobbyHubEntities> options;
+        private readonly IWebHostEnvironment _host;
 
-        public UserController(DbContextOptions<HobbyHubEntities> options)
+        public UserController(DbContextOptions<HobbyHubEntities> options, IWebHostEnvironment host)
         {
             this.options = options;
+            _host = host;
         }
 
         // Generalized class name
@@ -184,11 +188,14 @@ namespace TheHobbyHub.Controllers
         public IActionResult Edit(Guid id)
         {
 
-            var item = new UserManager(options).LoadById(id);
+            var item = new UserVM(id, options);
+            
             ViewBag.Title = "Edit";
 
             if (Authentication.IsAuthenticated(HttpContext))
             {
+                HttpContext.Session.SetObject("userVM", item);
+                ViewBag.Title = "Edit " + item.User.FullName;
                 return View(item);
             }
             else
@@ -202,6 +209,43 @@ namespace TheHobbyHub.Controllers
         {
             try
             {
+                if (new UserVM(options).File != null)
+                {
+                    new UserVM(options).User.Image = new UserVM(options).File.FileName;
+
+                    string path = _host.WebRootPath + "\\images\\";
+
+                    using (var stream = System.IO.File.Create(path + new UserVM(options).File.FileName))
+                    {
+                        new UserVM(options).File.CopyTo(stream);
+                        ViewBag.Info = "File updated successfully...";
+                    }
+                }
+
+                if (new UserVM(options).HobbyIds != null)
+                {
+                    new UserVM(options).User.Hobbys = new List<Hobby>();
+                    foreach (Guid hobbyId in new UserVM(options).HobbyIds)
+                    {
+                        Hobby hobby = new HobbyManager(options).LoadById(hobbyId);
+                        new UserVM(options).User.Hobbys.Add(hobby);
+                    }
+                }
+                else
+                {
+                    Hobby hobby = new HobbyManager(options).LoadById(id);
+                    new UserVM(options).User.Hobbys.Add(hobby);
+                }
+
+                // Deal with the movie image file if it has changed
+                UserVM originalUserVM = HttpContext.Session.GetObject<UserVM>("userVM");
+
+                if (originalUserVM.User.Image != new UserVM(options).User.Image)
+                {
+                    RemoveUnusedUserImageFile(new UserVM(options).User.Id, originalUserVM.User.Image);
+                }
+
+
                 int result = new UserManager(options).Update(user, rollback);
                 return RedirectToAction(nameof(Index));
             }
@@ -239,6 +283,26 @@ namespace TheHobbyHub.Controllers
                 ViewBag.Error = ex.Message;
                 return View();
             }
+        }
+
+        private void RemoveUnusedUserImageFile(Guid userId, string image)
+        {
+            bool inuse = false;
+
+            // Check if image is also used by another movie
+            List<User> users = new UserManager(options).Load();
+            inuse = users.Any(u => u.Image == image && u.Id != userId);
+
+            // If image is not used my other movie, delete it.
+            if (!inuse)
+            {
+                string path = _host.WebRootPath + "\\images\\" + image;
+                if (System.IO.File.Exists(path))
+                {
+                    System.IO.File.Delete(path);
+                }
+            }
+
         }
     }
 }

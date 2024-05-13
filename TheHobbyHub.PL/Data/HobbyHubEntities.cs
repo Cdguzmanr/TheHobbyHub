@@ -94,6 +94,11 @@ namespace TheHobbyHub.PL.Data
                     .IsRequired()
                     .HasMaxLength(50)
                     .IsUnicode(false);
+                entity.Property(e => e.Image)
+                    .IsUnicode(false)
+                    .IsRequired()
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
             });
 
             // Implement default data for tblHobbies
@@ -108,7 +113,8 @@ namespace TheHobbyHub.PL.Data
                     Id = hobbyId[0],
                     HobbyName = "Gym",
                     Description = "Gyyymm",
-                    Type ="Indoor",
+                    Type = "Indoor",
+                    Image = "gym.jpeg"
                 },
                  new tblHobby
                 {
@@ -116,6 +122,7 @@ namespace TheHobbyHub.PL.Data
                     HobbyName = "Golf",
                     Description = "stick",
                     Type ="outdoor",
+                    Image = "golf.jpg"
                 },
                   new tblHobby
                 {
@@ -123,6 +130,7 @@ namespace TheHobbyHub.PL.Data
                     HobbyName = "Running",
                     Description = "Run",
                     Type ="Outdoor",
+                    Image = "running.jpeg"
                 }
 
 

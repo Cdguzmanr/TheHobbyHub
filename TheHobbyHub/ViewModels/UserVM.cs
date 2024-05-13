@@ -1,8 +1,5 @@
-﻿using Humanizer.Localisation;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.SqlServer.Server;
+﻿using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;
-using System.IO;
 
 namespace TheHobbyHub.UI.ViewModels
 {
@@ -15,6 +12,7 @@ namespace TheHobbyHub.UI.ViewModels
             this.options = options;
         }
 
+
         public User User { get; set; } = new User();
         public List<Hobby> Hobbys { get; set; } = new List<Hobby>();
         public List<Event> Events { get; set; } = new List<Event>();
@@ -22,8 +20,8 @@ namespace TheHobbyHub.UI.ViewModels
 
         public IFormFile? File { get; set; }
 
-        /*// Working list of Hobbys
-        [Required(ErrorMessage = "At least one genre selection is required.")]*/
+        // Working list of Hobbys
+        [Required(ErrorMessage = "At least one genre selection is required.")]
         public IEnumerable<Guid> HobbyIds { get; set; }  // Multiple Hobbys        
 
 
@@ -34,7 +32,7 @@ namespace TheHobbyHub.UI.ViewModels
             Events = new EventManager(options).Load();
         }
 
-        public UserVM(Guid id)
+        public UserVM(Guid id, DbContextOptions<HobbyHubEntities> options)
         {
             Hobbys = new HobbyManager(options).Load();
             Events = new EventManager(options).Load();
@@ -42,9 +40,5 @@ namespace TheHobbyHub.UI.ViewModels
             User = new UserManager(options).LoadById(id);
             HobbyIds = User.Hobbys.Select(a => a.Id);
         }
-
-
-
-
     }
 }

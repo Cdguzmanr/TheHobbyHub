@@ -11,56 +11,40 @@
     <img src="~/images/@Model.Image" alt="@Model.UserName" width="100px" height="75px" onclick="on('/images/@Model.Image')" class="imagepropsmall profile-picture" />
 </div>
 
-
+<div>
+    <h3>@Html.DisplayFor(model => model.FullName)</h3>
+</div>
+<div>
+    @{
+        string p1 = Model.PhoneNumber.Substring(0, 3);
+        string p2 = Model.PhoneNumber.Substring(3, 3);
+        string p3 = Model.PhoneNumber.Substring(6, 4);
+        Model.PhoneNumber = "(" + p1 + ") " + p2 + "-" + p3;
+        Model.Hobbys[0].Image = "golf.jpg";
+        Model.FriendsList[0].ImagePath = Model.Image;
+        //Model.FriendsList[0].Id = 
+    }
+    <p>@Html.DisplayFor(model => model.Email) | @Html.DisplayFor(model => model.PhoneNumber)</p>
+    @{
+       
+    }
+    <div class="hobbyCard">
+        <div class="banner">
+            <img class="banner-img" src="~/images/@Model.Hobbys[0].Image">
+        </div>
+        <h2 class="hobbyText">@Html.DisplayFor(model => model.Hobbys[0].HobbyName)</h2>
+    </div>
+        <div class="friendCard">
+        <img class="friendCardImg" src="/images/@Model.FriendsList[0].ImagePath" alt='person'>
+        <div class="friendCardText">
+            <h3 class="profile-namef">@Html.DisplayFor(model => model.FriendsList[0].CompanyName)</h3>@* @Html.ActionLink("Edit", "Edit", new { id = @Model.FriendsList[0].Id }) *@
+                @* <h3 class="profile-namef">@Html.DisplayFor(model => model.FriendsList[0].UserName)</h3> *@
+            </div>
+        </div>
+    
+</div>
 <div class="user-details">
-    <dl class="row">
-
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.FirstName)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.FirstName)
-        </dd>
-
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.LastName)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.LastName)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.UserName)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.UserName)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.HobbyList)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.HobbyList)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Email)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Email)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.PhoneNumber)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.PhoneNumber)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Password)
-        </dt>
-        <dd class="col-sm-10 password">
-            @Html.DisplayFor(model => model.Password)
-        </dd>
-
-
-    </dl>
+    
 </div>
 
 <div>

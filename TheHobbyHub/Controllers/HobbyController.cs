@@ -5,7 +5,7 @@ namespace TheHobbyHub.UI.Controllers
 {
     public class HobbyController : Controller
     {
-        private readonly DbContextOptions<HobbyHubEntities> options;
+        public readonly DbContextOptions<HobbyHubEntities> options;
 
         public HobbyController(DbContextOptions<HobbyHubEntities> options)
         {

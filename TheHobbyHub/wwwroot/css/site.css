@@ -793,7 +793,49 @@ dl dt{
 .copyright-text {
     margin: 0
 }
-
+.hobbyCard {
+    overflow: hidden;
+    box-shadow: 0px 2px 20px;
+    border-radius: 0.5rem;
+    position: relative;
+    width: 19rem;
+    height: 14rem;
+    margin: 1rem;
+    cursor: pointer;
+    background-color: white;
+    color: black;
+    /*line-height: 1.5rem;
+    margin: 1rem 0;*/
+}
+.hobbyText {
+    position:absolute;
+    left: 8px;
+    bottom:8px;
+    line-height: 1.5rem;
+    margin: 1rem 0;
+}
+.friendCard {
+    overflow: hidden;
+    box-shadow: 0px 2px 20px;
+    border-radius: 0.5rem;
+    position: relative;
+    width: 19rem;
+    height: 100px;
+    margin: 1rem;
+    cursor: pointer;
+    background-color: white;
+    color: black;
+}
+.friendCardImg {
+    float: left;
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    border-radius: 50%;
+}
+.friendCardText{
+    margin-top: 25px
+}
 @media (max-width:991px) {
     .site-footer [class^=col-] {
         margin-bottom: 30px;

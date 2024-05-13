@@ -377,7 +377,8 @@ namespace TheHobbyHub.BL
                         Email = row.Email,
                         PhoneNumber = row.PhoneNumber,
                         Image = row.Image,
-                        Hobbys = new HobbyManager(options).Load(row.Id)
+                        Hobbys = new HobbyManager(options).Load(row.Id),
+                        FriendsList = new FriendsManager(options).Load(row.Id)
                     };
                     return user;
                 }
