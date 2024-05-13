@@ -38,7 +38,7 @@ namespace TheHobbyHub.BL.Models
             get
             {
                 string hobbyList = string.Empty;
-                Hobbys.ForEach(a => hobbyList += a.Description + ", ");
+                Hobbys.ForEach(a => hobbyList += a.HobbyName + ", ");
 
                 if (!string.IsNullOrEmpty(hobbyList))
                 {
@@ -50,5 +50,24 @@ namespace TheHobbyHub.BL.Models
 
         }
 
+        public List<Friends> Friends { get; set; } = new List<Friends>();
+
+        [DisplayName("Friends")]
+        public string FriendsList
+        {
+            get
+            {
+                string friendsList = string.Empty;
+                Friends.ForEach(f => friendsList += f.UserName + ", ");
+
+                if (!string.IsNullOrEmpty(friendsList))
+                {
+                    friendsList = friendsList.Substring(0, friendsList.Length - 2);
+
+                }
+                return friendsList;
+            }
+
+        }
     }
 }

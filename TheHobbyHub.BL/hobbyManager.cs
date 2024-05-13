@@ -21,7 +21,7 @@ namespace TheHobbyHub.BL
                     row.HobbyName = hobby.HobbyName;
                     row.Description = hobby.Description;
                     row.Type = hobby.Type;
-                    //row.Image = hobby.Image;
+                    row.Image = hobby.Image;
                     return base.Insert(row, rollback);
                 }
                 catch (Exception ex)
