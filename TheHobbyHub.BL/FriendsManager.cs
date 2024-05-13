@@ -84,6 +84,62 @@ namespace TheHobbyHub.BL
                 throw ex;
             }
         }
+        public List<Friends> Load(Guid? userId = null)
+        {
+            try
+            {
+                using (HobbyHubEntities dc = new HobbyHubEntities(options))
+                {
+                    List<Friends> friends = new List<Friends>();
+
+                    if (userId != null)
+                    {
+                        var results = (from u in dc.tblUsers
+                                       join f in dc.tblFriends on u.Id equals f.UserId
+                                       join c in dc.tblCompanies on u.Id equals c.UserId
+                                       where f.UserId == userId || userId == null
+                                       select new
+                                       {
+                                           f.Id,
+                                           f.UserId,
+                                           f.CompanyId,
+                                           u.UserName,
+                                           c.CompanyName
+                                       }).Distinct().ToList();
+
+                        results.ForEach(friend => friends.Add(new Friends
+                        {
+                            Id = friend.Id,
+                            UserName = friend.UserName,
+                            CompanyName = friend.CompanyName,
+                        }));
+
+                    }
+                    else
+                    {
+                        var results = (from u in dc.tblUsers
+                                       select new
+                                       {
+                                           u.Id,
+                                           u.UserName,
+                                           
+                                       }).Distinct().ToList();
+
+                        results.ForEach(friend => friends.Add(new Friends
+                        {
+                            Id = friend.Id,
+                            UserName = friend.UserName
+                        }));
+                    }
+
+                    return friends.OrderBy(g => g.UserName).ToList();
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
         public Friends LoadById(Guid id)
         {
             try

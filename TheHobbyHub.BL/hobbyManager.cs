@@ -115,7 +115,7 @@ namespace TheHobbyHub.BL
                         HobbyName = hobby.HobbyName,
                         Description = hobby.Description,
                         Type = hobby.Type,
-                        //Image = hobby.Image
+                        Image = hobby.Image
                     }));
                 return rows;
 
@@ -174,7 +174,8 @@ namespace TheHobbyHub.BL
                                            g.Id,
                                            g.HobbyName,
                                            g.Description,
-                                           g.Type
+                                           g.Type,
+                                           g.Image
                                        }).Distinct().ToList();
 
                         results.ForEach(hobby => hobbys.Add(new Hobby
@@ -195,7 +196,8 @@ namespace TheHobbyHub.BL
                                            g.Id,
                                            g.HobbyName,
                                            g.Description,
-                                           g.Type
+                                           g.Type,
+                                           g.Image
                                        }).Distinct().ToList();
 
                         results.ForEach(hobby => hobbys.Add(new Hobby
@@ -204,6 +206,7 @@ namespace TheHobbyHub.BL
                             HobbyName = hobby.HobbyName,
                             Description = hobby.Description,
                             Type = hobby.Type,
+                            Image = hobby.Image
                         }));
                     }
 
@@ -234,7 +237,7 @@ namespace TheHobbyHub.BL
                         Id = row.Id,
                         HobbyName = row.HobbyName,
                         Description = row.Description,
-                        //Image = row.Image,
+                        Image = row.Image,
                         Type = row.Type
                     };
                     return hobby;

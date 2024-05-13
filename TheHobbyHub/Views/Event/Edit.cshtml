@@ -4,14 +4,15 @@
     ViewData["Title"] = "Edit";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
 <div class="row m-2">
     <div class="col-md-4">
         <form asp-action="Edit">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-           
-            <input hidden asp-for="Id" class="form-control" />
-                
+            <div class="form-group">
+                <label asp-for="Id" class="control-label"></label>
+                <input asp-for="Id" class="form-control" />
+                <span asp-validation-for="Id" class="text-danger"></span>
+            </div>
             <div class="form-group">
                 <label asp-for="AddressId" class="control-label"></label>
                 <input asp-for="AddressId" class="form-control" />
@@ -48,13 +49,48 @@
                 <span asp-validation-for="Date" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary mt-2" />
+                <label asp-for="EventName" class="control-label"></label>
+                <input asp-for="EventName" class="form-control" />
+                <span asp-validation-for="EventName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="EventPostalAddress" class="control-label"></label>
+                <input asp-for="EventPostalAddress" class="form-control" />
+                <span asp-validation-for="EventPostalAddress" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="EventCity" class="control-label"></label>
+                <input asp-for="EventCity" class="form-control" />
+                <span asp-validation-for="EventCity" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="EventState" class="control-label"></label>
+                <input asp-for="EventState" class="form-control" />
+                <span asp-validation-for="EventState" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="EventZip" class="control-label"></label>
+                <input asp-for="EventZip" class="form-control" />
+                <span asp-validation-for="EventZip" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="EventHobby" class="control-label"></label>
+                <input asp-for="EventHobby" class="form-control" />
+                <span asp-validation-for="EventHobby" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="EventUser" class="control-label"></label>
+                <input asp-for="EventUser" class="form-control" />
+                <span asp-validation-for="EventUser" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
             </div>
         </form>
     </div>
 </div>
 
-<div class="ms-lg-3">
+<div>
     <a asp-action="Index">Back to List</a>
 </div>
 
