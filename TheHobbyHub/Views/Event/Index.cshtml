@@ -22,10 +22,10 @@
 
                     <!--Card 2 bio and author -->
                     <div class="card-body">
-                        <p class="blog-h">@Html.DisplayFor(modelItem => item.EventHobby)</p>
+                        <p class="blog-h"> @Html.DisplayFor(modelItem => item.EventHobby) </p>
 
-                        <h2 class="blog-title">Event Name @Html.DisplayFor(modelItem => item.EventName)</h2>
-                        <p class="blog-description body-content">@Html.DisplayFor(modelItem => item.Description) Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
+                        <h2 class="blog-title"> Event Name @Html.DisplayFor(modelItem => item.EventName) </h2>
+                        <p class="blog-description body-content"> The event description goes here, trust me... @Html.DisplayFor(modelItem => item.Description) </p>
                        
 
                         <div class="card-profile">
@@ -35,8 +35,6 @@
                                 <p class="followers">50.5K Followers</p>
                             </div>
                         </div>
-
-
                     </div>
                 </div>
             </a>
@@ -45,94 +43,3 @@
         </article>
     }
 </div>
-
-
-
-<!--Card 2 img and tag -->
-
-
-@* 
-<div class="event-card-list" id="event-card-list">
-    @foreach (var item in Model)
-    {
-        <article class="card">
-
-            <header class="event-header" style="background-image: src(../../wwwroot/images/@item.ImagePath);">
-                <h4 class="card-header">Event</h4>
-            </header>
-
-            <div class="card-body">
-                <p class="date">@Html.DisplayFor(modelItem => item.EventHobby)</p>
-
-                <h1 class="event-title">@Html.DisplayFor(modelItem => item.EventName)</h1>
-
-                <p>
-                    @Html.DisplayFor(modelItem => item.EventPostalAddress)
-
-                    @Html.DisplayFor(modelItem => item.EventCity),
-
-                    @Html.DisplayFor(modelItem => item.EventState)
-
-                    @Html.DisplayFor(modelItem => item.EventZip)
-
-                </p>
-
-                <p class="body-content">@Html.DisplayFor(modelItem => item.Description)</p>
-
-                <h6>By:</h6>
-                <p>@Html.DisplayFor(modelItem => item.EventUser)</p>
-
-                <button class="button button-primary">
-                    <i class="fa fa-chevron-right"></i>
-                    Find out more
-                </button>
-            </div>
-
-
-        
-        </article>
-
-    }
-</div> *@
-
-        
-
-
-@* </div>
-    @foreach (var item in Model)
-    {
-    <div id="event" class="card">
-            <h3> name @Html.DisplayFor(modelItem => item.EventName)</h3>
-        <img id="EventImage" class="card-img" src="/images/@item.ImagePath" />
-            <ul>
-                <li> @Html.DisplayFor(modelItem => item.EventHobby) </li>
-            </ul>
-            <p>
-                @Html.DisplayFor(modelItem => item.EventPostalAddress)
-              
-                @Html.DisplayFor(modelItem => item.EventCity),
-                
-                @Html.DisplayFor(modelItem => item.EventState)
-                
-                @Html.DisplayFor(modelItem => item.EventZip)
-                
-            </p>
-
-            <p>
-                @Html.DisplayFor(modelItem => item.EventUser)
-            </p>
-            <p>
-                @Html.DisplayFor(modelItem => item.Description)
-            </p>
-            <button id="EditButton"> @Html.ActionLink("Edit", "Edit", new { id = item.Id }) </button>
-            <button id="DeleteButton"> @Html.ActionLink("Delete", "Delete", new { id = item.Id }) </button>
-            <hr />
-        </div>
-    }
-
-
-
-    <script>
-        
-    </script>
- *@
