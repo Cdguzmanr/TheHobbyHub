@@ -1,5 +1,6 @@
 ﻿using Mono.TextTemplating;
 using NuGet.Protocol;
+using System.Diagnostics.Tracing;
 using TheHobbyHub.BL.Models;
 
 namespace TheHobbyHub.BL
@@ -87,6 +88,7 @@ namespace TheHobbyHub.BL
                                      HobbyId = e.HobbyId,
                                      Date = e.Date,
                                      EventHobby = h.HobbyName,
+                                     Description = e.Description,
                                      EventUser = u.FirstName + " " + u.LastName,
                                      EventPostalAddress = ea.PostalAddress,
                                      EventCity = ea.City,
@@ -113,23 +115,60 @@ namespace TheHobbyHub.BL
 
                 if (row != null)
                 {
-                    Event eventt = new Event
+                    Event eventt = new Event();
+
+                    using (HobbyHubEntities dc = new HobbyHubEntities(options))
                     {
-                        Id = row.Id,
-                        UserId = row.UserId,
-                        CompanyId = row.CompanyId,
-                        HobbyId = row.HobbyId,
-                        Description = row.Description,
-                        ImagePath = row.Image,
-                        AddressId = row.AddressId,
-                        Date = row.Date,
-                    };
+                        row = ((tblEvent)(from e in dc.tblEvents
+                                          join ea in dc.tblAddresses on e.AddressId equals ea.Id
+                                          join u in dc.tblUsers on e.UserId equals u.Id
+                                          join h in dc.tblHobbies on e.HobbyId equals h.Id
+                                          select new Event
+                                          {
+                                              Id = e.Id,
+                                              AddressId = e.AddressId,
+                                              UserId = e.UserId,
+                                              CompanyId = e.CompanyId,
+                                              HobbyId = e.HobbyId,
+                                              Date = e.Date,
+                                              EventHobby = h.HobbyName,
+                                              EventUser = u.FirstName + " " + u.LastName,
+                                              EventPostalAddress = ea.PostalAddress,
+                                              EventCity = ea.City,
+                                              EventState = ea.State,
+                                              EventZip = ea.Zip,
+                                              ImagePath = e.Image
+                                          })
+                               );
+                        
+                    }
                     return eventt;
                 }
                 else
                 {
-                    throw new Exception("Row was not found.");
+                    throw new Exception("row was not found");
                 }
+                
+
+                //if (row != null)
+                //{
+                //    Event eventt = new Event
+                //    {
+                //        Id = row.Id,
+                //        UserId = row.UserId,
+                //        CompanyId = row.CompanyId,
+                //        HobbyId = row.HobbyId,
+                //        Description = row.Description,
+                //        ImagePath = row.Image,
+                //        AddressId = row.AddressId,
+                //        Date = row.Date,
+                //    };
+                //    return eventt;
+                //}
+                //else
+                //{
+                //    throw new Exception("Row was not found.");
+                //}
 
             }
             catch (Exception ex)
