@@ -111,43 +111,40 @@ namespace TheHobbyHub.BL
         {
             try
             {
-                tblEvent row = base.LoadById(id);
 
-                if (row != null)
+                using (HobbyHubEntities dc = new HobbyHubEntities(options))
                 {
-                    Event eventt = new Event();
+                    tblEvent row = dc.tblEvents.FirstOrDefault(e => e.Id == id);
 
-                    using (HobbyHubEntities dc = new HobbyHubEntities(options))
+                    if (row != null)
                     {
-                        row = ((tblEvent)(from e in dc.tblEvents
-                                          join ea in dc.tblAddresses on e.AddressId equals ea.Id
-                                          join u in dc.tblUsers on e.UserId equals u.Id
-                                          join h in dc.tblHobbies on e.HobbyId equals h.Id
-                                          select new Event
-                                          {
-                                              Id = e.Id,
-                                              AddressId = e.AddressId,
-                                              UserId = e.UserId,
-                                              CompanyId = e.CompanyId,
-                                              HobbyId = e.HobbyId,
-                                              Date = e.Date,
-                                              EventHobby = h.HobbyName,
-                                              EventUser = u.FirstName + " " + u.LastName,
-                                              EventPostalAddress = ea.PostalAddress,
-                                              EventCity = ea.City,
-                                              EventState = ea.State,
-                                              EventZip = ea.Zip,
-                                              ImagePath = e.Image
-                                          })
-                               );
-                        
+                        Event eventt = new Event()
+                        {
+                            Id = row.Id,
+                            AddressId = row.AddressId,
+                            UserId = row.UserId,
+                            CompanyId = row.CompanyId,
+                            HobbyId = row.HobbyId,
+                            Date = row.Date,
+                            Description = row.Description,
+                            EventHobby = new HobbyManager(options).LoadById(row.HobbyId).HobbyName,
+                            EventUser = row.User.FirstName + " " + row.User.LastName,
+                            EventPostalAddress = row.Address.PostalAddress,
+                            EventCity = row.Address.City,
+                            EventState = row.Address.State,
+                            EventZip = row.Address.Zip,
+                            ImagePath = row.Image
+                        };
+
+                        return eventt;
                     }
-                    return eventt;
+                    else
+                    {
+                        throw new Exception("row was not found");
+                    }
                 }
-                else
-                {
-                    throw new Exception("row was not found");
-                }
+
+                
                 
 
                 //if (row != null)
