@@ -12,6 +12,7 @@ namespace TheHobbyHub.BL.Models
         public Event()
         {
             this.EventAddress = new Address();
+            
         }
 
         
