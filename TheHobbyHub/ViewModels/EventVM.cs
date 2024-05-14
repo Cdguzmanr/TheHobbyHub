@@ -25,7 +25,7 @@ namespace TheHobbyHub.UI.ViewModels
         public EventVM(Guid id, DbContextOptions<HobbyHubEntities> options)
         {
             Hobbies = new HobbyManager(options).Load();
-            //User = new UserManager(options).LoadById(id);
+            User = new UserManager(options).LoadById(id);
             Company = new CompanyManager(options).LoadById(id);
             Event = new EventManager(options).LoadById(id);
             HobbyIds = User.Hobbys.Select(a => a.Id);

@@ -56,7 +56,7 @@ namespace TheHobbyHub.UI.Controllers
         {
             if (Authentication.IsAuthenticated(HttpContext))
             {
-                var item = new EventVM(id,options);
+                var item = new EventManager(options).LoadById(id);
                 HttpContext.Session.SetObject("userVM", item);
                 ViewBag.Title = "Edit";
                 return View(item);
