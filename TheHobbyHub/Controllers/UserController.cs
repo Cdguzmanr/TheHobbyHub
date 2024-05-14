@@ -1,15 +1,6 @@
-﻿using TheHobbyHub.BL;
-using TheHobbyHub.BL.Models;
-//using TheHobbyHub.UI.Extensions;
-using TheHobbyHub.UI.Models;
-using Microsoft.AspNetCore.Http.Extensions;
-using Microsoft.AspNetCore.Mvc;
-
+﻿//using TheHobbyHub.UI.Extensions;
 using Microsoft.EntityFrameworkCore;
-using TheHobbyHub.PL.Data;
-using TheHobbyHub.UI.Controllers;
 using TheHobbyHub.UI.ViewModels;
-using Humanizer.Localisation;
 
 namespace TheHobbyHub.Controllers
 {

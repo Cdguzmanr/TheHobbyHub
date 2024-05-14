@@ -15,20 +15,19 @@ namespace TheHobbyHub.UI.ViewModels
         public User User { get; set; } = new User();
         public Company Company { get; set; } = new Company();
         public Address Address { get; set; } = new Address();
+        public Event Event { get; set; } = new Event();
         public List<Hobby> Hobbies { get; set; } = new List<Hobby>();
-        public List<Event> Events { get; set; } = new List<Event>();
-
         public EventVM()
         {
             Hobbies = new HobbyManager(options).Load();
-            Events = new EventManager(options).Load();
         }
 
         public EventVM(Guid id, DbContextOptions<HobbyHubEntities> options)
         {
             Hobbies = new HobbyManager(options).Load();
-            Events = new EventManager(options).Load();
-            User = new UserManager(options).LoadById(id);
+            //User = new UserManager(options).LoadById(id);
+            Company = new CompanyManager(options).LoadById(id);
+            Event = new EventManager(options).LoadById(id);
             HobbyIds = User.Hobbys.Select(a => a.Id);
         }
     }

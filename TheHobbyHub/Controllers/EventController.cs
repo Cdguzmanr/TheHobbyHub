@@ -1,6 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using TheHobbyHub.BL;
-
+using TheHobbyHub.UI.ViewModels;
 namespace TheHobbyHub.UI.Controllers
 {
     public class EventController : Controller
@@ -57,7 +56,8 @@ namespace TheHobbyHub.UI.Controllers
         {
             if (Authentication.IsAuthenticated(HttpContext))
             {
-                var item = new EventManager(options).LoadById(id);
+                var item = new EventVM(id,options);
+                HttpContext.Session.SetObject("userVM", item);
                 ViewBag.Title = "Edit";
                 return View(item);
             }
